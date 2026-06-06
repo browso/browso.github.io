@@ -1357,7 +1357,7 @@ h1 em {
   gap: 10px;
 }
 
-.download-list button {
+.download-option {
   min-height: 68px;
   display: grid;
   grid-template-columns: 34px 1fr auto;
@@ -1369,9 +1369,30 @@ h1 em {
   color: white;
   background: #17191f;
   text-align: left;
+  text-decoration: none;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    transform 160ms ease;
 }
 
-.download-list button > img {
+.download-list a.download-option:hover {
+  border-color: #627eea;
+  background: #1d2130;
+  transform: translateY(-1px);
+}
+
+.download-list a.download-option:focus-visible {
+  outline: 2px solid #8fa7ff;
+  outline-offset: 3px;
+}
+
+.download-option:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.download-option > img {
   width: 24px;
   height: 24px;
   object-fit: contain;
@@ -1379,12 +1400,12 @@ h1 em {
   opacity: 0.82;
 }
 
-.download-list button > img[src$="linux.svg"] {
+.download-option > img[src$="linux.svg"] {
   filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.45));
   opacity: 1;
 }
 
-.download-list button small {
+.download-option small {
   color: #747985;
   font-size: 10px;
   font-weight: 700;
@@ -1827,11 +1848,11 @@ html[data-theme="light"] .cursor-icon {
     border-radius: 20px;
   }
 
-  .download-list button {
+  .download-option {
     grid-template-columns: 30px 1fr;
   }
 
-  .download-list button small {
+  .download-option small {
     display: none;
   }
 

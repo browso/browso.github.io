@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Browso is an AI browser with a built-in agent that searches websites, compares options, and takes action with your approval. Coming to macOS, Windows, and Linux."
+      content="Download the Browso beta for macOS and Windows. Browso is an AI browser with a built-in agent that searches websites, compares options, and takes action with your approval."
     />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="author" content="Browso" />
@@ -96,13 +96,19 @@
               "Visible searches and clicks",
               "User approval for important actions",
               "Open-source code available on GitHub",
-              "Support planned for macOS, Windows, and Linux"
+              "Beta downloads for macOS and Windows"
             ],
             "codeRepository": "https://github.com/browso/browso",
+            "softwareVersion": "1.0.0-beta",
+            "downloadUrl": [
+              "https://github.com/browso/browso/releases/download/v1.0.0-beta/browso-mac-apple-silicon.dmg",
+              "https://github.com/browso/browso/releases/download/v1.0.0-beta/browso-mac-mac-intel.dmg",
+              "https://github.com/browso/browso/releases/download/v1.0.0-beta/browso-win-x64.exe"
+            ],
             "author": {
               "@id": "https://browso.org/#organization"
             },
-            "releaseNotes": "Browso is currently in development. Downloads are coming soon."
+            "releaseNotes": "Browso 1.0.0 beta is available for Apple Silicon Macs, Intel Macs, and 64-bit Windows."
           },
           {
             "@type": "FAQPage",
@@ -121,7 +127,7 @@
                 "name": "Which operating systems will Browso support?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Browso is being developed for macOS, Windows, and Linux."
+                  "text": "The Browso beta is available for macOS and 64-bit Windows. Linux support is coming soon."
                 }
               },
               {
@@ -129,7 +135,7 @@
                 "name": "Is Browso available to download?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Not yet. Browso is currently in development, and desktop downloads are coming soon."
+                  "text": "Yes. Browso 1.0.0 beta is available for Apple Silicon Macs, Intel Macs, and 64-bit Windows."
                 }
               }
             ]
@@ -183,7 +189,7 @@
           </p>
           <div class="hero-actions">
             <a class="button button-primary" href="#download">
-              Coming soon
+              Download beta
               <svg viewBox="0 0 20 20" aria-hidden="true">
                 <path d="M4 10h12m-5-5 5 5-5 5" />
               </svg>
@@ -395,14 +401,31 @@
 
       <section class="download" id="download" aria-labelledby="download-title">
         <div>
-          <span class="section-label">Coming soon</span>
-          <h2 id="download-title">Your new browser is on its way.</h2>
-          <p>Browso is being built for every desktop. Downloads are not available yet.</p>
+          <span class="section-label">Beta release</span>
+          <h2 id="download-title">Download Browso beta.</h2>
+          <p>Try Browso 1.0.0 beta on macOS or Windows. Linux support is coming soon.</p>
         </div>
         <div class="download-list">
-          <button disabled><img src="assets/icons/platforms/apple.svg" alt="" width="24" height="24" /><strong>macOS</strong><small>Coming soon</small></button>
-          <button disabled><img src="assets/icons/platforms/windows.svg" alt="" width="24" height="24" /><strong>Windows</strong><small>Coming soon</small></button>
-          <button disabled><img src="assets/icons/platforms/linux.svg" alt="" width="24" height="24" /><strong>Linux</strong><small>Coming soon</small></button>
+          <a class="download-option" href="https://github.com/browso/browso/releases/download/v1.0.0-beta/browso-mac-apple-silicon.dmg">
+            <img src="assets/icons/platforms/apple.svg" alt="" width="24" height="24" />
+            <strong>macOS · Apple Silicon</strong>
+            <small>Beta DMG</small>
+          </a>
+          <a class="download-option" href="https://github.com/browso/browso/releases/download/v1.0.0-beta/browso-mac-mac-intel.dmg">
+            <img src="assets/icons/platforms/apple.svg" alt="" width="24" height="24" />
+            <strong>macOS · Intel</strong>
+            <small>Beta DMG</small>
+          </a>
+          <a class="download-option" href="https://github.com/browso/browso/releases/download/v1.0.0-beta/browso-win-x64.exe">
+            <img src="assets/icons/platforms/windows.svg" alt="" width="24" height="24" />
+            <strong>Windows · x64</strong>
+            <small>Beta EXE</small>
+          </a>
+          <button class="download-option" type="button" disabled>
+            <img src="assets/icons/platforms/linux.svg" alt="" width="24" height="24" />
+            <strong>Linux</strong>
+            <small>Coming soon</small>
+          </button>
         </div>
       </section>
     </main>
@@ -456,11 +479,11 @@
         </details>
         <details>
           <summary>Which operating systems will Browso support?</summary>
-          <p>Browso is being developed for macOS, Windows, and Linux.</p>
+          <p>The Browso beta is available for macOS and 64-bit Windows. Linux support is coming soon.</p>
         </details>
         <details>
           <summary>Is Browso available to download?</summary>
-          <p>Not yet. Browso is currently in development, and desktop downloads are coming soon.</p>
+          <p>Yes. Browso 1.0.0 beta is available for Apple Silicon Macs, Intel Macs, and 64-bit Windows.</p>
         </details>
       </div>
     </dialog>
