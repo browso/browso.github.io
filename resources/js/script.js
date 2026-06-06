@@ -18,12 +18,94 @@ const faqLinks = document.querySelectorAll('a[href="#faq"]');
 const faqClose = document.querySelector("[data-close-faq]");
 const themeToggle = document.querySelector("#theme-toggle");
 const themeColor = document.querySelector('meta[name="theme-color"]');
+const webDemo = document.querySelector("#web-demo");
+const webDemoOpeners = document.querySelectorAll("[data-open-web-demo]");
+const webDemoClosers = document.querySelectorAll("[data-close-web-demo]");
+const webBrowser = webDemo?.querySelector("[data-web-browser]");
+const webPageContent = webDemo?.querySelector("[data-web-page-content]");
+const webFeed = webDemo?.querySelector("[data-web-feed]");
+const webForm = webDemo?.querySelector("[data-web-form]");
+const webInput = webDemo?.querySelector("[data-web-input]");
+const webSuggestions = webDemo?.querySelector("[data-web-suggestions]");
+const webCursor = webDemo?.querySelector("[data-web-cursor]");
+const webCursorLabel = webDemo?.querySelector("[data-web-cursor-label]");
+const webTabTitle = webDemo?.querySelector("[data-web-tab-title]");
+const webDomain = webDemo?.querySelector("[data-web-domain]");
+const webPath = webDemo?.querySelector("[data-web-path]");
+const webSiteName = webDemo?.querySelector("[data-web-site-name]");
 const savedTheme = localStorage.getItem("browso-theme");
 const systemTheme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const demoPrompt = "Find a quiet cabin near a lake for this weekend under $300.";
 let demoRun = 0;
 let awaitingApproval = false;
+let webDemoRun = 0;
+
+const webScenarios = {
+  travel: {
+    prompt: "Find a quiet lake cabin under $300 for this weekend.",
+    eyebrow: "12 stays · this weekend",
+    heading: "Cabins made for switching off.",
+    meta: "Prices include fees",
+    site: "stayfinder",
+    tab: "Lake cabins under $300",
+    domain: "stayfinder.demo",
+    path: "/search/lake-cabins",
+    intro: "I’ll compare total price, guest reviews, and cancellation terms.",
+    steps: ["Searching 4 trusted sites", "Comparing 12 available stays", "Checking the best match"],
+    result: "Pine Lake Cabin is the strongest match: quiet location, 4.9 rating, free cancellation, and $248 total.",
+    approval: "Reserve Pine Lake Cabin for $248?",
+    approvalNote: "No payment will be made in this demo.",
+    success: "Reservation step completed. In the Browso app, you would review the real checkout before anything is submitted.",
+    cards: [
+      ["Lakeside stays", "Pine Lake Cabin", "4.9 ★ · Quiet · Free cancellation", "$248 total", "PL"],
+      ["Cabin finder", "Stillwater Retreat", "4.8 ★ · Lake view · 2 nights", "$276 total", "SR"],
+      ["Weekend away", "Cedar Shore Cottage", "4.7 ★ · Private dock", "$289 total", "CS"],
+    ],
+  },
+  shopping: {
+    prompt: "Compare noise-cancelling headphones under $350.",
+    eyebrow: "8 products · 5 retailers",
+    heading: "Hear more. Compare less.",
+    meta: "Live-style demo prices",
+    site: "soundshop",
+    tab: "Noise-cancelling headphones",
+    domain: "soundshop.demo",
+    path: "/compare/noise-cancelling",
+    intro: "I’ll compare comfort, battery life, noise cancellation, and return policy.",
+    steps: ["Reading expert reviews", "Comparing prices and policies", "Verifying the best value"],
+    result: "The QuietWave Pro offers the best balance: excellent ANC, 38-hour battery, and a 30-day return window at $299.",
+    approval: "Add QuietWave Pro to cart for $299?",
+    approvalNote: "You stay in control of checkout.",
+    success: "Added to the demo cart. The desktop app can continue through a real retailer with your approval.",
+    cards: [
+      ["Soundshop", "QuietWave Pro", "38h battery · Top-rated ANC", "$299", "QW"],
+      ["Audio direct", "Silence 700", "30h battery · Light fit", "$329", "S7"],
+      ["Tech market", "Studio Air Max", "42h battery · Rich sound", "$349", "SA"],
+    ],
+  },
+  research: {
+    prompt: "Research the best European city for remote work.",
+    eyebrow: "24 sources · updated comparison",
+    heading: "A clearer place to work from.",
+    meta: "Cost, internet, transit, community",
+    site: "fieldnotes",
+    tab: "Remote work city research",
+    domain: "fieldnotes.demo",
+    path: "/reports/remote-work-europe",
+    intro: "I’ll synthesize current cost, connectivity, transit, and quality-of-life data.",
+    steps: ["Reading 24 sources", "Cross-checking key claims", "Building a ranked summary"],
+    result: "Valencia ranks first for this brief: strong broadband, lower costs than major capitals, good transit, and an established remote-work community.",
+    approval: "Save this comparison to local knowledge?",
+    approvalNote: "Saved pages remain under your control.",
+    success: "Research saved in the demo. Browso can keep useful pages and notes available for later questions.",
+    cards: [
+      ["Best overall", "Valencia", "Fast internet · Strong value", "Score 9.1", "VA"],
+      ["Best community", "Lisbon", "Large network · Higher rent", "Score 8.7", "LI"],
+      ["Best budget", "Kraków", "Low cost · Great transit", "Score 8.5", "KR"],
+    ],
+  },
+};
 
 function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
@@ -219,6 +301,216 @@ demoCancel?.addEventListener("click", () => {
   demoActionDetail.textContent = "No booking was made";
 });
 
+function escapeHTML(value) {
+  return value.replace(/[&<>"']/g, (character) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;",
+  })[character]);
+}
+
+function pickWebScenario(prompt) {
+  const normalized = prompt.toLowerCase();
+  if (/(headphone|buy|shop|product|price|laptop|camera)/.test(normalized)) return "shopping";
+  if (/(research|city|remote|source|summar|learn|compare cities)/.test(normalized)) return "research";
+  return "travel";
+}
+
+function renderWebPage(scenario, selected = false) {
+  if (!webPageContent) return;
+
+  webTabTitle.textContent = scenario.tab;
+  webDomain.textContent = scenario.domain;
+  webPath.textContent = scenario.path;
+  webSiteName.textContent = scenario.site;
+  webPageContent.innerHTML = `
+    <div class="demo-page-heading">
+      <div>
+        <span>${escapeHTML(scenario.eyebrow)}</span>
+        <h3>${escapeHTML(scenario.heading)}</h3>
+      </div>
+      <small>${escapeHTML(scenario.meta)}</small>
+    </div>
+    <div class="demo-result-grid">
+      ${scenario.cards.map((card, index) => `
+        <article class="demo-result${selected && index === 0 ? " is-target" : ""}${selected && index > 0 ? " is-muted" : ""}">
+          <div class="demo-result-visual">${escapeHTML(card[4])}</div>
+          <div class="demo-result-copy">
+            <span>${escapeHTML(card[0])}</span>
+            <strong>${escapeHTML(card[1])}</strong>
+            <small>${escapeHTML(card[2])}</small>
+            <b>${escapeHTML(card[3])}</b>
+          </div>
+          ${selected && index === 0 ? '<em class="demo-best">Best match</em>' : ""}
+        </article>
+      `).join("")}
+    </div>
+  `;
+}
+
+function setWebFeed(prompt, scenario) {
+  webFeed.innerHTML = `
+    <div class="web-message is-user">${escapeHTML(prompt)}</div>
+    <div class="web-message is-agent">
+      <span class="web-message-mark">B</span>
+      <div>
+        <span>${escapeHTML(scenario.intro)}</span>
+        <div class="web-agent-steps">
+          ${scenario.steps.map((step, index) => `
+            <div class="web-agent-step" data-web-step="${index}">
+              <i></i><span>${escapeHTML(step)}</span>
+            </div>
+          `).join("")}
+        </div>
+        <div data-web-response></div>
+      </div>
+    </div>
+  `;
+}
+
+function setWebStep(index, state) {
+  const step = webFeed?.querySelector(`[data-web-step="${index}"]`);
+  if (!step) return;
+  step.className = `web-agent-step is-${state}`;
+  step.querySelector("i").textContent = state === "done" ? "✓" : "";
+}
+
+function moveWebCursor(index, label) {
+  if (!webCursor) return;
+  const positions = [
+    ["31%", "34%"],
+    ["58%", "63%"],
+    ["38%", "77%"],
+  ];
+  const [left, top] = positions[index] ?? positions[0];
+  webCursor.style.left = left;
+  webCursor.style.top = top;
+  webCursorLabel.textContent = label;
+}
+
+async function runWebDemo(scenarioKey, customPrompt) {
+  const scenario = webScenarios[scenarioKey] ?? webScenarios.travel;
+  const prompt = customPrompt || scenario.prompt;
+  const run = ++webDemoRun;
+  const submitButton = webForm?.querySelector('button[type="submit"]');
+
+  renderWebPage(scenario);
+  setWebFeed(prompt, scenario);
+  webBrowser?.classList.add("is-running");
+  if (submitButton) submitButton.disabled = true;
+  if (webInput) webInput.value = "";
+  webFeed.scrollTop = webFeed.scrollHeight;
+
+  for (let index = 0; index < scenario.steps.length; index += 1) {
+    if (run !== webDemoRun) return;
+    setWebStep(index, "running");
+    moveWebCursor(index, index === 0 ? "Searching" : index === 1 ? "Comparing" : "Checking");
+    await new Promise((resolve) => window.setTimeout(resolve, reducedMotion.matches ? 40 : 850));
+    if (run !== webDemoRun) return;
+    setWebStep(index, "done");
+  }
+
+  renderWebPage(scenario, true);
+  webBrowser?.classList.remove("is-running");
+  const response = webFeed?.querySelector("[data-web-response]");
+  if (response) {
+    response.innerHTML = `
+      <p>${escapeHTML(scenario.result)}</p>
+      <div class="web-approval">
+        <span>Approval required</span>
+        <strong>${escapeHTML(scenario.approval)}</strong>
+        <small>${escapeHTML(scenario.approvalNote)}</small>
+        <div class="web-approval-actions">
+          <button type="button" data-web-approve>Approve in demo</button>
+          <button type="button" data-web-decline>Not now</button>
+        </div>
+      </div>
+    `;
+  }
+  if (submitButton) submitButton.disabled = false;
+  webFeed.scrollTop = webFeed.scrollHeight;
+
+  response?.querySelector("[data-web-approve]")?.addEventListener("click", () => {
+    response.innerHTML = `
+      <div class="web-result-message">
+        <strong>Done with your approval.</strong><br />
+        ${escapeHTML(scenario.success)}
+        <br /><a href="#download" data-demo-download-link>Download Browso →</a>
+      </div>
+    `;
+    response.querySelector("[data-demo-download-link]")?.addEventListener("click", () => {
+      webDemo?.close();
+    });
+    webFeed.scrollTop = webFeed.scrollHeight;
+  });
+
+  response?.querySelector("[data-web-decline]")?.addEventListener("click", () => {
+    response.innerHTML = `
+      <div class="web-result-message">
+        Stopped. Nothing was submitted. That approval boundary is built into Browso.
+      </div>
+    `;
+  });
+}
+
+function openWebDemo(event) {
+  event?.preventDefault();
+  if (!webDemo?.open) {
+    renderWebPage(webScenarios.travel);
+    webDemo.showModal();
+    window.setTimeout(() => webInput?.focus(), 120);
+  }
+}
+
+function closeWebDemo() {
+  webDemoRun += 1;
+  webBrowser?.classList.remove("is-running");
+  webDemo?.close();
+}
+
+webDemoOpeners.forEach((opener) => opener.addEventListener("click", openWebDemo));
+webDemoClosers.forEach((closer) => closer.addEventListener("click", () => {
+  if (closer.matches('a[href="#download"]')) {
+    webDemo?.close();
+    return;
+  }
+  closeWebDemo();
+}));
+
+webSuggestions?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-demo-scenario]");
+  if (!button) return;
+  void runWebDemo(button.dataset.demoScenario);
+});
+
+webForm?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const prompt = webInput?.value.trim();
+  if (!prompt) {
+    webInput?.focus();
+    return;
+  }
+  void runWebDemo(pickWebScenario(prompt), prompt);
+});
+
+webInput?.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault();
+    webForm?.requestSubmit();
+  }
+});
+
+webDemo?.addEventListener("click", (event) => {
+  if (event.target === webDemo) closeWebDemo();
+});
+
+webDemo?.addEventListener("close", () => {
+  webDemoRun += 1;
+  webBrowser?.classList.remove("is-running");
+});
+
 function openFaq(event) {
   event?.preventDefault();
   if (!faqDialog?.open) faqDialog?.showModal();
@@ -244,6 +536,10 @@ faqDialog?.addEventListener("close", () => {
 });
 
 if (window.location.hash === "#faq") openFaq();
+
+if (new URLSearchParams(window.location.search).get("demo") === "1") {
+  window.setTimeout(() => openWebDemo(), 120);
+}
 
 if (demo) {
   window.setTimeout(() => playDemo({ scroll: false }), 450);

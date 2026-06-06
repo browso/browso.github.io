@@ -152,10 +152,15 @@
 
       <nav aria-label="Main navigation">
         <a href="#features">Features</a>
+        <a href="#try-online" data-open-web-demo>Try online</a>
         <a href="#download">Download</a>
       </nav>
 
       <div class="header-actions">
+        <button class="header-try" type="button" data-open-web-demo>
+          <span></span>
+          Try online
+        </button>
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme">
           <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true">
             <circle cx="12" cy="12" r="3.5"></circle>
@@ -194,6 +199,10 @@
                 <path d="M4 10h12m-5-5 5 5-5 5" />
               </svg>
             </a>
+            <button class="button button-demo" type="button" data-open-web-demo>
+              Try it online
+              <span class="live-pill"><i></i> Live demo</span>
+            </button>
             <button class="button button-quiet" id="watch-demo" type="button">
               <span class="play">
                 <svg viewBox="0 0 16 16" aria-hidden="true">
@@ -486,6 +495,103 @@
           <p>Yes. Browso 1.0.0 beta is available for Apple Silicon Macs, Intel Macs, and 64-bit Windows.</p>
         </details>
       </div>
+    </dialog>
+
+    <dialog class="web-demo-dialog" id="web-demo" aria-labelledby="web-demo-title">
+      <div class="web-demo-topline">
+        <div>
+          <span class="web-demo-kicker"><i></i> Interactive product demo</span>
+          <h2 id="web-demo-title">Try Browso in your browser.</h2>
+        </div>
+        <div class="web-demo-top-actions">
+          <a href="#download" class="web-demo-download" data-close-web-demo>Download Browso</a>
+          <button class="dialog-close" type="button" data-close-web-demo aria-label="Close online demo">×</button>
+        </div>
+      </div>
+
+      <div class="web-browser" data-web-browser>
+        <div class="web-tabs">
+          <div class="web-window-controls" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="web-tab is-active">
+            <img src="assets/images/browso-white-logo.png" alt="" width="16" height="16" />
+            <span data-web-tab-title>Weekend escapes</span>
+            <small>×</small>
+          </div>
+          <button type="button" class="web-new-tab" aria-label="New tab">+</button>
+          <span class="web-demo-badge">WEB DEMO</span>
+        </div>
+
+        <div class="web-toolbar">
+          <div class="web-toolbar-actions" aria-hidden="true">
+            <button type="button">←</button><button type="button">→</button><button type="button">↻</button>
+          </div>
+          <div class="web-address">
+            <span class="web-address-lock">⌁</span>
+            <strong data-web-domain>stayfinder.demo</strong>
+            <span data-web-path>/search/lake-cabins</span>
+          </div>
+          <button class="web-agent-toggle" type="button" aria-label="Browso agent is open">
+            <img src="assets/images/browso-white-logo.png" alt="" width="20" height="20" />
+          </button>
+        </div>
+
+        <div class="web-browser-body">
+          <section class="web-page" aria-label="Simulated website">
+            <div class="web-site-nav">
+              <strong data-web-site-name>stayfinder</strong>
+              <div><span>Stays</span><span>Experiences</span><span>Saved</span></div>
+              <span class="web-site-avatar">OA</span>
+            </div>
+            <div class="web-page-content" data-web-page-content></div>
+            <div class="web-cursor" data-web-cursor aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="m5 3 13 10-6 1 3 6-3 1-3-6-4 4V3Z"></path></svg>
+              <span data-web-cursor-label>Comparing</span>
+            </div>
+          </section>
+
+          <aside class="web-agent">
+            <div class="web-agent-header">
+              <div class="web-agent-logo">
+                <img src="assets/images/browso-white-logo.png" alt="" width="28" height="28" />
+              </div>
+              <div><strong>Browso Agent</strong><span><i></i> Ready to help</span></div>
+              <select data-web-mode aria-label="Agent mode">
+                <option value="auto">Auto mode</option>
+                <option value="research">Research</option>
+                <option value="shopping">Shopping</option>
+              </select>
+            </div>
+
+            <div class="web-agent-feed" data-web-feed>
+              <div class="web-welcome">
+                <span class="web-spark">✦</span>
+                <h3>What should I do?</h3>
+                <p>Give Browso a task and watch it work across the page.</p>
+              </div>
+            </div>
+
+            <div class="web-prompt-area">
+              <div class="web-suggestions" data-web-suggestions>
+                <button type="button" data-demo-scenario="travel">Find a quiet lake cabin under $300</button>
+                <button type="button" data-demo-scenario="shopping">Compare noise-cancelling headphones</button>
+                <button type="button" data-demo-scenario="research">Research the best city for remote work</button>
+              </div>
+              <form class="web-composer" data-web-form>
+                <textarea data-web-input rows="2" placeholder="Ask Browso to do something..." aria-label="Ask Browso"></textarea>
+                <div>
+                  <span>Demo data only</span>
+                  <button type="submit" aria-label="Send request">
+                    <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m4 10 12-6-3 12-3-4-6-2Z"></path></svg>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </aside>
+        </div>
+      </div>
+      <p class="web-demo-note">
+        This guided web demo uses simulated pages and data. The downloadable Browso app works on real websites.
+      </p>
     </dialog>
 
     <script src="resources/js/script.js"></script>
