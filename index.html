@@ -41,7 +41,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@500;600;700;800&amp;display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="resources/css/style.css" />
@@ -54,7 +54,10 @@
             "@id": "https://browso.org/#organization",
             "name": "Browso",
             "url": "https://browso.org/",
-            "logo": "https://browso.org/assets/icons/icon-512.png"
+            "logo": "https://browso.org/assets/icons/icon-512.png",
+            "sameAs": [
+              "https://github.com/browso/browso"
+            ]
           },
           {
             "@type": "WebSite",
@@ -92,8 +95,10 @@
               "Natural-language browser tasks",
               "Visible searches and clicks",
               "User approval for important actions",
+              "Open-source code available on GitHub",
               "Support planned for macOS, Windows, and Linux"
             ],
+            "codeRepository": "https://github.com/browso/browso",
             "author": {
               "@id": "https://browso.org/#organization"
             },
@@ -142,7 +147,6 @@
 
       <nav aria-label="Main navigation">
         <a href="#features">Features</a>
-        <a href="#faq">FAQ</a>
         <a href="#download">Download</a>
       </nav>
 
@@ -181,7 +185,7 @@
                   <path d="m6 4 5 4-5 4V4Z" />
                 </svg>
               </span>
-              See it in action
+              <span class="demo-label">See it in action</span>
             </button>
           </div>
           <div class="platform-note">
@@ -192,7 +196,7 @@
           </div>
         </div>
 
-        <div class="product-stage" id="demo" aria-label="Browso product preview">
+        <div class="product-stage is-demoing" id="demo" aria-label="Browso product preview" aria-live="polite">
           <div class="glow"></div>
           <div class="browser-window">
             <div class="browser-bar">
@@ -204,26 +208,63 @@
                   <circle cx="9" cy="9" r="5.5"></circle>
                   <path d="m13 13 4 4"></path>
                 </svg>
-                <span>Search or ask Browso...</span>
+                <span data-demo-address>Search or ask Browso...</span>
               </div>
               <div class="avatar">O</div>
             </div>
 
             <div class="browser-body">
               <div class="page-preview">
-                <div class="preview-nav">
-                  <div class="preview-logo">N</div>
-                  <div class="preview-links"><i></i><i></i><i></i></div>
-                </div>
-                <div class="preview-content">
-                  <span class="tiny-label">TRAVEL GUIDE</span>
-                  <p class="preview-title">Find your next<br />weekend away.</p>
-                  <div class="image-block">
-                    <div class="sun"></div>
-                    <div class="mountain mountain-back"></div>
-                    <div class="mountain"></div>
+                <div class="preview-landing" data-demo-landing>
+                  <div class="preview-nav">
+                    <div class="preview-logo">N</div>
+                    <div class="preview-links"><i></i><i></i><i></i></div>
                   </div>
-                  <div class="text-lines"><i></i><i></i><i></i></div>
+                  <div class="preview-content">
+                    <span class="tiny-label">TRAVEL GUIDE</span>
+                    <p class="preview-title">Find your next<br />weekend away.</p>
+                    <div class="image-block">
+                      <div class="sun"></div>
+                      <div class="mountain mountain-back"></div>
+                      <div class="mountain"></div>
+                    </div>
+                    <div class="text-lines"><i></i><i></i><i></i></div>
+                  </div>
+                </div>
+                <div class="search-results" data-demo-results aria-hidden="true">
+                  <div class="results-header">
+                    <div class="results-mark">B</div>
+                    <div class="results-query">quiet lake cabin under $300</div>
+                  </div>
+                  <div class="results-summary"><strong>12 stays found</strong><span>Comparing total price and reviews</span></div>
+                  <div class="result-card is-best" data-demo-best-result>
+                    <div class="result-image lake-one"></div>
+                    <div>
+                      <span class="result-source">LAKESIDE STAYS</span>
+                      <strong>Pine Lake Cabin</strong>
+                      <small>4.9 ★ · Quiet · Free cancellation</small>
+                      <p><b>$248</b> total this weekend</p>
+                    </div>
+                    <span class="best-badge">Best match</span>
+                  </div>
+                  <div class="result-card">
+                    <div class="result-image lake-two"></div>
+                    <div>
+                      <span class="result-source">CABIN FINDER</span>
+                      <strong>Stillwater Retreat</strong>
+                      <small>4.8 ★ · Lake view · 2 nights</small>
+                      <p><b>$276</b> total this weekend</p>
+                    </div>
+                  </div>
+                  <div class="result-card">
+                    <div class="result-image lake-three"></div>
+                    <div>
+                      <span class="result-source">WEEKEND AWAY</span>
+                      <strong>Cedar Shore Cottage</strong>
+                      <small>4.7 ★ · Private dock · Fireplace</small>
+                      <p><b>$289</b> total this weekend</p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -239,10 +280,8 @@
                   <button aria-label="Close preview">×</button>
                 </div>
                 <div class="conversation">
-                  <div class="user-message">
-                    Find a quiet cabin near a lake for this weekend under $300.
-                  </div>
-                  <div class="agent-message">
+                  <div class="user-message" data-demo-user></div>
+                  <div class="agent-message" data-demo-agent>
                     <div class="mini-mark">B</div>
                     <div>
                       <p>
@@ -250,19 +289,45 @@
                         and total price now.
                       </p>
                       <div class="task-list">
-                        <span class="done">✓</span>
-                        <div><strong>Searched 4 sites</strong><small>12 stays found</small></div>
-                        <span class="done">✓</span>
-                        <div><strong>Compared total prices</strong><small>Including fees</small></div>
-                        <span class="loading"></span>
-                        <div><strong>Checking availability</strong><small>Almost done...</small></div>
+                        <div class="task-item is-pending" data-demo-task>
+                          <span class="task-status"></span>
+                          <div><strong>Searched 4 sites</strong><small>12 stays found</small></div>
+                        </div>
+                        <div class="task-item is-pending" data-demo-task>
+                          <span class="task-status"></span>
+                          <div><strong>Compared total prices</strong><small>Including fees</small></div>
+                        </div>
+                        <div class="task-item is-pending" data-demo-task>
+                          <span class="task-status"></span>
+                          <div><strong>Checking availability</strong><small>Almost done...</small></div>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <div class="approval-card" data-demo-approval aria-hidden="true">
+                    <div class="approval-heading">
+                      <span class="approval-lock">
+                        <svg viewBox="0 0 20 20" aria-hidden="true">
+                          <rect x="4" y="8" width="12" height="9" rx="2"></rect>
+                          <path d="M7 8V6a3 3 0 0 1 6 0v2"></path>
+                        </svg>
+                      </span>
+                      <div><strong>Your approval is required</strong><small>Browso will not pay without you</small></div>
+                    </div>
+                    <div class="payment-summary">
+                      <span>Pine Lake Cabin · 2 nights</span>
+                      <strong>$248.00</strong>
+                      <small>Visa ending in 4242 · No charge yet</small>
+                    </div>
+                    <div class="approval-actions">
+                      <button type="button" class="approval-confirm" data-demo-approve>Approve $248</button>
+                      <button type="button" class="approval-cancel" data-demo-cancel>Not now</button>
+                    </div>
+                  </div>
                 </div>
-                <div class="agent-input">
-                  <span>Ask a follow-up...</span>
-                  <button aria-label="Send">
+                <div class="agent-input" data-demo-input>
+                  <span data-demo-input-text>Ask Browso anything...</span>
+                  <button type="button" data-demo-send aria-label="Send">
                     <svg viewBox="0 0 20 20" aria-hidden="true">
                       <path d="m4 10 12-6-3 12-3-4-6-2Z" />
                     </svg>
@@ -272,7 +337,7 @@
             </div>
           </div>
 
-          <div class="floating-card search-card">
+          <div class="floating-card search-card" data-demo-search-card>
             <span class="floating-icon">
               <svg viewBox="0 0 20 20" aria-hidden="true">
                 <circle cx="8.5" cy="8.5" r="5"></circle>
@@ -283,13 +348,13 @@
             <span class="check">✓</span>
           </div>
 
-          <div class="floating-card action-card">
+          <div class="floating-card action-card" data-demo-action-card>
             <span class="floating-icon cursor-icon">
               <svg viewBox="0 0 20 20" aria-hidden="true">
                 <path d="m5 3 9 7-4 1 2 4-2 1-2-4-3 3V3Z"></path>
               </svg>
             </span>
-            <div><strong>Taking action</strong><small>Checking availability...</small></div>
+            <div><strong data-demo-action-title>Taking action</strong><small data-demo-action-detail>Checking availability...</small></div>
             <span class="dots"><i></i><i></i><i></i></span>
           </div>
         </div>
@@ -319,25 +384,23 @@
         </div>
       </section>
 
-      <section class="faq" id="faq" aria-labelledby="faq-title">
-        <div class="section-intro">
-          <span class="section-label">Frequently asked questions</span>
-          <h2 id="faq-title">About the Browso AI browser.</h2>
+      <section class="open-source" aria-labelledby="open-source-title">
+        <div class="open-source-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.87c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.82a9.6 9.6 0 0 1 2.5.34c1.9-1.29 2.74-1.02 2.74-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z" />
+          </svg>
         </div>
-        <div class="faq-list">
-          <details>
-            <summary>What is Browso?</summary>
-            <p>Browso is an AI browser with a built-in agent. Ask it to search websites, compare information, and complete browser tasks while you remain in control.</p>
-          </details>
-          <details>
-            <summary>Which operating systems will Browso support?</summary>
-            <p>Browso is being developed for macOS, Windows, and Linux.</p>
-          </details>
-          <details>
-            <summary>Is Browso available to download?</summary>
-            <p>Not yet. Browso is currently in development, and desktop downloads are coming soon.</p>
-          </details>
+        <div>
+          <span class="section-label">Open source</span>
+          <h2 id="open-source-title">Built in the open.</h2>
+          <p>Browso is open source. Read, audit, modify, and contribute to the full source code on GitHub.</p>
         </div>
+        <a class="source-button" href="https://github.com/browso/browso" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.87c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.82a9.6 9.6 0 0 1 2.5.34c1.9-1.29 2.74-1.02 2.74-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z" />
+          </svg>
+          View source code
+        </a>
       </section>
 
       <section class="download" id="download" aria-labelledby="download-title">
@@ -354,13 +417,63 @@
       </section>
     </main>
 
-    <footer>
-      <a class="brand" href="/" aria-label="Browso home">
-        <img src="assets/images/browso-white-logo.png" alt="" width="32" height="32" loading="lazy" />
-        <span>Browso</span>
-      </a>
-      <p>© 2026 Browso. Browse further.</p>
+    <footer class="site-footer">
+      <div class="footer-brand">
+        <a class="brand" href="/" aria-label="Browso home">
+          <img src="assets/images/browso-white-logo.png" alt="" width="32" height="32" loading="lazy" />
+          <span>Browso</span>
+        </a>
+        <p>An AI browser that helps you browse and act.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <strong>Product</strong>
+          <a href="#features">Features</a>
+          <a href="#faq">FAQ</a>
+          <a href="#download">Download</a>
+        </div>
+        <div>
+          <strong>Legal</strong>
+          <a href="/terms.html">Terms of Service</a>
+          <a href="/acceptable-use.html">Acceptable Use</a>
+          <a href="/privacy.html">Privacy</a>
+        </div>
+        <div>
+          <strong>Project</strong>
+          <a class="github-link" href="https://github.com/browso/browso" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.87c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.82a9.6 9.6 0 0 1 2.5.34c1.9-1.29 2.74-1.02 2.74-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z" />
+            </svg>
+            Source code
+          </a>
+        </div>
+      </div>
+      <p class="footer-copyright">© 2026 Browso. Browse further.</p>
     </footer>
+
+    <dialog class="faq-dialog" id="faq" aria-labelledby="faq-title">
+      <div class="faq-dialog-header">
+        <div>
+          <span class="section-label">Frequently asked questions</span>
+          <h2 id="faq-title">About Browso.</h2>
+        </div>
+        <button class="dialog-close" type="button" data-close-faq aria-label="Close FAQ">×</button>
+      </div>
+      <div class="faq-list">
+        <details>
+          <summary>What is Browso?</summary>
+          <p>Browso is an AI browser with a built-in agent. Ask it to search websites, compare information, and complete browser tasks while you remain in control.</p>
+        </details>
+        <details>
+          <summary>Which operating systems will Browso support?</summary>
+          <p>Browso is being developed for macOS, Windows, and Linux.</p>
+        </details>
+        <details>
+          <summary>Is Browso available to download?</summary>
+          <p>Not yet. Browso is currently in development, and desktop downloads are coming soon.</p>
+        </details>
+      </div>
+    </dialog>
 
     <script src="resources/js/script.js"></script>
   </body>
