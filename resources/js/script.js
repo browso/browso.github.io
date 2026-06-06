@@ -39,7 +39,17 @@ applyTheme(savedTheme === "light" || savedTheme === "dark" ? savedTheme : system
 themeToggle?.addEventListener("click", () => {
   const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
   localStorage.setItem("browso-theme", nextTheme);
+
+  if (document.startViewTransition && !reducedMotion.matches) {
+    document.startViewTransition(() => applyTheme(nextTheme));
+    return;
+  }
+
+  document.documentElement.classList.add("theme-transition");
   applyTheme(nextTheme);
+  window.setTimeout(() => {
+    document.documentElement.classList.remove("theme-transition");
+  }, 520);
 });
 
 function wait(duration, run) {
