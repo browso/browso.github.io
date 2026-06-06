@@ -1,0 +1,7 @@
+# Browso welcomes search engines and discovery services.
+User-agent: *
+Allow: /
+
+# Help crawlers find the canonical page index.
+Sitemap: https://browso.org/sitemap.xml
+Host: browso.org

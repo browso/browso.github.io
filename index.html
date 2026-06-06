@@ -1,10 +1,280 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Hello from GitHub</title>
-</head>
-<body>
-  <h1>Hello from GitHub!</h1>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Browso is an agentic browser that can search the web, open websites, and take action for you. Coming soon to macOS, Windows, and Linux."
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#f6f7fb" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Browso" />
+    <meta property="og:title" content="Browso — The Browser With an Agent Built In" />
+    <meta
+      property="og:description"
+      content="Search, browse, and take action with an agent built directly into your browser."
+    />
+    <meta property="og:url" content="https://browso.org/" />
+    <meta property="og:image" content="https://browso.org/assets/icons/icon-512.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:image:alt" content="Browso browser logo" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Browso — The Browser With an Agent Built In" />
+    <meta
+      name="twitter:description"
+      content="Search, browse, and take action with an agent built directly into your browser."
+    />
+    <meta name="twitter:image" content="https://browso.org/assets/icons/icon-512.png" />
+    <title>Browso — The Browser With an Agent Built In</title>
+    <link rel="canonical" href="https://browso.org/" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="resources/css/style.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://browso.org/#organization",
+            "name": "Browso",
+            "url": "https://browso.org/",
+            "logo": "https://browso.org/assets/icons/icon-512.png"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://browso.org/#website",
+            "url": "https://browso.org/",
+            "name": "Browso",
+            "description": "Browso is a browser with an agent built in.",
+            "publisher": {
+              "@id": "https://browso.org/#organization"
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Browso Browser",
+            "url": "https://browso.org/",
+            "applicationCategory": "BrowserApplication",
+            "operatingSystem": "macOS, Windows, Linux",
+            "description": "An agentic browser that can search the web, open websites, and take action for you.",
+            "image": "https://browso.org/assets/icons/icon-512.png",
+            "author": {
+              "@id": "https://browso.org/#organization"
+            },
+            "releaseNotes": "Browso is currently in development. Downloads are coming soon."
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="Browso home">
+        <img src="assets/images/browso-white-logo.png" alt="" />
+        <span>Browso</span>
+      </a>
+
+      <nav aria-label="Main navigation">
+        <a href="#features">Features</a>
+        <a href="#download">Download</a>
+      </nav>
+
+      <a class="header-cta" href="#download">Coming soon</a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span></span> A browser that works with you</div>
+          <h1>Don’t just browse.<br /><em>Get it done.</em></h1>
+          <p>
+            Browso puts an agent inside your browser. Ask it to search, open
+            websites, and take care of the clicks while you stay in control.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#download">
+              Coming soon
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M4 10h12m-5-5 5 5-5 5" />
+              </svg>
+            </a>
+            <button class="button button-quiet" id="watch-demo" type="button">
+              <span class="play">
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="m6 4 5 4-5 4V4Z" />
+                </svg>
+              </span>
+              See it in action
+            </button>
+          </div>
+          <div class="platform-note">
+            <span>Designed for</span>
+            <span class="platform">⌘</span>
+            <span class="platform windows" aria-label="Windows">⊞</span>
+            <span class="platform linux" aria-label="Linux">Linux</span>
+          </div>
+        </div>
+
+        <div class="product-stage" id="demo" aria-label="Browso product preview">
+          <div class="glow"></div>
+          <div class="browser-window">
+            <div class="browser-bar">
+              <div class="window-controls" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="address-bar">
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <circle cx="9" cy="9" r="5.5"></circle>
+                  <path d="m13 13 4 4"></path>
+                </svg>
+                <span>Search or ask Browso...</span>
+              </div>
+              <div class="avatar">O</div>
+            </div>
+
+            <div class="browser-body">
+              <div class="page-preview">
+                <div class="preview-nav">
+                  <div class="preview-logo">N</div>
+                  <div class="preview-links"><i></i><i></i><i></i></div>
+                </div>
+                <div class="preview-content">
+                  <span class="tiny-label">TRAVEL GUIDE</span>
+                  <h2>Find your next<br />weekend away.</h2>
+                  <div class="image-block">
+                    <div class="sun"></div>
+                    <div class="mountain mountain-back"></div>
+                    <div class="mountain"></div>
+                  </div>
+                  <div class="text-lines"><i></i><i></i><i></i></div>
+                </div>
+              </div>
+
+              <aside class="agent-panel">
+                <div class="agent-heading">
+                  <div class="agent-mark">
+                    <img src="assets/images/browso-black-logo.png" alt="" />
+                  </div>
+                  <div>
+                    <strong>Browso Agent</strong>
+                    <span><i></i> Ready</span>
+                  </div>
+                  <button aria-label="Close preview">×</button>
+                </div>
+                <div class="conversation">
+                  <div class="user-message">
+                    Find a quiet cabin near a lake for this weekend under $300.
+                  </div>
+                  <div class="agent-message">
+                    <div class="mini-mark">B</div>
+                    <div>
+                      <p>
+                        I found 12 options. I’m comparing reviews, distance,
+                        and total price now.
+                      </p>
+                      <div class="task-list">
+                        <span class="done">✓</span>
+                        <div><strong>Searched 4 sites</strong><small>12 stays found</small></div>
+                        <span class="done">✓</span>
+                        <div><strong>Compared total prices</strong><small>Including fees</small></div>
+                        <span class="loading"></span>
+                        <div><strong>Checking availability</strong><small>Almost done...</small></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="agent-input">
+                  <span>Ask a follow-up...</span>
+                  <button aria-label="Send">
+                    <svg viewBox="0 0 20 20" aria-hidden="true">
+                      <path d="m4 10 12-6-3 12-3-4-6-2Z" />
+                    </svg>
+                  </button>
+                </div>
+              </aside>
+            </div>
+          </div>
+
+          <div class="floating-card search-card">
+            <span class="floating-icon">
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <circle cx="8.5" cy="8.5" r="5"></circle>
+                <path d="m12.5 12.5 4 4"></path>
+              </svg>
+            </span>
+            <div><strong>Search completed</strong><small>12 results compared</small></div>
+            <span class="check">✓</span>
+          </div>
+
+          <div class="floating-card action-card">
+            <span class="floating-icon cursor-icon">
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="m5 3 9 7-4 1 2 4-2 1-2-4-3 3V3Z"></path>
+              </svg>
+            </span>
+            <div><strong>Taking action</strong><small>Checking availability...</small></div>
+            <span class="dots"><i></i><i></i><i></i></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="features" id="features">
+        <div class="section-intro">
+          <span class="section-label">Built into your browser</span>
+          <h2>One place to browse and act.</h2>
+        </div>
+        <div class="feature-grid">
+          <article>
+            <span class="feature-number">01</span>
+            <h3>Ask naturally</h3>
+            <p>Describe what you need. No special prompts or new habits.</p>
+          </article>
+          <article>
+            <span class="feature-number">02</span>
+            <h3>Watch it work</h3>
+            <p>See every search and click as the agent moves through the web.</p>
+          </article>
+          <article>
+            <span class="feature-number">03</span>
+            <h3>Stay in control</h3>
+            <p>Browso asks before important actions. You always have the final say.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="download" id="download">
+        <div>
+          <span class="section-label">Coming soon</span>
+          <h2>Your new browser is on its way.</h2>
+          <p>Browso is being built for every desktop. Downloads are not available yet.</p>
+        </div>
+        <div class="download-list">
+          <button disabled><span>⌘</span><strong>macOS</strong><small>Coming soon</small></button>
+          <button disabled><span>⊞</span><strong>Windows</strong><small>Coming soon</small></button>
+          <button disabled><span class="linux-word">Linux</span><strong>Linux</strong><small>Coming soon</small></button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <a class="brand" href="#" aria-label="Browso home">
+        <img src="assets/images/browso-white-logo.png" alt="" />
+        <span>Browso</span>
+      </a>
+      <p>© 2026 Browso. Browse further.</p>
+    </footer>
+
+    <script src="resources/js/script.js"></script>
+  </body>
 </html>
