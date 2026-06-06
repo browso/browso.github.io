@@ -4,8 +4,8 @@
   "description": "A browser with an agent built in.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f7f8fb",
-  "theme_color": "#f7f8fb",
+  "background_color": "#07080b",
+  "theme_color": "#07080b",
   "icons": [
     {
       "src": "assets/icons/icon-192.png",

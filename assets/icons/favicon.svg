@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title>Browso</title>
+  <defs>
+    <linearGradient id="background" x1="72" y1="40" x2="440" y2="472" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3978ff"/>
+      <stop offset="1" stop-color="#0b43dc"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="120" y1="64" x2="384" y2="448" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff" stop-opacity=".22"/>
+      <stop offset=".55" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#001d72" flood-opacity=".34"/>
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" rx="118" fill="url(#background)"/>
+  <path d="M86 135C135 65 234 33 329 58c55 14 99 48 126 91-68-35-146-42-221-18-62 19-112 59-148 110V135Z" fill="url(#shine)"/>
+
+  <g filter="url(#shadow)">
+    <path
+      fill="#fff"
+      d="M151 116h116c80 0 128 38 128 101 0 35-17 63-48 80 40 15 62 47 62 89 0 72-53 110-143 110H151V116Zm105 150c34 0 52-14 52-41 0-26-18-39-52-39h-18v80h18Zm9 160c39 0 59-15 59-46 0-30-20-45-59-45h-27v91h27Z"
+    />
+  </g>
+
+  <circle cx="391" cy="117" r="30" fill="#fff"/>
+  <circle cx="391" cy="117" r="13" fill="#68a0ff"/>
+</svg>

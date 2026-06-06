@@ -8,7 +8,7 @@
       content="Browso is an agentic browser that can search the web, open websites, and take action for you. Coming soon to macOS, Windows, and Linux."
     />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <meta name="theme-color" content="#f6f7fb" />
+    <meta name="theme-color" content="#07080b" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Browso" />
     <meta property="og:title" content="Browso — The Browser With an Agent Built In" />
@@ -30,6 +30,7 @@
     <meta name="twitter:image" content="https://browso.org/assets/icons/icon-512.png" />
     <title>Browso — The Browser With an Agent Built In</title>
     <link rel="canonical" href="https://browso.org/" />
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png" />
     <link rel="manifest" href="site.webmanifest" />
@@ -90,13 +91,23 @@
         <a href="#download">Download</a>
       </nav>
 
-      <a class="header-cta" href="#download">Coming soon</a>
+      <div class="header-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme">
+          <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="3.5"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 15.2A8.5 8.5 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z"></path>
+          </svg>
+        </button>
+        <a class="header-cta" href="#download">Coming soon</a>
+      </div>
     </header>
 
     <main>
       <section class="hero">
         <div class="hero-copy">
-          <div class="eyebrow"><span></span> A browser that works with you</div>
           <h1>Don’t just browse.<br /><em>Get it done.</em></h1>
           <p>
             Browso puts an agent inside your browser. Ask it to search, open
@@ -120,9 +131,9 @@
           </div>
           <div class="platform-note">
             <span>Designed for</span>
-            <span class="platform">⌘</span>
-            <span class="platform windows" aria-label="Windows">⊞</span>
-            <span class="platform linux" aria-label="Linux">Linux</span>
+            <img class="platform-icon" src="assets/icons/platforms/apple.svg" alt="macOS" />
+            <img class="platform-icon" src="assets/icons/platforms/windows.svg" alt="Windows" />
+            <img class="platform-icon" src="assets/icons/platforms/linux.svg" alt="Linux" />
           </div>
         </div>
 
@@ -260,9 +271,9 @@
           <p>Browso is being built for every desktop. Downloads are not available yet.</p>
         </div>
         <div class="download-list">
-          <button disabled><span>⌘</span><strong>macOS</strong><small>Coming soon</small></button>
-          <button disabled><span>⊞</span><strong>Windows</strong><small>Coming soon</small></button>
-          <button disabled><span class="linux-word">Linux</span><strong>Linux</strong><small>Coming soon</small></button>
+          <button disabled><img src="assets/icons/platforms/apple.svg" alt="" /><strong>macOS</strong><small>Coming soon</small></button>
+          <button disabled><img src="assets/icons/platforms/windows.svg" alt="" /><strong>Windows</strong><small>Coming soon</small></button>
+          <button disabled><img src="assets/icons/platforms/linux.svg" alt="" /><strong>Linux</strong><small>Coming soon</small></button>
         </div>
       </section>
     </main>
