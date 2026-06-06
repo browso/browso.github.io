@@ -1323,78 +1323,6 @@ h1 em {
   line-height: 1.65;
 }
 
-.open-source {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 28px;
-  margin-bottom: 70px;
-  padding: 38px 42px;
-  border: 1px solid var(--line);
-  border-radius: 22px;
-  background: rgba(45, 107, 255, 0.06);
-}
-
-.open-source-icon {
-  width: 62px;
-  height: 62px;
-  display: grid;
-  place-items: center;
-  border-radius: 18px;
-  color: white;
-  background: #111318;
-}
-
-.open-source-icon svg {
-  width: 31px;
-  fill: currentColor;
-}
-
-.open-source h2 {
-  margin: 6px 0 8px;
-  font-size: 28px;
-  letter-spacing: -0.04em;
-}
-
-.open-source p {
-  max-width: 620px;
-  margin: 0;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.65;
-}
-
-.source-button {
-  min-height: 48px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  padding: 0 18px;
-  border-radius: 11px;
-  color: white;
-  background: var(--blue);
-  font-size: 13px;
-  font-weight: 700;
-  white-space: nowrap;
-  transition: background 180ms ease, transform 180ms ease;
-}
-
-.source-button:hover {
-  background: var(--blue-dark);
-  transform: translateY(-2px);
-}
-
-.source-button:focus-visible {
-  outline: 3px solid rgba(45, 107, 255, 0.35);
-  outline-offset: 4px;
-}
-
-.source-button svg {
-  width: 18px;
-  fill: currentColor;
-}
-
 .download {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1807,14 +1735,6 @@ html[data-theme="light"] .cursor-icon {
     gap: 42px;
   }
 
-  .open-source {
-    grid-template-columns: auto 1fr;
-  }
-
-  .source-button {
-    grid-column: 1 / -1;
-    justify-self: start;
-  }
 }
 
 @media (max-width: 680px) {
@@ -1905,16 +1825,6 @@ html[data-theme="light"] .cursor-icon {
     gap: 36px;
     padding: 40px 24px;
     border-radius: 20px;
-  }
-
-  .open-source {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 30px 24px;
-  }
-
-  .source-button {
-    width: 100%;
   }
 
   .download-list button {
