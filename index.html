@@ -5,16 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Browso is an agentic browser that can search the web, open websites, and take action for you. Coming soon to macOS, Windows, and Linux."
+      content="Browso is an AI browser with a built-in agent that searches websites, compares options, and takes action with your approval. Coming to macOS, Windows, and Linux."
     />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="author" content="Browso" />
+    <meta name="application-name" content="Browso" />
     <meta name="theme-color" content="#07080b" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="Browso" />
-    <meta property="og:title" content="Browso — The Browser With an Agent Built In" />
+    <meta property="og:title" content="Browso AI Browser | Browse and Take Action" />
     <meta
       property="og:description"
-      content="Search, browse, and take action with an agent built directly into your browser."
+      content="Search websites, compare options, and take action with an AI agent built directly into your browser."
     />
     <meta property="og:url" content="https://browso.org/" />
     <meta property="og:image" content="https://browso.org/assets/icons/icon-512.png" />
@@ -22,18 +25,19 @@
     <meta property="og:image:height" content="512" />
     <meta property="og:image:alt" content="Browso browser logo" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Browso — The Browser With an Agent Built In" />
+    <meta name="twitter:title" content="Browso AI Browser | Browse and Take Action" />
     <meta
       name="twitter:description"
-      content="Search, browse, and take action with an agent built directly into your browser."
+      content="Search websites, compare options, and take action with an AI agent built directly into your browser."
     />
     <meta name="twitter:image" content="https://browso.org/assets/icons/icon-512.png" />
-    <title>Browso — The Browser With an Agent Built In</title>
+    <meta name="twitter:image:alt" content="Browso browser logo" />
+    <title>Browso AI Browser | Browse and Take Action</title>
     <link rel="canonical" href="https://browso.org/" />
-    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png" />
-    <link rel="manifest" href="site.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg?v=2" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png?v=2" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png?v=2" />
+    <link rel="manifest" href="site.webmanifest?v=2" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -63,17 +67,67 @@
             }
           },
           {
+            "@type": "WebPage",
+            "@id": "https://browso.org/#webpage",
+            "url": "https://browso.org/",
+            "name": "Browso AI Browser | Browse and Take Action",
+            "description": "Browso is an AI browser with a built-in agent that searches websites, compares options, and takes action with your approval.",
+            "isPartOf": {
+              "@id": "https://browso.org/#website"
+            },
+            "about": {
+              "@id": "https://browso.org/#software"
+            }
+          },
+          {
             "@type": "SoftwareApplication",
+            "@id": "https://browso.org/#software",
             "name": "Browso Browser",
             "url": "https://browso.org/",
             "applicationCategory": "BrowserApplication",
             "operatingSystem": "macOS, Windows, Linux",
-            "description": "An agentic browser that can search the web, open websites, and take action for you.",
+            "description": "An AI browser with a built-in agent that can search websites, compare options, and take action with your approval.",
             "image": "https://browso.org/assets/icons/icon-512.png",
+            "featureList": [
+              "Natural-language browser tasks",
+              "Visible searches and clicks",
+              "User approval for important actions",
+              "Support planned for macOS, Windows, and Linux"
+            ],
             "author": {
               "@id": "https://browso.org/#organization"
             },
             "releaseNotes": "Browso is currently in development. Downloads are coming soon."
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://browso.org/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is Browso?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Browso is an AI browser with a built-in agent. You can ask it to search websites, compare information, and complete browser tasks while you remain in control."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Which operating systems will Browso support?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Browso is being developed for macOS, Windows, and Linux."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is Browso available to download?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Not yet. Browso is currently in development, and desktop downloads are coming soon."
+                }
+              }
+            ]
           }
         ]
       }
@@ -81,13 +135,14 @@
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="#" aria-label="Browso home">
-        <img src="assets/images/browso-white-logo.png" alt="" />
+      <a class="brand" href="/" aria-label="Browso home">
+        <img src="assets/images/browso-white-logo.png" alt="" width="32" height="32" />
         <span>Browso</span>
       </a>
 
       <nav aria-label="Main navigation">
         <a href="#features">Features</a>
+        <a href="#faq">FAQ</a>
         <a href="#download">Download</a>
       </nav>
 
@@ -106,12 +161,12 @@
     </header>
 
     <main>
-      <section class="hero">
+      <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <h1>Don’t just browse.<br /><em>Get it done.</em></h1>
+          <h1 id="hero-title">The AI browser that<br /><em>gets it done.</em></h1>
           <p>
-            Browso puts an agent inside your browser. Ask it to search, open
-            websites, and take care of the clicks while you stay in control.
+            Browso puts an AI agent inside your browser. Ask it to search websites,
+            compare options, and take care of the clicks while you stay in control.
           </p>
           <div class="hero-actions">
             <a class="button button-primary" href="#download">
@@ -131,9 +186,9 @@
           </div>
           <div class="platform-note">
             <span>Designed for</span>
-            <img class="platform-icon" src="assets/icons/platforms/apple.svg" alt="macOS" />
-            <img class="platform-icon" src="assets/icons/platforms/windows.svg" alt="Windows" />
-            <img class="platform-icon" src="assets/icons/platforms/linux.svg" alt="Linux" />
+            <img class="platform-icon" src="assets/icons/platforms/apple.svg" alt="macOS" width="18" height="18" />
+            <img class="platform-icon" src="assets/icons/platforms/windows.svg" alt="Windows" width="18" height="18" />
+            <img class="platform-icon" src="assets/icons/platforms/linux.svg" alt="Linux" width="18" height="18" />
           </div>
         </div>
 
@@ -162,7 +217,7 @@
                 </div>
                 <div class="preview-content">
                   <span class="tiny-label">TRAVEL GUIDE</span>
-                  <h2>Find your next<br />weekend away.</h2>
+                  <p class="preview-title">Find your next<br />weekend away.</p>
                   <div class="image-block">
                     <div class="sun"></div>
                     <div class="mountain mountain-back"></div>
@@ -175,7 +230,7 @@
               <aside class="agent-panel">
                 <div class="agent-heading">
                   <div class="agent-mark">
-                    <img src="assets/images/browso-black-logo.png" alt="" />
+                    <img src="assets/images/browso-black-logo.png" alt="" width="30" height="30" />
                   </div>
                   <div>
                     <strong>Browso Agent</strong>
@@ -240,10 +295,10 @@
         </div>
       </section>
 
-      <section class="features" id="features">
+      <section class="features" id="features" aria-labelledby="features-title">
         <div class="section-intro">
           <span class="section-label">Built into your browser</span>
-          <h2>One place to browse and act.</h2>
+          <h2 id="features-title">One place to browse and act.</h2>
         </div>
         <div class="feature-grid">
           <article>
@@ -264,23 +319,44 @@
         </div>
       </section>
 
-      <section class="download" id="download">
+      <section class="faq" id="faq" aria-labelledby="faq-title">
+        <div class="section-intro">
+          <span class="section-label">Frequently asked questions</span>
+          <h2 id="faq-title">About the Browso AI browser.</h2>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>What is Browso?</summary>
+            <p>Browso is an AI browser with a built-in agent. Ask it to search websites, compare information, and complete browser tasks while you remain in control.</p>
+          </details>
+          <details>
+            <summary>Which operating systems will Browso support?</summary>
+            <p>Browso is being developed for macOS, Windows, and Linux.</p>
+          </details>
+          <details>
+            <summary>Is Browso available to download?</summary>
+            <p>Not yet. Browso is currently in development, and desktop downloads are coming soon.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="download" id="download" aria-labelledby="download-title">
         <div>
           <span class="section-label">Coming soon</span>
-          <h2>Your new browser is on its way.</h2>
+          <h2 id="download-title">Your new browser is on its way.</h2>
           <p>Browso is being built for every desktop. Downloads are not available yet.</p>
         </div>
         <div class="download-list">
-          <button disabled><img src="assets/icons/platforms/apple.svg" alt="" /><strong>macOS</strong><small>Coming soon</small></button>
-          <button disabled><img src="assets/icons/platforms/windows.svg" alt="" /><strong>Windows</strong><small>Coming soon</small></button>
-          <button disabled><img src="assets/icons/platforms/linux.svg" alt="" /><strong>Linux</strong><small>Coming soon</small></button>
+          <button disabled><img src="assets/icons/platforms/apple.svg" alt="" width="24" height="24" /><strong>macOS</strong><small>Coming soon</small></button>
+          <button disabled><img src="assets/icons/platforms/windows.svg" alt="" width="24" height="24" /><strong>Windows</strong><small>Coming soon</small></button>
+          <button disabled><img src="assets/icons/platforms/linux.svg" alt="" width="24" height="24" /><strong>Linux</strong><small>Coming soon</small></button>
         </div>
       </section>
     </main>
 
     <footer>
-      <a class="brand" href="#" aria-label="Browso home">
-        <img src="assets/images/browso-white-logo.png" alt="" />
+      <a class="brand" href="/" aria-label="Browso home">
+        <img src="assets/images/browso-white-logo.png" alt="" width="32" height="32" loading="lazy" />
         <span>Browso</span>
       </a>
       <p>© 2026 Browso. Browse further.</p>
