@@ -1,5 +1,52 @@
 {
   "schemaVersion": 1,
-  "updatedAt": null,
-  "releases": []
+  "updatedAt": "2026-06-07T16:04:36Z",
+  "releases": [
+    {
+      "assets": {
+        "checksums": "https://github.com/browso/browso/releases/download/v1.1.0/SHA256SUMS.txt",
+        "linux": "https://github.com/browso/browso/releases/download/v1.1.0/browso-linux-x86-64.AppImage",
+        "macAppleSilicon": "https://github.com/browso/browso/releases/download/v1.1.0/browso-mac-apple-silicon.dmg",
+        "macIntel": "https://github.com/browso/browso/releases/download/v1.1.0/browso-mac-mac-intel.dmg",
+        "windows": "https://github.com/browso/browso/releases/download/v1.1.0/browso-win-x64.exe"
+      },
+      "commit": "21ba0faf396a4338215025a954da75393f37d26b",
+      "notes": [
+        "some fixes",
+        "some cleaning",
+        "release implementation",
+        "deps: bump @types/node from 22.19.20 to 25.9.2 (#22)",
+        "better ci",
+        "fix benchmarks CI",
+        "pushing benchmarks to sync with the website",
+        "profiling. fixes: #15",
+        "adding script for the benchmarks. fixes: #4",
+        "adding a better ci for benchmarking",
+        "more settings. fixes: #7",
+        "fix the settings button and the icon, fixes: #12 fixes: #10",
+        "fix updates, fixes: #14",
+        "fix ci",
+        "fixing icon",
+        "fix a lof os stuff, fixes: #9, fixes: #6",
+        "code quality and code coverage",
+        "some updates",
+        "Add Code of Conduct for Browso project",
+        "Add CodeQL analysis workflow configuration",
+        "Update dependabot.yml configuration",
+        "Create SECURITY.md",
+        "bug improvements",
+        "some fixes",
+        "some fixes",
+        "some fixing stuff",
+        "release",
+        "first version",
+        "Initial commit"
+      ],
+      "publishedAt": "2026-06-07T16:04:36Z",
+      "releaseUrl": "https://github.com/browso/browso/releases/tag/v1.1.0",
+      "tag": "v1.1.0",
+      "type": "minor",
+      "version": "1.1.0"
+    }
+  ]
 }
