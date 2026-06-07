@@ -1,24 +1,21 @@
-name: Sync Benchmarks
+name: Publish Benchmarks
 
 on:
   repository_dispatch:
     types:
-      - benchmarks-updated
-  workflow_dispatch:
+      - browso-benchmarks-updated
 
 permissions:
   contents: write
 
 concurrency:
-  group: sync-benchmarks
+  group: publish-benchmarks
   cancel-in-progress: false
 
 jobs:
-  sync:
-    name: Publish latest benchmark data
-    if: >-
-      github.event_name == 'workflow_dispatch' ||
-      github.event.client_payload.repository == 'Browso/benchmarks'
+  publish:
+    name: Update benchmark history
+    if: github.event.client_payload.repository == 'Browso/browso'
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -28,23 +25,51 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Check out benchmark data
-        uses: actions/checkout@v4
-        with:
-          repository: Browso/benchmarks
-          ref: main
-          path: benchmark-data
-          persist-credentials: false
-
-      - name: Copy latest benchmark result
+      - name: Validate and merge benchmark result
+        env:
+          BENCHMARK_JSON: ${{ toJson(github.event.client_payload.benchmark) }}
         shell: bash
         run: |
-          test -s benchmark-data/results/latest.json
-          jq empty benchmark-data/results/latest.json
           mkdir -p assets/data
-          cp benchmark-data/results/latest.json assets/data/benchmarks.json
+          printf '%s\n' "$BENCHMARK_JSON" > "$RUNNER_TEMP/incoming-benchmark.json"
 
-      - name: Commit website data
+          jq -e '
+            .schemaVersion == 2 and
+            .source.repository == "Browso/browso" and
+            (.source.commit | type == "string") and
+            (.generatedAt | type == "string") and
+            (.metrics.productionBuild.median | type == "number")
+          ' "$RUNNER_TEMP/incoming-benchmark.json" > /dev/null
+
+          if [ ! -f assets/data/benchmarks.json ]; then
+            printf '%s\n' '{"schemaVersion":1,"updatedAt":null,"runs":[]}' \
+              > assets/data/benchmarks.json
+          fi
+
+          jq -e '
+            .schemaVersion == 1 and
+            (.runs | type == "array")
+          ' assets/data/benchmarks.json > /dev/null
+
+          jq \
+            --slurpfile incoming "$RUNNER_TEMP/incoming-benchmark.json" \
+            '
+              .schemaVersion = 1 |
+              .updatedAt = $incoming[0].generatedAt |
+              .runs = (
+                [$incoming[0]] + [
+                  .runs[] |
+                  select(.source.commit != $incoming[0].source.commit)
+                ] |
+                sort_by(.generatedAt) |
+                reverse |
+                .[:30]
+              )
+            ' assets/data/benchmarks.json > "$RUNNER_TEMP/benchmarks.json"
+
+          mv "$RUNNER_TEMP/benchmarks.json" assets/data/benchmarks.json
+
+      - name: Commit benchmark data
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
@@ -52,10 +77,12 @@ jobs:
           git add assets/data/benchmarks.json
 
           if git diff --cached --quiet; then
-            echo "Website already contains the latest benchmark data."
+            echo "This benchmark commit is already published."
             exit 0
           fi
 
-          git commit -m "Update Browso benchmark data"
+          version="$(jq -r '.runs[0].source.version' assets/data/benchmarks.json)"
+          commit="$(jq -r '.runs[0].source.commit[0:7]' assets/data/benchmarks.json)"
+          git commit -m "Update benchmarks for v${version} (${commit})"
           git pull --rebase origin main
           git push origin HEAD:main
