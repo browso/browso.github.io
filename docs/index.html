@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="These documents describe the code that is currently implemented. Planned features are labeled as planned; they are not presented as existing behavior." />
+    <meta name="theme-color" content="#07080b" />
+    <meta property="og:title" content="Browso Documentation" />
+    <meta property="og:description" content="These documents describe the code that is currently implemented. Planned features are labeled as planned; they are not presented as existing behavior." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://browso.org/docs/" />
+    <title>Browso Documentation · Browso</title>
+    <link rel="canonical" href="https://browso.org/docs/" />
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg?v=2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/resources/css/style.css" />
+  </head>
+  <body class="content-page">
+    <div class="reading-progress" data-reading-progress></div>
+    <header class="site-header content-site-header">
+    <a class="brand" href="/" aria-label="Browso home">
+      <img src="/assets/images/browso-white-logo.png" alt="" width="32" height="32" />
+      <span>Browso</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/docs/" aria-current="page">Docs</a>
+      <a href="/releases.html">Releases</a>
+    </nav>
+    <a class="header-cta header-github" href="https://github.com/browso/browso" target="_blank" rel="noopener noreferrer">GitHub</a>
+  </header>
+    <main class="docs-layout">
+      <aside class="docs-sidebar" data-docs-sidebar>
+    <div class="docs-sidebar-heading">
+      <strong>Documentation</strong>
+      <button type="button" data-docs-close aria-label="Close documentation navigation">Close</button>
+    </div>
+    <nav><a href="/docs/" aria-current="page">Browso Documentation</a><a href="/docs/architecture.html">Architecture</a><a href="/docs/backend.html">Backend</a><a href="/docs/agent.html">Agent Modes And Automation</a><a href="/docs/settings-and-memory.html">Settings, Memory, And Knowledge</a><a href="/docs/safety-and-privacy.html">Safety And Privacy</a><a href="/docs/commands.html">Commands</a><a href="/docs/testing.html">Testing Guide</a><a href="/docs/build-and-release.html">Build And Release</a></nav>
+  </aside>
+      <article class="content-article docs-article">
+        <button class="docs-menu-button" type="button" data-docs-open>Browse documentation</button>
+        <div class="article-eyebrow">Browso documentation</div>
+        <div class="markdown-body"><h1 id="browso-documentation">Browso Documentation</h1>
+<p>These documents describe the code that is currently implemented. Planned features are labeled as planned; they are not presented as existing behavior.</p>
+<h2 id="docs-map">Docs Map</h2>
+<ul><li><a href="./architecture.html">Architecture</a></li><li><a href="./backend.html">Backend</a></li><li><a href="./agent.html">Agent Modes And Automation</a></li><li><a href="./settings-and-memory.html">Settings, Memory, And Knowledge</a></li><li><a href="./safety-and-privacy.html">Safety And Privacy</a></li><li><a href="./commands.html">Commands</a></li><li><a href="./testing.html">Testing Guide</a></li><li><a href="./build-and-release.html">Build And Release</a></li></ul>
+<h2 id="what-this-project-is">What This Project Is</h2>
+<p>Browso is a desktop browser-agent platform with:</p>
+<ul><li>a multi-tab browser UI</li><li>a sidebar AI assistant</li><li>current-page and selected-text context</li><li>multi-tab research context</li><li>constrained autonomous browser automation</li><li>local saved-page knowledge</li><li>configurable agent modes</li><li>a local code sandbox</li><li>persistent settings</li><li>optional persistent user memory</li></ul>
+<h2 id="technology">Technology</h2>
+<ul><li>Browso desktop runtime</li><li>React 19</li><li>TypeScript</li><li>Vite</li><li>Tailwind CSS</li><li>Vercel AI SDK</li><li>Ollama, OpenAI, or Anthropic model providers</li></ul>
+<p>This is not a Chrome extension and does not use a separate Express server. The Browso desktop process is the trusted backend.</p>
+<h2 id="defaults">Defaults</h2>
+<ul><li>homepage: internal Browso welcome page</li><li>provider: Ollama</li><li>model: <code>gemma4:e2b</code></li><li>search engine: DuckDuckGo</li><li>mode: Copilot</li><li>user memory: enabled</li></ul></div>
+        <div class="article-edit-link"><a href="https://github.com/browso/browso.github.io/edit/main/content/docs/index.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a></div>
+      </article>
+      <aside class="article-toc"><strong>On this page</strong><nav><a class="toc-level-2" href="#docs-map">Docs Map</a><a class="toc-level-2" href="#what-this-project-is">What This Project Is</a><a class="toc-level-2" href="#technology">Technology</a><a class="toc-level-2" href="#defaults">Defaults</a></nav></aside>
+    </main>
+    <footer class="site-footer content-footer">
+    <div class="footer-brand">
+      <a class="brand" href="/">
+        <img src="/assets/images/browso-white-logo.png" alt="" width="32" height="32" />
+        <span>Browso</span>
+      </a>
+      <p>An AI browser that helps you browse and act.</p>
+    </div>
+    <div class="content-footer-links">
+      <a href="/blog/">Blog</a><a href="/docs/">Documentation</a><a href="/releases.html">Releases</a>
+    </div>
+    <p class="footer-copyright">© 2026 Browso. Browse further.</p>
+  </footer>
+    <script src="/resources/js/content.js"></script>
+  </body>
+</html>

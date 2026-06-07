@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Browso handles three classes of data:" />
+    <meta name="theme-color" content="#07080b" />
+    <meta property="og:title" content="Safety And Privacy" />
+    <meta property="og:description" content="Browso handles three classes of data:" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://browso.org/docs/safety-and-privacy.html" />
+    <title>Safety And Privacy · Browso</title>
+    <link rel="canonical" href="https://browso.org/docs/safety-and-privacy.html" />
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg?v=2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/resources/css/style.css" />
+  </head>
+  <body class="content-page">
+    <div class="reading-progress" data-reading-progress></div>
+    <header class="site-header content-site-header">
+    <a class="brand" href="/" aria-label="Browso home">
+      <img src="/assets/images/browso-white-logo.png" alt="" width="32" height="32" />
+      <span>Browso</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/docs/" aria-current="page">Docs</a>
+      <a href="/releases.html">Releases</a>
+    </nav>
+    <a class="header-cta header-github" href="https://github.com/browso/browso" target="_blank" rel="noopener noreferrer">GitHub</a>
+  </header>
+    <main class="docs-layout">
+      <aside class="docs-sidebar" data-docs-sidebar>
+    <div class="docs-sidebar-heading">
+      <strong>Documentation</strong>
+      <button type="button" data-docs-close aria-label="Close documentation navigation">Close</button>
+    </div>
+    <nav><a href="/docs/">Browso Documentation</a><a href="/docs/architecture.html">Architecture</a><a href="/docs/backend.html">Backend</a><a href="/docs/agent.html">Agent Modes And Automation</a><a href="/docs/settings-and-memory.html">Settings, Memory, And Knowledge</a><a href="/docs/safety-and-privacy.html" aria-current="page">Safety And Privacy</a><a href="/docs/commands.html">Commands</a><a href="/docs/testing.html">Testing Guide</a><a href="/docs/build-and-release.html">Build And Release</a></nav>
+  </aside>
+      <article class="content-article docs-article">
+        <button class="docs-menu-button" type="button" data-docs-open>Browse documentation</button>
+        <div class="article-eyebrow">Browso documentation</div>
+        <div class="markdown-body"><h1 id="safety-and-privacy">Safety And Privacy</h1>
+<h2 id="trust-model">Trust Model</h2>
+<p>Browso handles three classes of data:</p>
+<ul><li>untrusted web content</li><li>user-authored prompts, preferences, and notes</li><li>provider credentials and application configuration</li></ul>
+<p>These classes are not interchangeable. Web content is context, never policy.</p>
+<h2 id="automation-decisions">Automation Decisions</h2>
+<p><code>SafetyPolicy</code> returns one of three outcomes:</p>
+<ul><li><code>allow</code>: read-only or reversible browsing can proceed</li><li><code>confirm</code>: the agent stops and hands control to the user</li><li><code>block</code>: the requested automation is prohibited</li></ul>
+<p>Confirmation-required examples:</p>
+<ul><li>submitting forms or messages</li><li>purchases and checkout</li><li>login and authentication</li><li>downloads, bookings, and applications</li><li>deletion or account changes</li></ul>
+<p>Blocked examples:</p>
+<ul><li>CAPTCHA bypass</li><li>phishing or credential harvesting</li><li>spam</li><li>offensive exploitation</li></ul>
+<p>The current UI does not implement a one-click approval token. A confirmation decision therefore stops automation and asks the user to perform or explicitly control the sensitive step.</p>
+<h2 id="credentials">Credentials</h2>
+<ul><li>API keys are loaded in the main process from <code>.env</code>.</li><li>Passwords and payment details must not be sent to a model.</li><li>Browser pages and renderers do not receive provider keys.</li><li><code>.env</code>, certificates, and private keys are excluded by <code>.gitignore</code>.</li></ul>
+<h2 id="local-data">Local Data</h2>
+<p>User memory and saved knowledge are stored in Browso&#039;s local application data. They are separate:</p>
+<ul><li>memory contains distilled preferences and instructions</li><li>knowledge contains pages the user explicitly saves</li></ul>
+<p>Browsing history is not automatically indexed.</p>
+<h2 id="model-data-flow">Model Data Flow</h2>
+<p>For an ordinary page question, the configured provider can receive:</p>
+<ul><li>the user prompt</li><li>a screenshot of the active page</li><li>selected text</li><li>a bounded excerpt of current page text</li><li>relevant saved knowledge</li><li>enabled user memory</li></ul>
+<p>With Ollama, inference is sent to the configured local Ollama endpoint. With OpenAI or Anthropic, that context leaves the device and is subject to the provider&#039;s policies.</p>
+<p>There is not yet a hard “never send page content to cloud” switch. Until that is implemented, use Ollama for private pages.</p>
+<h2 id="logging">Logging</h2>
+<p>Chat messages, page text, current URLs, and saved knowledge are treated as sensitive channels and are not logged as IPC payloads. Operational failures may include module names, channel names, tab IDs, and error messages.</p></div>
+        <div class="article-edit-link"><a href="https://github.com/browso/browso.github.io/edit/main/content/docs/safety-and-privacy.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a></div>
+      </article>
+      <aside class="article-toc"><strong>On this page</strong><nav><a class="toc-level-2" href="#trust-model">Trust Model</a><a class="toc-level-2" href="#automation-decisions">Automation Decisions</a><a class="toc-level-2" href="#credentials">Credentials</a><a class="toc-level-2" href="#local-data">Local Data</a><a class="toc-level-2" href="#model-data-flow">Model Data Flow</a><a class="toc-level-2" href="#logging">Logging</a></nav></aside>
+    </main>
+    <footer class="site-footer content-footer">
+    <div class="footer-brand">
+      <a class="brand" href="/">
+        <img src="/assets/images/browso-white-logo.png" alt="" width="32" height="32" />
+        <span>Browso</span>
+      </a>
+      <p>An AI browser that helps you browse and act.</p>
+    </div>
+    <div class="content-footer-links">
+      <a href="/blog/">Blog</a><a href="/docs/">Documentation</a><a href="/releases.html">Releases</a>
+    </div>
+    <p class="footer-copyright">© 2026 Browso. Browse further.</p>
+  </footer>
+    <script src="/resources/js/content.js"></script>
+  </body>
+</html>

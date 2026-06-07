@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="The Browso desktop process is the backend. All privileged operations are implemented there and reached through validated IPC." />
+    <meta name="theme-color" content="#07080b" />
+    <meta property="og:title" content="Backend" />
+    <meta property="og:description" content="The Browso desktop process is the backend. All privileged operations are implemented there and reached through validated IPC." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://browso.org/docs/backend.html" />
+    <title>Backend · Browso</title>
+    <link rel="canonical" href="https://browso.org/docs/backend.html" />
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg?v=2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/resources/css/style.css" />
+  </head>
+  <body class="content-page">
+    <div class="reading-progress" data-reading-progress></div>
+    <header class="site-header content-site-header">
+    <a class="brand" href="/" aria-label="Browso home">
+      <img src="/assets/images/browso-white-logo.png" alt="" width="32" height="32" />
+      <span>Browso</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/docs/" aria-current="page">Docs</a>
+      <a href="/releases.html">Releases</a>
+    </nav>
+    <a class="header-cta header-github" href="https://github.com/browso/browso" target="_blank" rel="noopener noreferrer">GitHub</a>
+  </header>
+    <main class="docs-layout">
+      <aside class="docs-sidebar" data-docs-sidebar>
+    <div class="docs-sidebar-heading">
+      <strong>Documentation</strong>
+      <button type="button" data-docs-close aria-label="Close documentation navigation">Close</button>
+    </div>
+    <nav><a href="/docs/">Browso Documentation</a><a href="/docs/architecture.html">Architecture</a><a href="/docs/backend.html" aria-current="page">Backend</a><a href="/docs/agent.html">Agent Modes And Automation</a><a href="/docs/settings-and-memory.html">Settings, Memory, And Knowledge</a><a href="/docs/safety-and-privacy.html">Safety And Privacy</a><a href="/docs/commands.html">Commands</a><a href="/docs/testing.html">Testing Guide</a><a href="/docs/build-and-release.html">Build And Release</a></nav>
+  </aside>
+      <article class="content-article docs-article">
+        <button class="docs-menu-button" type="button" data-docs-open>Browse documentation</button>
+        <div class="article-eyebrow">Browso documentation</div>
+        <div class="markdown-body"><h1 id="backend">Backend</h1>
+<h2 id="overview">Overview</h2>
+<p>The Browso desktop process is the backend. All privileged operations are implemented there and reached through validated IPC.</p>
+<h2 id="ipc-contract">IPC Contract</h2>
+<p><code>EventManager</code> owns channel registration. Request schemas live in <code>ipcSchemas.ts</code>; unvalidated renderer input must not be passed to services.</p>
+<h3 id="context">Context</h3>
+<div class="content-table-wrap"><table><thead><tr><th>Channel</th><th>Result</th></tr></thead><tbody><tr><td><code>browser-context-current</code></td><td>Current title, URL, selection, readable text, tab ID, timestamp</td></tr><tr><td><code>browser-context-tabs</code></td><td>Readable context for every accessible open tab</td></tr></tbody></table></div>
+<p>Current-page text is capped at 50,000 characters. Multi-tab text is capped at 12,000 characters per tab at the service boundary and reduced again when added to prompts.</p>
+<h3 id="modes">Modes</h3>
+<div class="content-table-wrap"><table><thead><tr><th>Channel</th><th>Result</th></tr></thead><tbody><tr><td><code>agent-modes-list</code></td><td>Public mode definitions</td></tr><tr><td><code>ai-settings-update</code></td><td>Persists <code>activeAgentMode</code> and other AI settings</td></tr></tbody></table></div>
+<p>The mode registry is authoritative. Renderers should not hard-code mode instructions or tool permissions.</p>
+<h3 id="knowledge">Knowledge</h3>
+<div class="content-table-wrap"><table><thead><tr><th>Channel</th><th>Input</th><th>Result</th></tr></thead><tbody><tr><td><code>knowledge-list</code></td><td>none</td><td>Saved pages, newest first</td></tr><tr><td><code>knowledge-save-current</code></td><td>optional note</td><td>Saved or updated page</td></tr><tr><td><code>knowledge-search</code></td><td>query and optional limit</td><td>Ranked pages with excerpts</td></tr><tr><td><code>knowledge-delete</code></td><td>page ID</td><td>Updated page list</td></tr></tbody></table></div>
+<p>Saved pages are stored in <code>knowledge-store.json</code> under Browso application data. Saving the same URL updates the existing record instead of duplicating it.</p>
+<h3 id="chat-and-automation">Chat And Automation</h3>
+<div class="content-table-wrap"><table><thead><tr><th>Channel</th><th>Purpose</th></tr></thead><tbody><tr><td><code>sidebar-chat-message</code></td><td>Start a chat, local command, or routed browser task</td></tr><tr><td><code>computer-use-start</code></td><td>Start a constrained browser automation session</td></tr><tr><td><code>computer-use-get-state</code></td><td>Read current and recent session state</td></tr></tbody></table></div>
+<h2 id="context-construction">Context Construction</h2>
+<p>The model prompt is assembled from independent sources:</p>
+<ol><li>active mode policy</li><li>current page title, URL, selection, and text</li><li>open-tab context when research mode or a tab comparison is requested</li><li>locally retrieved saved pages</li><li>enabled user memory</li><li>compacted conversation history</li></ol>
+<p>Webpage content is explicitly labeled untrusted. A page cannot grant itself tools or replace system instructions.</p>
+<h2 id="persistence">Persistence</h2>
+<p>All local data is written atomically at the service level as JSON under Browso&#039;s application data directory.</p>
+<div class="content-table-wrap"><table><thead><tr><th>File</th><th>Data</th></tr></thead><tbody><tr><td><code>ai-settings.json</code></td><td>provider, model, browser defaults, active mode</td></tr><tr><td><code>memory-store.json</code></td><td>user preferences and instructions</td></tr><tr><td><code>knowledge-store.json</code></td><td>explicitly saved pages and notes</td></tr></tbody></table></div>
+<p>The current implementation is intentionally local and single-user. SQLite is a reasonable next storage backend when migrations, larger datasets, or concurrent writers are required.</p>
+<h2 id="retrieval">Retrieval</h2>
+<p>Knowledge search is deterministic local ranking:</p>
+<ul><li>title matches: weight 8</li><li>note matches: weight 6</li><li>URL matches: weight 3</li><li>body matches: weight 1, capped per term</li></ul>
+<p>This works without a model or network connection. It is not semantic vector search. An embedding implementation should preserve the same result shape and retain a lexical fallback.</p>
+<h2 id="error-handling">Error Handling</h2>
+<ul><li>IPC input errors are rejected by Zod.</li><li>Page extraction failures return no context and are logged without page text.</li><li>Model errors are mapped to user-facing authentication, rate-limit, network, timeout, or generic failures.</li><li>Sensitive IPC channels do not write message or page content to logs.</li></ul>
+<h2 id="backend-rules">Backend Rules</h2>
+<ol><li>Privileged logic belongs in the main process, not a renderer.</li><li>Every renderer input is validated.</li><li>Services return serializable data.</li><li>Page content is untrusted and size-limited.</li><li>Secrets are read only in the main process.</li><li>Persistent stores remain separate by purpose.</li><li>Consequential automation passes through safety policy before execution.</li></ol></div>
+        <div class="article-edit-link"><a href="https://github.com/browso/browso.github.io/edit/main/content/docs/backend.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a></div>
+      </article>
+      <aside class="article-toc"><strong>On this page</strong><nav><a class="toc-level-2" href="#overview">Overview</a><a class="toc-level-2" href="#ipc-contract">IPC Contract</a><a class="toc-level-3" href="#context">Context</a><a class="toc-level-3" href="#modes">Modes</a><a class="toc-level-3" href="#knowledge">Knowledge</a><a class="toc-level-3" href="#chat-and-automation">Chat And Automation</a><a class="toc-level-2" href="#context-construction">Context Construction</a><a class="toc-level-2" href="#persistence">Persistence</a><a class="toc-level-2" href="#retrieval">Retrieval</a><a class="toc-level-2" href="#error-handling">Error Handling</a><a class="toc-level-2" href="#backend-rules">Backend Rules</a></nav></aside>
+    </main>
+    <footer class="site-footer content-footer">
+    <div class="footer-brand">
+      <a class="brand" href="/">
+        <img src="/assets/images/browso-white-logo.png" alt="" width="32" height="32" />
+        <span>Browso</span>
+      </a>
+      <p>An AI browser that helps you browse and act.</p>
+    </div>
+    <div class="content-footer-links">
+      <a href="/blog/">Blog</a><a href="/docs/">Documentation</a><a href="/releases.html">Releases</a>
+    </div>
+    <p class="footer-copyright">© 2026 Browso. Browse further.</p>
+  </footer>
+    <script src="/resources/js/content.js"></script>
+  </body>
+</html>

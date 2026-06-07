@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Commands are parsed locally before model invocation." />
+    <meta name="theme-color" content="#07080b" />
+    <meta property="og:title" content="Commands" />
+    <meta property="og:description" content="Commands are parsed locally before model invocation." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://browso.org/docs/commands.html" />
+    <title>Commands · Browso</title>
+    <link rel="canonical" href="https://browso.org/docs/commands.html" />
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg?v=2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/resources/css/style.css" />
+  </head>
+  <body class="content-page">
+    <div class="reading-progress" data-reading-progress></div>
+    <header class="site-header content-site-header">
+    <a class="brand" href="/" aria-label="Browso home">
+      <img src="/assets/images/browso-white-logo.png" alt="" width="32" height="32" />
+      <span>Browso</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/docs/" aria-current="page">Docs</a>
+      <a href="/releases.html">Releases</a>
+    </nav>
+    <a class="header-cta header-github" href="https://github.com/browso/browso" target="_blank" rel="noopener noreferrer">GitHub</a>
+  </header>
+    <main class="docs-layout">
+      <aside class="docs-sidebar" data-docs-sidebar>
+    <div class="docs-sidebar-heading">
+      <strong>Documentation</strong>
+      <button type="button" data-docs-close aria-label="Close documentation navigation">Close</button>
+    </div>
+    <nav><a href="/docs/">Browso Documentation</a><a href="/docs/architecture.html">Architecture</a><a href="/docs/backend.html">Backend</a><a href="/docs/agent.html">Agent Modes And Automation</a><a href="/docs/settings-and-memory.html">Settings, Memory, And Knowledge</a><a href="/docs/safety-and-privacy.html">Safety And Privacy</a><a href="/docs/commands.html" aria-current="page">Commands</a><a href="/docs/testing.html">Testing Guide</a><a href="/docs/build-and-release.html">Build And Release</a></nav>
+  </aside>
+      <article class="content-article docs-article">
+        <button class="docs-menu-button" type="button" data-docs-open>Browse documentation</button>
+        <div class="article-eyebrow">Browso documentation</div>
+        <div class="markdown-body"><h1 id="commands">Commands</h1>
+<p>Commands are parsed locally before model invocation.</p>
+<h2 id="help"><code>/help</code></h2>
+<p>Lists supported local commands.</p>
+<h2 id="text"><code>@text</code></h2>
+<p>Stores a user-memory instruction without sending it to a model first.</p>
+<div class="code-block"><div class="code-block-header"><span>text</span><button type="button" data-copy-code>Copy</button></div><pre><code class="language-text">@Prefer concise answers with source links</code></pre></div>
+<p>Memory must be enabled.</p>
+<h2 id="save-note"><code>/save [note]</code></h2>
+<p>Saves or updates the current page in local knowledge.</p>
+<div class="code-block"><div class="code-block-header"><span>text</span><button type="button" data-copy-code>Copy</button></div><pre><code class="language-text">/save Compare this source with the vendor documentation</code></pre></div>
+<p>The optional text becomes the page note. The bookmark button in the sidebar performs the same save without a note.</p>
+<h2 id="notes"><code>/notes</code></h2>
+<p>Lists the ten most recently updated saved pages with URLs and notes.</p>
+<h2 id="mode"><code>/mode</code></h2>
+<p>Shows the current mode and all available modes.</p>
+<h2 id="mode-2"><code>/mode &lt;id&gt;</code></h2>
+<p>Changes the persisted active mode.</p>
+<div class="code-block"><div class="code-block-header"><span>text</span><button type="button" data-copy-code>Copy</button></div><pre><code class="language-text">/mode research
+/mode shopping
+/mode scraper</code></pre></div>
+<p>Valid IDs:</p>
+<ul><li><code>copilot</code></li><li><code>research</code></li><li><code>shopping</code></li><li><code>scraper</code></li><li><code>developer</code></li><li><code>security</code></li></ul>
+<p>The sidebar selector is the preferred visual control; the command is useful for keyboard-driven workflows.</p>
+<h2 id="message-routing">Message Routing</h2>
+<p>If input is not a local command, the backend checks direct search, comparison, and browser-action intent before using contextual chat.</p>
+<p><code>Enter</code> sends. <code>Shift+Enter</code> inserts a newline.</p></div>
+        <div class="article-edit-link"><a href="https://github.com/browso/browso.github.io/edit/main/content/docs/commands.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a></div>
+      </article>
+      <aside class="article-toc"><strong>On this page</strong><nav><a class="toc-level-2" href="#help">/help</a><a class="toc-level-2" href="#text">@text</a><a class="toc-level-2" href="#save-note">/save [note]</a><a class="toc-level-2" href="#notes">/notes</a><a class="toc-level-2" href="#mode">/mode</a><a class="toc-level-2" href="#mode-2">/mode &lt;id&gt;</a><a class="toc-level-2" href="#message-routing">Message Routing</a></nav></aside>
+    </main>
+    <footer class="site-footer content-footer">
+    <div class="footer-brand">
+      <a class="brand" href="/">
+        <img src="/assets/images/browso-white-logo.png" alt="" width="32" height="32" />
+        <span>Browso</span>
+      </a>
+      <p>An AI browser that helps you browse and act.</p>
+    </div>
+    <div class="content-footer-links">
+      <a href="/blog/">Blog</a><a href="/docs/">Documentation</a><a href="/releases.html">Releases</a>
+    </div>
+    <p class="footer-copyright">© 2026 Browso. Browse further.</p>
+  </footer>
+    <script src="/resources/js/content.js"></script>
+  </body>
+</html>

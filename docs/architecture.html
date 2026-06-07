@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Browso is one browseragent platform with five layers:" />
+    <meta name="theme-color" content="#07080b" />
+    <meta property="og:title" content="Architecture" />
+    <meta property="og:description" content="Browso is one browseragent platform with five layers:" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://browso.org/docs/architecture.html" />
+    <title>Architecture · Browso</title>
+    <link rel="canonical" href="https://browso.org/docs/architecture.html" />
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg?v=2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/resources/css/style.css" />
+  </head>
+  <body class="content-page">
+    <div class="reading-progress" data-reading-progress></div>
+    <header class="site-header content-site-header">
+    <a class="brand" href="/" aria-label="Browso home">
+      <img src="/assets/images/browso-white-logo.png" alt="" width="32" height="32" />
+      <span>Browso</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/docs/" aria-current="page">Docs</a>
+      <a href="/releases.html">Releases</a>
+    </nav>
+    <a class="header-cta header-github" href="https://github.com/browso/browso" target="_blank" rel="noopener noreferrer">GitHub</a>
+  </header>
+    <main class="docs-layout">
+      <aside class="docs-sidebar" data-docs-sidebar>
+    <div class="docs-sidebar-heading">
+      <strong>Documentation</strong>
+      <button type="button" data-docs-close aria-label="Close documentation navigation">Close</button>
+    </div>
+    <nav><a href="/docs/">Browso Documentation</a><a href="/docs/architecture.html" aria-current="page">Architecture</a><a href="/docs/backend.html">Backend</a><a href="/docs/agent.html">Agent Modes And Automation</a><a href="/docs/settings-and-memory.html">Settings, Memory, And Knowledge</a><a href="/docs/safety-and-privacy.html">Safety And Privacy</a><a href="/docs/commands.html">Commands</a><a href="/docs/testing.html">Testing Guide</a><a href="/docs/build-and-release.html">Build And Release</a></nav>
+  </aside>
+      <article class="content-article docs-article">
+        <button class="docs-menu-button" type="button" data-docs-open>Browse documentation</button>
+        <div class="article-eyebrow">Browso documentation</div>
+        <div class="markdown-body"><h1 id="architecture">Architecture</h1>
+<h2 id="design-goal">Design Goal</h2>
+<p>Browso is one browser-agent platform with five layers:</p>
+<div class="code-block"><div class="code-block-header"><span>text</span><button type="button" data-copy-code>Copy</button></div><pre><code class="language-text">1. Browser context
+2. AI reasoning
+3. Tools and automation
+4. Memory and knowledge
+5. Safety</code></pre></div>
+<p>Agent modes configure these layers. They do not create separate applications or duplicate browser integrations.</p>
+<h2 id="runtime-boundaries">Runtime Boundaries</h2>
+<h3 id="browser-pages">Browser Pages</h3>
+<p>Remote pages run in sandboxed <code>WebContentsView</code> instances:</p>
+<ul><li><code>nodeIntegration: false</code></li><li><code>contextIsolation: true</code></li><li><code>sandbox: true</code></li><li><code>webSecurity: true</code></li></ul>
+<p>Pages do not receive the sidebar preload API.</p>
+<h3 id="renderer">Renderer</h3>
+<p>The top bar, side panel, and settings window are React renderers. They contain presentation state and call explicit preload methods. They do not read files, model keys, or application databases directly.</p>
+<h3 id="preload">Preload</h3>
+<p>Preload scripts expose narrow APIs through <code>contextBridge</code>. They translate renderer calls to named IPC channels.</p>
+<h3 id="main-process">Main Process</h3>
+<p>The Browso desktop process is the trusted backend. It owns:</p>
+<ul><li>tabs and navigation</li><li>page-context extraction</li><li>model configuration and invocation</li><li>automation tools</li><li>persisted settings, memory, and knowledge</li><li>safety decisions</li><li>IPC validation and logging</li></ul>
+<h2 id="backend-modules">Backend Modules</h2>
+<div class="content-table-wrap"><table><thead><tr><th>Module</th><th>Responsibility</th></tr></thead><tbody><tr><td><code>BrowserContextService.ts</code></td><td>Extract normalized page text, selection, title, URL, and open-tab context</td></tr><tr><td><code>LLMClient.ts</code></td><td>Route requests, construct prompts, retrieve context, stream model output</td></tr><tr><td><code>ComputerUseManager.ts</code></td><td>Execute constrained browser tasks and report progress</td></tr><tr><td><code>AgentTools.ts</code></td><td>Higher-level browser actions used by autonomous sessions</td></tr><tr><td><code>AgentModes.ts</code></td><td>Define mode purpose, available capability names, and system policy</td></tr><tr><td><code>SafetyPolicy.ts</code></td><td>Classify automation goals as allowed, confirmation-required, or blocked</td></tr><tr><td><code>KnowledgeStore.ts</code></td><td>Persist saved pages and perform ranked local retrieval</td></tr><tr><td><code>MemoryStore.ts</code></td><td>Persist user preferences, profile facts, workflows, and instructions</td></tr><tr><td><code>AISettings.ts</code></td><td>Persist provider, model, browser defaults, and active mode</td></tr><tr><td><code>EventManager.ts</code></td><td>Register validated IPC endpoints and broadcast state</td></tr></tbody></table></div>
+<h2 id="request-flow">Request Flow</h2>
+<div class="code-block"><div class="code-block-header"><span>text</span><button type="button" data-copy-code>Copy</button></div><pre><code class="language-text">User submits sidebar message
+  -&gt; preload invokes sidebar-chat-message
+  -&gt; EventManager validates payload with Zod
+  -&gt; LLMClient handles local commands
+  -&gt; LLMClient captures screenshot and browser context
+  -&gt; relevant saved knowledge is retrieved
+  -&gt; mode policy is added to the system prompt
+  -&gt; request is routed to chat or browser automation
+  -&gt; streamed state is sent back to the sidebar</code></pre></div>
+<h2 id="why-there-is-no-separate-http-server">Why There Is No Separate HTTP Server</h2>
+<p>The desktop application already has a trusted local backend. Adding Express only to call code in the same application would add:</p>
+<ul><li>another process and port</li><li>CORS and lifecycle complexity</li><li>duplicated authentication and validation boundaries</li><li>no useful isolation by itself</li></ul>
+<p>A remote API is appropriate only when synchronization, team accounts, hosted models, or remote automation become product requirements. The service modules are deliberately independent of the renderer so they can later sit behind HTTP without rewriting the browser UI.</p>
+<h2 id="extension-points">Extension Points</h2>
+<ul><li>Replace lexical retrieval in <code>KnowledgeStore</code> with embeddings while preserving its search contract.</li><li>Add a Playwright worker behind an automation adapter for isolated sessions.</li><li>Add a cloud synchronization implementation behind knowledge and settings repositories.</li><li>Add modes by extending <code>AgentModeId</code> and the registry, then granting only the required tools.</li></ul></div>
+        <div class="article-edit-link"><a href="https://github.com/browso/browso.github.io/edit/main/content/docs/architecture.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a></div>
+      </article>
+      <aside class="article-toc"><strong>On this page</strong><nav><a class="toc-level-2" href="#design-goal">Design Goal</a><a class="toc-level-2" href="#runtime-boundaries">Runtime Boundaries</a><a class="toc-level-3" href="#browser-pages">Browser Pages</a><a class="toc-level-3" href="#renderer">Renderer</a><a class="toc-level-3" href="#preload">Preload</a><a class="toc-level-3" href="#main-process">Main Process</a><a class="toc-level-2" href="#backend-modules">Backend Modules</a><a class="toc-level-2" href="#request-flow">Request Flow</a><a class="toc-level-2" href="#why-there-is-no-separate-http-server">Why There Is No Separate HTTP Server</a><a class="toc-level-2" href="#extension-points">Extension Points</a></nav></aside>
+    </main>
+    <footer class="site-footer content-footer">
+    <div class="footer-brand">
+      <a class="brand" href="/">
+        <img src="/assets/images/browso-white-logo.png" alt="" width="32" height="32" />
+        <span>Browso</span>
+      </a>
+      <p>An AI browser that helps you browse and act.</p>
+    </div>
+    <div class="content-footer-links">
+      <a href="/blog/">Blog</a><a href="/docs/">Documentation</a><a href="/releases.html">Releases</a>
+    </div>
+    <p class="footer-copyright">© 2026 Browso. Browse further.</p>
+  </footer>
+    <script src="/resources/js/content.js"></script>
+  </body>
+</html>

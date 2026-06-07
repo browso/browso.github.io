@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Settings are persisted by AISettingsStore in aisettings.json." />
+    <meta name="theme-color" content="#07080b" />
+    <meta property="og:title" content="Settings, Memory, And Knowledge" />
+    <meta property="og:description" content="Settings are persisted by AISettingsStore in aisettings.json." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://browso.org/docs/settings-and-memory.html" />
+    <title>Settings, Memory, And Knowledge · Browso</title>
+    <link rel="canonical" href="https://browso.org/docs/settings-and-memory.html" />
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg?v=2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/resources/css/style.css" />
+  </head>
+  <body class="content-page">
+    <div class="reading-progress" data-reading-progress></div>
+    <header class="site-header content-site-header">
+    <a class="brand" href="/" aria-label="Browso home">
+      <img src="/assets/images/browso-white-logo.png" alt="" width="32" height="32" />
+      <span>Browso</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/docs/" aria-current="page">Docs</a>
+      <a href="/releases.html">Releases</a>
+    </nav>
+    <a class="header-cta header-github" href="https://github.com/browso/browso" target="_blank" rel="noopener noreferrer">GitHub</a>
+  </header>
+    <main class="docs-layout">
+      <aside class="docs-sidebar" data-docs-sidebar>
+    <div class="docs-sidebar-heading">
+      <strong>Documentation</strong>
+      <button type="button" data-docs-close aria-label="Close documentation navigation">Close</button>
+    </div>
+    <nav><a href="/docs/">Browso Documentation</a><a href="/docs/architecture.html">Architecture</a><a href="/docs/backend.html">Backend</a><a href="/docs/agent.html">Agent Modes And Automation</a><a href="/docs/settings-and-memory.html" aria-current="page">Settings, Memory, And Knowledge</a><a href="/docs/safety-and-privacy.html">Safety And Privacy</a><a href="/docs/commands.html">Commands</a><a href="/docs/testing.html">Testing Guide</a><a href="/docs/build-and-release.html">Build And Release</a></nav>
+  </aside>
+      <article class="content-article docs-article">
+        <button class="docs-menu-button" type="button" data-docs-open>Browse documentation</button>
+        <div class="article-eyebrow">Browso documentation</div>
+        <div class="markdown-body"><h1 id="settings-memory-and-knowledge">Settings, Memory, And Knowledge</h1>
+<h2 id="settings">Settings</h2>
+<p>Settings are persisted by <code>AISettingsStore</code> in <code>ai-settings.json</code>.</p>
+<div class="content-table-wrap"><table><thead><tr><th>Setting</th><th>Purpose</th><th>Default</th></tr></thead><tbody><tr><td><code>provider</code></td><td>Ollama, OpenAI, or Anthropic</td><td><code>ollama</code></td></tr><tr><td><code>model</code></td><td>Provider model identifier</td><td><code>gemma4:e2b</code></td></tr><tr><td><code>ollamaBaseUrl</code></td><td>Local Ollama endpoint</td><td><code>http://127.0.0.1:11434</code></td></tr><tr><td><code>homepage</code></td><td>New-tab target</td><td>internal welcome page</td></tr><tr><td><code>searchEngine</code></td><td>Direct-search provider</td><td><code>duckduckgo</code></td></tr><tr><td><code>autoRouteToSandbox</code></td><td>Route suitable code work to sandbox</td><td>enabled</td></tr><tr><td><code>sidebarWidth</code></td><td>Persistent side-panel width</td><td><code>400</code></td></tr><tr><td><code>memoryEnabled</code></td><td>Include user memory in prompts</td><td>enabled</td></tr><tr><td><code>activeAgentMode</code></td><td>Active mode policy</td><td><code>copilot</code></td></tr></tbody></table></div>
+<p>Provider credentials are not stored in this file.</p>
+<h2 id="profiles-and-contexts">Profiles And Contexts</h2>
+<p>Profiles group multiple named contexts. The application always keeps at least one profile and one context per profile.</p>
+<p>Each context isolates:</p>
+<ul><li>the live AI conversation</li><li>saved user memories</li><li>pages saved for local AI knowledge</li></ul>
+<p>Switching context immediately swaps those three data sources. The context name, profile name, and optional purpose are included in the AI system prompt. Existing flat memory and knowledge files migrate into the default <code>Personal / General</code> context.</p>
+<p>Browser tabs, website cookies, cache, provider credentials, and general application preferences remain global. Profiles do not currently create separate Electron website sessions.</p>
+<p>The Data tab provides explicit local-data controls:</p>
+<ul><li>clear the current AI conversation</li><li>review, delete, or clear pages saved for AI knowledge</li><li>clear the browser cache without removing sign-ins</li><li>clear cookies and site storage, which signs users out of websites</li></ul>
+<p>The application does not persist a general browsing-history database.</p>
+<h2 id="user-memory">User Memory</h2>
+<p>Memory stores durable facts about how the assistant should work with the user. It is implemented by <code>MemoryStore</code>.</p>
+<p>Categories:</p>
+<ul><li><code>preference</code></li><li><code>profile</code></li><li><code>workflow</code></li><li><code>instruction</code></li></ul>
+<p>Memory can be added explicitly with <code>@...</code> or distilled from phrases such as “remember that”, “I prefer”, and “always”.</p>
+<p>Memory is bounded to 100 entries. Duplicate normalized content updates the existing entry.</p>
+<h2 id="saved-knowledge">Saved Knowledge</h2>
+<p>Knowledge stores pages the user explicitly chooses to preserve. It is implemented by <code>KnowledgeStore</code>.</p>
+<p>Each page contains:</p>
+<ul><li>ID</li><li>title and URL</li><li>normalized readable text</li><li>selected text captured at save time</li><li>optional note</li><li>creation and update timestamps</li></ul>
+<p>Save a page with the bookmark button or <code>/save</code>. Saving the same URL updates the existing record.</p>
+<h2 id="retrieval">Retrieval</h2>
+<p>Each chat request searches saved knowledge locally using the user message as the query. Up to five relevant excerpts can be added to the model context.</p>
+<p>Research mode also includes bounded open-tab context. Saved knowledge and open tabs remain separate sources and are labeled separately in the prompt.</p>
+<h2 id="memory-is-not-knowledge">Memory Is Not Knowledge</h2>
+<div class="content-table-wrap"><table><thead><tr><th>Memory</th><th>Knowledge</th></tr></thead><tbody><tr><td>User preferences and instructions</td><td>Saved web pages and notes</td></tr><tr><td>Small distilled statements</td><td>Larger page records</td></tr><tr><td>Can be automatically inferred</td><td>Explicit save action only</td></tr><tr><td>Controls assistant behavior</td><td>Supplies factual retrieval context</td></tr></tbody></table></div>
+<p>Neither store is a raw debug log.</p>
+<h2 id="storage-limits-and-migration">Storage Limits And Migration</h2>
+<p>The JSON implementation is appropriate for the current local, single-process application. Move to SQLite when the product needs:</p>
+<ul><li>schema migrations</li><li>thousands of large pages</li><li>transactional writes</li><li>indexing beyond in-memory ranking</li><li>synchronization metadata</li></ul>
+<p>Add vector retrieval behind the search contract; do not remove lexical fallback or require cloud embeddings for local use.</p></div>
+        <div class="article-edit-link"><a href="https://github.com/browso/browso.github.io/edit/main/content/docs/settings-and-memory.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a></div>
+      </article>
+      <aside class="article-toc"><strong>On this page</strong><nav><a class="toc-level-2" href="#settings">Settings</a><a class="toc-level-2" href="#profiles-and-contexts">Profiles And Contexts</a><a class="toc-level-2" href="#user-memory">User Memory</a><a class="toc-level-2" href="#saved-knowledge">Saved Knowledge</a><a class="toc-level-2" href="#retrieval">Retrieval</a><a class="toc-level-2" href="#memory-is-not-knowledge">Memory Is Not Knowledge</a><a class="toc-level-2" href="#storage-limits-and-migration">Storage Limits And Migration</a></nav></aside>
+    </main>
+    <footer class="site-footer content-footer">
+    <div class="footer-brand">
+      <a class="brand" href="/">
+        <img src="/assets/images/browso-white-logo.png" alt="" width="32" height="32" />
+        <span>Browso</span>
+      </a>
+      <p>An AI browser that helps you browse and act.</p>
+    </div>
+    <div class="content-footer-links">
+      <a href="/blog/">Blog</a><a href="/docs/">Documentation</a><a href="/releases.html">Releases</a>
+    </div>
+    <p class="footer-copyright">© 2026 Browso. Browse further.</p>
+  </footer>
+    <script src="/resources/js/content.js"></script>
+  </body>
+</html>
