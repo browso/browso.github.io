@@ -424,10 +424,15 @@ async function buildBlog() {
   const cards = posts
     .map(
       (post, index) => `<article class="blog-card${index === 0 ? " blog-card-featured" : ""}">
-        <div class="blog-card-meta"><time datetime="${post.attributes.date}">${formatDate(post.attributes.date)}</time><span>${readingTime(post.body)} min read</span></div>
-        <h2><a href="/blog/${post.slug}.html">${escapeHtml(post.title)}</a></h2>
-        <p>${escapeHtml(post.description)}</p>
-        <a class="blog-read-link" href="/blog/${post.slug}.html">Read article <span>→</span></a>
+        <div class="blog-card-top">
+          <span class="blog-card-kicker">${index === 0 ? "Featured story" : "Journal"}</span>
+          <div class="blog-card-meta"><time datetime="${post.attributes.date}">${formatDate(post.attributes.date)}</time><span>${readingTime(post.body)} min read</span></div>
+        </div>
+        <div class="blog-card-copy">
+          <h2><a href="/blog/${post.slug}.html">${escapeHtml(post.title)}</a></h2>
+          <p>${escapeHtml(post.description)}</p>
+        </div>
+        <a class="blog-read-link" href="/blog/${post.slug}.html"><span>Read article</span><b aria-hidden="true">→</b></a>
       </article>`,
     )
     .join("");

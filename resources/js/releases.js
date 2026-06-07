@@ -101,7 +101,18 @@ async function loadReleases() {
       document.querySelector(window.location.hash)?.scrollIntoView();
     }
   } catch (error) {
-    releaseState.textContent = "The first stable Browso release is being prepared.";
+    releaseState.innerHTML = `
+      <span class="release-state-icon" aria-hidden="true">01</span>
+      <div>
+        <span class="release-state-label">Coming soon</span>
+        <h2>The first stable Browso release is being prepared.</h2>
+        <p>In the meantime, follow development on GitHub or read how Browso is built and tested.</p>
+        <div class="release-state-actions">
+          <a class="release-state-primary" href="https://github.com/browso/browso">View on GitHub <span aria-hidden="true">↗</span></a>
+          <a href="/docs/build-and-release.html">Read the release process <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    `;
     console.warn("Unable to load releases", error);
   }
 }

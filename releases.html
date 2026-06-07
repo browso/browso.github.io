@@ -19,15 +19,14 @@
     />
     <link rel="stylesheet" href="resources/css/style.css" />
   </head>
-  <body class="releases-page">
-    <header class="site-header">
+  <body class="content-page releases-page">
+    <header class="site-header content-site-header">
       <a class="brand" href="/" aria-label="Browso home">
         <img src="assets/images/browso-white-logo.png" alt="" width="32" height="32" />
         <span>Browso</span>
       </a>
       <nav aria-label="Main navigation">
         <a href="/">Home</a>
-        <a href="/#benchmarks">Benchmarks</a>
         <a href="/blog/">Blog</a>
         <a href="/docs/">Docs</a>
         <a href="/releases.html" aria-current="page">Releases</a>
@@ -45,24 +44,40 @@
     <main>
       <section class="releases-hero">
         <span class="section-label">Stable downloads</span>
-        <h1>Every Browso release.</h1>
+        <h1>Release notes and downloads, in one place.</h1>
         <p>
-          Read what changed and download the correct build for your computer.
-          Release notes live here and each version remains available.
+          Find the right Browso build for your computer, see what changed, and
+          return to any previously published version.
         </p>
+        <div class="release-platforms" aria-label="Supported platforms">
+          <span>macOS</span>
+          <span>Windows</span>
+          <span>Linux</span>
+        </div>
       </section>
 
-      <div class="release-state" data-release-state>Loading releases...</div>
+      <div class="release-state" data-release-state>
+        <span class="release-state-icon" aria-hidden="true">↓</span>
+        <div>
+          <span class="release-state-label">Release catalog</span>
+          <h2>Checking for stable builds...</h2>
+        </div>
+      </div>
       <section class="release-catalog" data-release-catalog hidden></section>
     </main>
 
-    <footer class="site-footer">
+    <footer class="site-footer content-footer">
       <div class="footer-brand">
         <a class="brand" href="/">
           <img src="assets/images/browso-white-logo.png" alt="" width="32" height="32" />
           <span>Browso</span>
         </a>
         <p>An AI browser that helps you browse and act.</p>
+      </div>
+      <div class="content-footer-links">
+        <a href="/blog/">Blog</a>
+        <a href="/docs/">Documentation</a>
+        <a href="/releases.html">Releases</a>
       </div>
       <p class="footer-copyright">© 2026 Browso. Browse further.</p>
     </footer>
