@@ -15,7 +15,7 @@ concurrency:
 jobs:
   publish:
     name: Update benchmark history
-    if: github.event.client_payload.repository == 'Browso/browso'
+    if: github.event.client_payload.repository == 'browso/browso'
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -35,7 +35,7 @@ jobs:
 
           jq -e '
             .schemaVersion == 2 and
-            .source.repository == "Browso/browso" and
+            ((.source.repository | ascii_downcase) == "browso/browso") and
             (.source.commit | type == "string") and
             (.generatedAt | type == "string") and
             (.metrics.productionBuild.median | type == "number")
