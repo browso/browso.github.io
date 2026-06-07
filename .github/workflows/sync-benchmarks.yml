@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: publish-benchmarks
+  group: publish-site-data
   cancel-in-progress: false
 
 jobs:

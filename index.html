@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Download the Browso beta for macOS and Windows. Browso is an AI browser with a built-in agent that searches websites, compares options, and takes action with your approval."
+      content="Download Browso for macOS, Windows, and Linux. Browso is an AI browser with a built-in agent that searches websites, compares options, and takes action with your approval."
     />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="author" content="Browso" />
@@ -96,19 +96,17 @@
               "Visible searches and clicks",
               "User approval for important actions",
               "Open-source code available on GitHub",
-              "Beta downloads for macOS and Windows"
+              "Stable downloads for macOS, Windows, and Linux"
             ],
             "codeRepository": "https://github.com/browso/browso",
-            "softwareVersion": "1.0.0-beta",
+            "softwareVersion": "1.0.0",
             "downloadUrl": [
-              "https://github.com/browso/browso/releases/download/v1.0.0-beta/browso-mac-apple-silicon.dmg",
-              "https://github.com/browso/browso/releases/download/v1.0.0-beta/browso-mac-mac-intel.dmg",
-              "https://github.com/browso/browso/releases/download/v1.0.0-beta/browso-win-x64.exe"
+              "https://browso.org/releases.html"
             ],
             "author": {
               "@id": "https://browso.org/#organization"
             },
-            "releaseNotes": "Browso 1.0.0 beta is available for Apple Silicon Macs, Intel Macs, and 64-bit Windows."
+            "releaseNotes": "Release notes and platform downloads are available in the Browso release catalog."
           },
           {
             "@type": "FAQPage",
@@ -127,7 +125,7 @@
                 "name": "Which operating systems will Browso support?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "The Browso beta is available for macOS and 64-bit Windows. Linux support is coming soon."
+                  "text": "Browso stable releases are available for macOS, 64-bit Windows, and 64-bit Linux."
                 }
               },
               {
@@ -135,7 +133,7 @@
                 "name": "Is Browso available to download?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Yes. Browso 1.0.0 beta is available for Apple Silicon Macs, Intel Macs, and 64-bit Windows."
+                  "text": "Yes. Open the releases page to download the latest stable Browso build for your platform."
                 }
               }
             ]
@@ -153,6 +151,7 @@
       <nav aria-label="Main navigation">
         <a href="#features">Features</a>
         <a href="#benchmarks">Benchmarks</a>
+        <a href="/releases.html">Releases</a>
         <a href="#try-online" data-open-web-demo>Try online</a>
         <a href="#download">Download</a>
       </nav>
@@ -195,7 +194,7 @@
           </p>
           <div class="hero-actions">
             <a class="button button-primary" href="#download">
-              Download beta
+              Download Browso
               <svg viewBox="0 0 20 20" aria-hidden="true">
                 <path d="M4 10h12m-5-5 5 5-5 5" />
               </svg>
@@ -462,31 +461,34 @@
 
       <section class="download" id="download" aria-labelledby="download-title">
         <div>
-          <span class="section-label">Beta release</span>
-          <h2 id="download-title">Download Browso beta.</h2>
-          <p>Try Browso 1.0.0 beta on macOS or Windows. Linux support is coming soon.</p>
+          <span class="section-label">Latest stable release</span>
+          <h2 id="download-title">Download Browso.</h2>
+          <p data-latest-release-copy>
+            Choose your platform, or browse the complete release history and notes.
+          </p>
+          <a class="release-history-link" href="/releases.html">View all releases and notes →</a>
         </div>
         <div class="download-list">
-          <a class="download-option" href="https://github.com/browso/browso/releases/download/v1.0.0-beta/browso-mac-apple-silicon.dmg">
+          <a class="download-option" href="/releases.html" data-latest-release-asset="macAppleSilicon">
             <img src="assets/icons/platforms/apple.svg" alt="" width="24" height="24" />
             <strong>macOS · Apple Silicon</strong>
-            <small>Beta DMG</small>
+            <small>Stable DMG</small>
           </a>
-          <a class="download-option" href="https://github.com/browso/browso/releases/download/v1.0.0-beta/browso-mac-mac-intel.dmg">
+          <a class="download-option" href="/releases.html" data-latest-release-asset="macIntel">
             <img src="assets/icons/platforms/apple.svg" alt="" width="24" height="24" />
             <strong>macOS · Intel</strong>
-            <small>Beta DMG</small>
+            <small>Stable DMG</small>
           </a>
-          <a class="download-option" href="https://github.com/browso/browso/releases/download/v1.0.0-beta/browso-win-x64.exe">
+          <a class="download-option" href="/releases.html" data-latest-release-asset="windows">
             <img src="assets/icons/platforms/windows.svg" alt="" width="24" height="24" />
             <strong>Windows · x64</strong>
-            <small>Beta EXE</small>
+            <small>Stable EXE</small>
           </a>
-          <button class="download-option" type="button" disabled>
+          <a class="download-option" href="/releases.html" data-latest-release-asset="linux">
             <img src="assets/icons/platforms/linux.svg" alt="" width="24" height="24" />
-            <strong>Linux</strong>
-            <small>Coming soon</small>
-          </button>
+            <strong>Linux · x64</strong>
+            <small>Stable AppImage</small>
+          </a>
         </div>
       </section>
     </main>
@@ -503,6 +505,7 @@
         <div>
           <strong>Product</strong>
           <a href="#features">Features</a>
+          <a href="/releases.html">Releases</a>
           <a href="#faq">FAQ</a>
           <a href="#download">Download</a>
         </div>
@@ -540,11 +543,11 @@
         </details>
         <details>
           <summary>Which operating systems will Browso support?</summary>
-          <p>The Browso beta is available for macOS and 64-bit Windows. Linux support is coming soon.</p>
+          <p>Browso stable releases are available for macOS, 64-bit Windows, and 64-bit Linux.</p>
         </details>
         <details>
           <summary>Is Browso available to download?</summary>
-          <p>Yes. Browso 1.0.0 beta is available for Apple Silicon Macs, Intel Macs, and 64-bit Windows.</p>
+          <p>Yes. Open the releases page to choose a version and download the correct build for your platform.</p>
         </details>
       </div>
     </dialog>

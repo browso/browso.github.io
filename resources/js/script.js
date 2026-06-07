@@ -565,6 +565,8 @@ const benchmarkVersion = document.querySelector("[data-benchmark-version]");
 const benchmarkRun = document.querySelector("[data-benchmark-run]");
 const benchmarkOldest = document.querySelector("[data-benchmark-oldest]");
 const benchmarkNewest = document.querySelector("[data-benchmark-newest]");
+const latestReleaseCopy = document.querySelector("[data-latest-release-copy]");
+const latestReleaseAssets = document.querySelectorAll("[data-latest-release-asset]");
 let benchmarkRuns = [];
 
 function benchmarkMedian(run, metric) {
@@ -686,7 +688,12 @@ async function loadBenchmarks() {
     const data = await response.json();
     benchmarkRuns = Array.isArray(data.runs)
       ? data.runs
-          .filter((run) => run?.schemaVersion === 2 && run?.generatedAt)
+          .filter(
+            (run) =>
+              run?.schemaVersion === 2 &&
+              run?.generatedAt &&
+              !String(run?.source?.version || "").includes("-"),
+          )
           .sort((left, right) => new Date(left.generatedAt) - new Date(right.generatedAt))
       : [];
     if (benchmarkRuns.length === 0) throw new Error("No benchmark runs published yet");
@@ -707,3 +714,25 @@ async function loadBenchmarks() {
 
 benchmarkMetric?.addEventListener("change", () => renderBenchmarkChart(benchmarkMetric.value));
 void loadBenchmarks();
+
+async function loadLatestRelease() {
+  if (!latestReleaseCopy || latestReleaseAssets.length === 0) return;
+
+  try {
+    const response = await fetch("assets/data/releases.json", { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    const latest = Array.isArray(data.releases) ? data.releases[0] : null;
+    if (!latest?.version || !latest.assets) return;
+
+    latestReleaseCopy.textContent = `Browso ${latest.version} is the latest stable release. Choose your platform below.`;
+    latestReleaseAssets.forEach((link) => {
+      const url = latest.assets[link.dataset.latestReleaseAsset];
+      if (url) link.href = url;
+    });
+  } catch (error) {
+    console.warn("Unable to load latest release", error);
+  }
+}
+
+void loadLatestRelease();

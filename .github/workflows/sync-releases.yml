@@ -1,0 +1,86 @@
+name: Publish Releases
+
+on:
+  repository_dispatch:
+    types:
+      - browso-release-published
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-site-data
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Update release catalog
+    if: github.event.client_payload.repository == 'browso/browso'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate and merge release
+        env:
+          RELEASE_JSON: ${{ toJson(github.event.client_payload.release) }}
+        run: |
+          mkdir -p assets/data
+          printf '%s\n' "$RELEASE_JSON" > "$RUNNER_TEMP/incoming-release.json"
+
+          jq -e '
+            (.version | test("^[0-9]+\\.[0-9]+\\.0$")) and
+            (.tag == ("v" + .version)) and
+            (.type == "minor" or .type == "major") and
+            (.notes | type == "array") and
+            (.assets.macAppleSilicon | type == "string") and
+            (.assets.macIntel | type == "string") and
+            (.assets.windows | type == "string") and
+            (.assets.linux | type == "string")
+          ' "$RUNNER_TEMP/incoming-release.json" > /dev/null
+
+          if [ ! -f assets/data/releases.json ]; then
+            printf '%s\n' '{"schemaVersion":1,"updatedAt":null,"releases":[]}' \
+              > assets/data/releases.json
+          fi
+
+          jq \
+            --slurpfile incoming "$RUNNER_TEMP/incoming-release.json" \
+            '
+              .schemaVersion = 1 |
+              .updatedAt = $incoming[0].publishedAt |
+              .releases = (
+                [$incoming[0]] + [
+                  .releases[] |
+                  select(.tag != $incoming[0].tag)
+                ] |
+                sort_by(
+                  .version |
+                  split(".") |
+                  map(tonumber)
+                ) |
+                reverse
+              )
+            ' assets/data/releases.json > "$RUNNER_TEMP/releases.json"
+
+          mv "$RUNNER_TEMP/releases.json" assets/data/releases.json
+
+      - name: Commit release catalog
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/data/releases.json
+
+          if git diff --cached --quiet; then
+            echo "This release is already published on the website."
+            exit 0
+          fi
+
+          version="$(jq -r '.releases[0].version' assets/data/releases.json)"
+          git commit -m "Publish Browso v${version}"
+          git pull --rebase origin main
+          git push origin HEAD:main
