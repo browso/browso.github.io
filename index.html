@@ -150,7 +150,7 @@
 
       <nav aria-label="Main navigation">
         <a href="#features">Features</a>
-        <a href="#benchmarks">Benchmarks</a>
+        <a href="/benchmarks.html">Benchmarks</a>
         <a href="/blog/">Blog</a>
         <a href="/docs/">Docs</a>
         <a href="/releases.html">Releases</a>
@@ -416,48 +416,11 @@
             <span class="section-label">Measured on every passing build</span>
             <h2 id="benchmarks-title">Performance, in public.</h2>
             <p>
-              Browso benchmarks linting, type checks, tests, and production builds
-              after CI passes. Lower execution time is better.
+              See every Browso benchmark and performance graph together in one
+              continuously scrolling report.
             </p>
           </div>
-          <div class="benchmark-latest" data-benchmark-latest hidden>
-            <span>Latest result</span>
-            <strong data-benchmark-version>Loading...</strong>
-            <a data-benchmark-run href="https://github.com/browso/browso/actions" target="_blank" rel="noopener noreferrer">
-              View CI run
-            </a>
-          </div>
-        </div>
-
-        <div class="benchmark-state" data-benchmark-loading>
-          Loading benchmark history...
-        </div>
-        <div class="benchmark-dashboard" data-benchmark-dashboard hidden>
-          <div class="benchmark-cards" data-benchmark-cards></div>
-          <article class="benchmark-chart-card">
-            <div class="benchmark-chart-header">
-              <div>
-                <span>Trend over passing builds</span>
-                <strong data-benchmark-chart-title>Production build</strong>
-              </div>
-              <label>
-                <span class="sr-only">Benchmark metric</span>
-                <select data-benchmark-metric>
-                  <option value="productionBuild">Production build</option>
-                  <option value="tests">Automated tests</option>
-                  <option value="nodeTypecheck">Node type check</option>
-                  <option value="webTypecheck">Web type check</option>
-                  <option value="lint">Linting</option>
-                  <option value="formatting">Formatting</option>
-                </select>
-              </label>
-            </div>
-            <div class="benchmark-chart" data-benchmark-chart></div>
-            <div class="benchmark-chart-footer">
-              <span data-benchmark-oldest></span>
-              <span data-benchmark-newest></span>
-            </div>
-          </article>
+          <a class="benchmark-page-link" href="/benchmarks.html">View all benchmarks →</a>
         </div>
       </section>
 
@@ -509,6 +472,7 @@
           <a href="#features">Features</a>
           <a href="/blog/">Blog</a>
           <a href="/docs/">Documentation</a>
+          <a href="/benchmarks.html">Benchmarks</a>
           <a href="/releases.html">Releases</a>
           <a href="#faq">FAQ</a>
           <a href="#download">Download</a>

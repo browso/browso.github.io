@@ -259,6 +259,7 @@ function header(active) {
       ${link("/", "Home", "home")}
       ${link("/blog/", "Blog", "blog")}
       ${link("/docs/", "Docs", "docs")}
+      ${link("/benchmarks.html", "Benchmarks", "benchmarks")}
       ${link("/releases.html", "Releases", "releases")}
     </nav>
     <a class="header-cta header-github" href="https://github.com/browso/browso" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -275,7 +276,7 @@ function footer() {
       <p>An AI browser that helps you browse and act.</p>
     </div>
     <div class="content-footer-links">
-      <a href="/blog/">Blog</a><a href="/docs/">Documentation</a><a href="/releases.html">Releases</a>
+      <a href="/blog/">Blog</a><a href="/docs/">Documentation</a><a href="/benchmarks.html">Benchmarks</a><a href="/releases.html">Releases</a>
     </div>
     <p class="footer-copyright">© 2026 Browso. Browse further.</p>
   </footer>`;
@@ -489,6 +490,7 @@ async function buildSitemap(documents, posts) {
     ["/", "1.0"],
     ["/blog/", "0.9"],
     ["/docs/", "0.9"],
+    ["/benchmarks.html", "0.9"],
     ["/releases.html", "0.9"],
     ["/terms.html", "0.3"],
     ["/privacy.html", "0.3"],

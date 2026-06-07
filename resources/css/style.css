@@ -2631,6 +2631,23 @@ html[data-theme="light"] .cursor-icon {
   line-height: 1.7;
 }
 
+.benchmark-page-link {
+  flex: 0 0 auto;
+  padding: 13px 18px;
+  border: 1px solid rgba(45, 107, 255, 0.45);
+  border-radius: 12px;
+  color: #a9c0ff;
+  background: rgba(45, 107, 255, 0.1);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.benchmark-page-link:hover {
+  border-color: var(--blue);
+  background: rgba(45, 107, 255, 0.18);
+  transform: translateY(-1px);
+}
+
 .benchmark-latest {
   min-width: 190px;
   padding: 18px 20px;
@@ -2812,6 +2829,57 @@ html[data-theme="light"] .benchmark-latest,
 html[data-theme="light"] .benchmark-card,
 html[data-theme="light"] .benchmark-chart-card {
   background: rgba(255, 255, 255, 0.72);
+}
+
+.benchmarks-page main {
+  min-height: 70vh;
+}
+
+.benchmarks-page-hero {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 48px;
+  padding: 104px 0 54px;
+}
+
+.benchmarks-page-hero > div:first-child {
+  min-width: 0;
+}
+
+.benchmarks-page-hero h1 {
+  max-width: 900px;
+  margin: 16px 0 24px;
+  font-size: clamp(44px, 7vw, 76px);
+  letter-spacing: -0.055em;
+  line-height: 1.02;
+}
+
+.benchmarks-page-hero p {
+  max-width: 690px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.benchmark-report {
+  padding-bottom: 120px;
+}
+
+.benchmark-chart-list {
+  display: grid;
+  gap: 24px;
+}
+
+.benchmark-chart-list .benchmark-chart-card {
+  scroll-margin-top: 24px;
+}
+
+.benchmark-chart-empty {
+  display: grid;
+  place-items: center;
+  color: var(--muted);
 }
 
 .releases-page main {
@@ -3877,6 +3945,31 @@ html[data-theme="light"] .release-download img {
     gap: 24px;
   }
 
+  .benchmark-page-link {
+    width: 100%;
+    text-align: center;
+  }
+
+  .benchmarks-page-hero {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 28px;
+    padding: 64px 0 42px;
+  }
+
+  .benchmarks-page-hero h1 {
+    font-size: clamp(38px, 11vw, 48px);
+    overflow-wrap: anywhere;
+  }
+
+  .benchmarks-page-hero .benchmark-latest {
+    width: 100%;
+  }
+
+  .benchmark-report {
+    padding-bottom: 84px;
+  }
+
   .benchmark-latest {
     width: 100%;
   }
@@ -3902,7 +3995,7 @@ html[data-theme="light"] .release-download img {
   .site-header,
   main,
   footer {
-    width: min(100% - 28px, 1180px);
+    width: min(1180px, calc(100% - 28px));
   }
 
   .site-header {
