@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Commands are parsed locally before model invocation." />
+    <meta name="description" content="Commands are optional shortcuts. Type / in the AI panel to see suggestions. Normal questions do not need a command." />
     <meta name="theme-color" content="#07080b" />
-    <meta property="og:title" content="Commands" />
-    <meta property="og:description" content="Commands are parsed locally before model invocation." />
+    <meta property="og:title" content="Chat Commands" />
+    <meta property="og:description" content="Commands are optional shortcuts. Type / in the AI panel to see suggestions. Normal questions do not need a command." />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://browso.org/docs/commands.html" />
-    <title>Commands · Browso</title>
+    <title>Chat Commands · Browso</title>
     <link rel="canonical" href="https://browso.org/docs/commands.html" />
     <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg?v=2" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -38,41 +38,31 @@
       <strong>Documentation</strong>
       <button type="button" data-docs-close aria-label="Close documentation navigation">Close</button>
     </div>
-    <nav><a href="/docs/">Browso Documentation</a><a href="/docs/architecture.html">Architecture</a><a href="/docs/backend.html">Backend</a><a href="/docs/agent.html">Agent Modes And Automation</a><a href="/docs/settings-and-memory.html">Settings, Memory, And Knowledge</a><a href="/docs/safety-and-privacy.html">Safety And Privacy</a><a href="/docs/commands.html" aria-current="page">Commands</a><a href="/docs/testing.html">Testing Guide</a><a href="/docs/build-and-release.html">Build And Release</a></nav>
+    <nav><a href="/docs/">Browso Documentation</a><a href="/docs/getting-started.html">Getting Started</a><a href="/docs/using-browso.html">Using Browso</a><a href="/docs/settings-and-memory.html">Settings, Memory, And Knowledge</a><a href="/docs/commands.html" aria-current="page">Chat Commands</a><a href="/docs/safety-and-privacy.html">Safety And Privacy</a><a href="/docs/architecture.html">Architecture</a><a href="/docs/backend.html">Backend</a><a href="/docs/agent.html">Agent Modes And Automation</a><a href="/docs/testing.html">Testing Guide</a><a href="/docs/build-and-release.html">Build And Release</a></nav>
   </aside>
       <article class="content-article docs-article">
         <button class="docs-menu-button" type="button" data-docs-open>Browse documentation</button>
         <div class="article-eyebrow">Browso documentation</div>
-        <div class="markdown-body"><h1 id="commands">Commands</h1>
-<p>Commands are parsed locally before model invocation.</p>
+        <div class="markdown-body"><h1 id="chat-commands">Chat Commands</h1>
+<p>Commands are optional shortcuts. Type <code>/</code> in the AI panel to see suggestions. Normal questions do not need a command.</p>
 <h2 id="help"><code>/help</code></h2>
-<p>Lists supported local commands.</p>
-<h2 id="text"><code>@text</code></h2>
-<p>Stores a user-memory instruction without sending it to a model first.</p>
-<div class="code-block"><div class="code-block-header"><span>text</span><button type="button" data-copy-code>Copy</button></div><pre><code class="language-text">@Prefer concise answers with source links</code></pre></div>
-<p>Memory must be enabled.</p>
+<p>Shows the commands available in your version of Browso.</p>
 <h2 id="save-note"><code>/save [note]</code></h2>
-<p>Saves or updates the current page in local knowledge.</p>
-<div class="code-block"><div class="code-block-header"><span>text</span><button type="button" data-copy-code>Copy</button></div><pre><code class="language-text">/save Compare this source with the vendor documentation</code></pre></div>
-<p>The optional text becomes the page note. The bookmark button in the sidebar performs the same save without a note.</p>
+<p>Saves the current page for future questions. The note is optional.</p>
+<div class="code-block"><div class="code-block-header"><span>text</span><button type="button" data-copy-code>Copy</button></div><pre><code class="language-text">/save Useful source for warranty comparisons</code></pre></div>
+<p>Clicking the bookmark button in the AI panel also saves the page, without a note. Saving the same page again updates it instead of creating another copy.</p>
 <h2 id="notes"><code>/notes</code></h2>
-<p>Lists the ten most recently updated saved pages with URLs and notes.</p>
-<h2 id="mode"><code>/mode</code></h2>
-<p>Shows the current mode and all available modes.</p>
-<h2 id="mode-2"><code>/mode &lt;id&gt;</code></h2>
-<p>Changes the persisted active mode.</p>
-<div class="code-block"><div class="code-block-header"><span>text</span><button type="button" data-copy-code>Copy</button></div><pre><code class="language-text">/mode research
-/mode shopping
-/mode scraper</code></pre></div>
-<p>Valid IDs:</p>
-<ul><li><code>copilot</code></li><li><code>research</code></li><li><code>shopping</code></li><li><code>scraper</code></li><li><code>developer</code></li><li><code>security</code></li></ul>
-<p>The sidebar selector is the preferred visual control; the command is useful for keyboard-driven workflows.</p>
-<h2 id="message-routing">Message Routing</h2>
-<p>If input is not a local command, the backend checks direct search, comparison, and browser-action intent before using contextual chat.</p>
-<p><code>Enter</code> sends. <code>Shift+Enter</code> inserts a newline.</p></div>
+<p>Lists your ten most recently updated saved pages, including their addresses and notes.</p>
+<h2 id="something-to-remember"><code>@something to remember</code></h2>
+<p>Saves a short preference or instruction directly to memory:</p>
+<div class="code-block"><div class="code-block-header"><span>text</span><button type="button" data-copy-code>Copy</button></div><pre><code class="language-text">@Prefer concise answers with source links</code></pre></div>
+<p>Memory must be enabled in <strong>Settings &gt; Memory</strong>.</p>
+<h2 id="keyboard-tips">Keyboard Tips</h2>
+<ul><li><code>Enter</code> sends.</li><li><code>Shift+Enter</code> adds a new line.</li><li><code>Ctrl+E</code> or <code>Cmd+E</code> shows or hides the AI panel.</li></ul>
+<p>Browso selects the appropriate agent mode automatically. <code>/mode</code> is not a supported command.</p></div>
         <div class="article-edit-link"><a href="https://github.com/browso/browso.github.io/edit/main/content/docs/commands.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a></div>
       </article>
-      <aside class="article-toc"><strong>On this page</strong><nav><a class="toc-level-2" href="#help">/help</a><a class="toc-level-2" href="#text">@text</a><a class="toc-level-2" href="#save-note">/save [note]</a><a class="toc-level-2" href="#notes">/notes</a><a class="toc-level-2" href="#mode">/mode</a><a class="toc-level-2" href="#mode-2">/mode &lt;id&gt;</a><a class="toc-level-2" href="#message-routing">Message Routing</a></nav></aside>
+      <aside class="article-toc"><strong>On this page</strong><nav><a class="toc-level-2" href="#help">/help</a><a class="toc-level-2" href="#save-note">/save [note]</a><a class="toc-level-2" href="#notes">/notes</a><a class="toc-level-2" href="#something-to-remember">@something to remember</a><a class="toc-level-2" href="#keyboard-tips">Keyboard Tips</a></nav></aside>
     </main>
     <footer class="site-footer content-footer">
     <div class="footer-brand">

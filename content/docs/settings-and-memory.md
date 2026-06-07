@@ -1,22 +1,39 @@
 # Settings, Memory, And Knowledge
 
-## Settings
+Open Settings from the button at the top of the AI panel. You can also use
+`Ctrl+,` or `Cmd+,`.
 
-Settings are persisted by `AISettingsStore` in `ai-settings.json`.
+## General
 
-| Setting              | Purpose                             | Default                  |
-| -------------------- | ----------------------------------- | ------------------------ |
-| `provider`           | Ollama, OpenAI, or Anthropic        | `ollama`                 |
-| `model`              | Provider model identifier           | `gemma4:e2b`             |
-| `ollamaBaseUrl`      | Local Ollama endpoint               | `http://127.0.0.1:11434` |
-| `homepage`           | New-tab target                      | internal welcome page    |
-| `searchEngine`       | Direct-search provider              | `duckduckgo`             |
-| `autoRouteToSandbox` | Route suitable code work to sandbox | enabled                  |
-| `sidebarWidth`       | Persistent side-panel width         | `400`                    |
-| `memoryEnabled`      | Include user memory in prompts      | enabled                  |
-| `activeAgentMode`    | Active mode policy                  | `copilot`                |
+Use **General** to:
 
-Provider credentials are not stored in this file.
+- check for Browso updates
+- choose light or dark appearance
+- change the homepage used by new tabs
+- choose Google, DuckDuckGo, or Bing for address-bar searches
+
+## AI
+
+Use **AI** to choose the service that answers your questions:
+
+- **Ollama** runs through your configured local Ollama server.
+- **OpenAI** uses an OpenAI API key configured for Browso.
+- **Anthropic** uses an Anthropic API key configured for Browso.
+
+For Ollama, the default server address is `http://127.0.0.1:11434`. Browso
+lists the models installed on that server. The default model is `gemma4:e2b`.
+
+Cloud providers can receive your question, current page context, screenshot,
+relevant saved pages, and enabled memory. Use Ollama when that information
+should stay with your local model server.
+
+## Workspace
+
+Use **Workspace** to change the width of the AI panel. You can also resize it by
+dragging its left edge.
+
+The automatic local-runner option controls whether suitable code, file, and
+data tasks can move to Browso's scoped local runner.
 
 ## Profiles And Contexts
 
@@ -35,8 +52,8 @@ Existing flat memory and knowledge files migrate into the default
 `Personal / General` context.
 
 Browser tabs, website cookies, cache, provider credentials, and general
-application preferences remain global. Profiles do not currently create
-separate Electron website sessions.
+application preferences remain shared. Profiles do not create separate website
+login sessions.
 
 The Data tab provides explicit local-data controls:
 
@@ -50,7 +67,6 @@ The application does not persist a general browsing-history database.
 ## User Memory
 
 Memory stores durable facts about how the assistant should work with the user.
-It is implemented by `MemoryStore`.
 
 Categories:
 
@@ -67,8 +83,7 @@ existing entry.
 
 ## Saved Knowledge
 
-Knowledge stores pages the user explicitly chooses to preserve. It is
-implemented by `KnowledgeStore`.
+Knowledge stores pages the user explicitly chooses to preserve.
 
 Each page contains:
 
@@ -101,16 +116,10 @@ tabs remain separate sources and are labeled separately in the prompt.
 
 Neither store is a raw debug log.
 
-## Storage Limits And Migration
+## Data Controls
 
-The JSON implementation is appropriate for the current local, single-process
-application. Move to SQLite when the product needs:
+Use **Settings > Data** to clear the current AI conversation, delete saved
+pages, clear cached files, or clear cookies and site storage. Clearing cached
+files does not sign you out. Clearing cookies and site storage does.
 
-- schema migrations
-- thousands of large pages
-- transactional writes
-- indexing beyond in-memory ranking
-- synchronization metadata
-
-Add vector retrieval behind the search contract; do not remove lexical fallback
-or require cloud embeddings for local use.
+Browso does not maintain a separate general browsing-history database.

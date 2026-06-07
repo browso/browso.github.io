@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Every mode uses the same browser context, model router, memory, knowledge, and automation runtime. A mode changes:" />
+    <meta name="description" content="This page is a contributor reference. Users do not need to choose a mode: Browso selects one from the wording of each request." />
     <meta name="theme-color" content="#07080b" />
     <meta property="og:title" content="Agent Modes And Automation" />
-    <meta property="og:description" content="Every mode uses the same browser context, model router, memory, knowledge, and automation runtime. A mode changes:" />
+    <meta property="og:description" content="This page is a contributor reference. Users do not need to choose a mode: Browso selects one from the wording of each request." />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://browso.org/docs/agent.html" />
     <title>Agent Modes And Automation · Browso</title>
@@ -38,61 +38,30 @@
       <strong>Documentation</strong>
       <button type="button" data-docs-close aria-label="Close documentation navigation">Close</button>
     </div>
-    <nav><a href="/docs/">Browso Documentation</a><a href="/docs/architecture.html">Architecture</a><a href="/docs/backend.html">Backend</a><a href="/docs/agent.html" aria-current="page">Agent Modes And Automation</a><a href="/docs/settings-and-memory.html">Settings, Memory, And Knowledge</a><a href="/docs/safety-and-privacy.html">Safety And Privacy</a><a href="/docs/commands.html">Commands</a><a href="/docs/testing.html">Testing Guide</a><a href="/docs/build-and-release.html">Build And Release</a></nav>
+    <nav><a href="/docs/">Browso Documentation</a><a href="/docs/getting-started.html">Getting Started</a><a href="/docs/using-browso.html">Using Browso</a><a href="/docs/settings-and-memory.html">Settings, Memory, And Knowledge</a><a href="/docs/commands.html">Chat Commands</a><a href="/docs/safety-and-privacy.html">Safety And Privacy</a><a href="/docs/architecture.html">Architecture</a><a href="/docs/backend.html">Backend</a><a href="/docs/agent.html" aria-current="page">Agent Modes And Automation</a><a href="/docs/testing.html">Testing Guide</a><a href="/docs/build-and-release.html">Build And Release</a></nav>
   </aside>
       <article class="content-article docs-article">
         <button class="docs-menu-button" type="button" data-docs-open>Browse documentation</button>
         <div class="article-eyebrow">Browso documentation</div>
         <div class="markdown-body"><h1 id="agent-modes-and-automation">Agent Modes And Automation</h1>
-<h2 id="modes-are-policy-not-separate-apps">Modes Are Policy, Not Separate Apps</h2>
-<p>Every mode uses the same browser context, model router, memory, knowledge, and automation runtime. A mode changes:</p>
-<ul><li>the task framing supplied to the model</li><li>the named capabilities the model should rely on</li><li>mode-specific safety and evidence requirements</li></ul>
-<p>Definitions live in <code>src/main/AgentModes.ts</code>.</p>
-<h2 id="available-modes">Available Modes</h2>
-<h3 id="copilot">Copilot</h3>
-<p>For current-page questions, summaries, explanations, and selected text.</p>
-<p>Context priority:</p>
-<ol><li>selected text</li><li>current readable page</li><li>relevant saved knowledge</li><li>general model knowledge</li></ol>
-<p>The response should state when the page does not contain the answer.</p>
-<h3 id="research">Research</h3>
-<p>For comparing sources and synthesizing open tabs.</p>
-<p>Research mode automatically includes bounded context from open tabs. Responses should name source titles and URLs, identify contradictions, and separate evidence from inference.</p>
-<h3 id="shopping">Shopping</h3>
-<p>For product comparison and commerce-page analysis.</p>
-<p>It can inspect products, prices, review signals, return information, and cart summaries. It must stop before authentication, payment, checkout submission, or placing an order.</p>
-<h3 id="scraper">Scraper</h3>
-<p>For structured extraction from the current page.</p>
-<p>The model is instructed to preserve a consistent schema, mark missing values, and never invent absent fields. CSV scheduling and recurring jobs are not yet implemented.</p>
-<h3 id="developer">Developer</h3>
-<p>For technical documentation, API extraction, examples, and sandbox-assisted work. It should prefer exact API names and identify deprecated or inferred behavior.</p>
-<h3 id="security">Security</h3>
-<p>For defensive analysis of visible page signals, phishing indicators, and security posture. Offensive exploitation, credential theft, evasion, and persistence are outside the mode boundary.</p>
-<h2 id="request-routing">Request Routing</h2>
-<p><code>LLMClient.sendChatMessage</code> routes in this order:</p>
-<ol><li>local commands</li><li>screenshot and context capture</li><li>conversation and user-memory update</li><li>explicit comparison fast path</li><li>direct search fast path</li><li>browser automation</li><li>contextual model response</li></ol>
-<p>Mode selection affects model context. Automation routing still depends on the requested action, because a research question should not click simply because research mode is active.</p>
-<h2 id="autonomous-browser-runtime">Autonomous Browser Runtime</h2>
-<p>Browso currently automates its own live tabs. It does not launch a separate Playwright browser.</p>
-<p>Two execution paths exist:</p>
-<ul><li>planned computer-use sessions for narrower action sequences</li><li>autonomous agent sessions for broader multi-step tasks</li></ul>
-<p>Session state includes:</p>
-<ul><li>goal and summary</li><li>status</li><li>current URL</li><li>screenshot</li><li>step list</li><li>operational logs</li></ul>
-<p>The sidebar displays the active step and recent progress.</p>
-<h2 id="tool-boundary">Tool Boundary</h2>
-<p>High-level tools are defined in <code>AgentTools.ts</code>. Examples include:</p>
-<ul><li>navigation and web search</li><li>page observation and extraction</li><li>element click and text entry</li><li>scrolling and waiting</li><li>commerce-page scanning</li><li>product and search-result selection</li><li>blocker detection</li><li>cart summary extraction</li><li>user handoff</li></ul>
-<p>The model does not receive an unrestricted Node.js or shell tool. The code sandbox is a separate, scoped subsystem.</p>
-<h2 id="safety-preflight">Safety Preflight</h2>
-<p>Before browser automation begins, <code>SafetyPolicy</code> classifies the goal.</p>
-<ul><li>Allowed goals continue.</li><li>Consequential goals stop for user control.</li><li>Prohibited goals are rejected.</li></ul>
-<p>This preflight complements checks inside the automation tools. It is not a replacement for tool-level validation.</p>
-<h2 id="known-limits">Known Limits</h2>
-<ul><li>selectors and page heuristics can break when sites change</li><li>authentication and anti-bot pages require user control</li><li>screenshots and DOM text can disagree</li><li>there is no durable resume token for a paused sensitive action</li><li>automation runs in the user&#039;s live browser, not an isolated profile</li></ul>
-<h2 id="planned-runtime-upgrade">Planned Runtime Upgrade</h2>
-<p>A future Playwright adapter can provide isolated controlled sessions. It should implement the existing conceptual tool contract rather than replace modes, knowledge, safety, or the sidebar.</p></div>
+<p>This page is a contributor reference. Users do not need to choose a mode: Browso selects one from the wording of each request.</p>
+<h2 id="automatic-modes">Automatic Modes</h2>
+<div class="content-table-wrap"><table><thead><tr><th>Mode</th><th>Typical request</th></tr></thead><tbody><tr><td>Copilot</td><td>Explain, summarize, or answer from the current page</td></tr><tr><td>Research</td><td>Compare tabs, sources, evidence, or alternatives</td></tr><tr><td>Shopping</td><td>Compare products, prices, sellers, reviews, and returns</td></tr><tr><td>Scraper</td><td>Extract a table or repeatable set of fields</td></tr><tr><td>Developer</td><td>Read technical documentation or explain implementation details</td></tr><tr><td>Security</td><td>Check visible phishing and security signals defensively</td></tr></tbody></table></div>
+<p>All modes use the same browser, AI provider, saved knowledge, memory, and safety rules. A mode changes how the request is framed; it is not a separate app.</p>
+<h2 id="what-automation-can-do">What Automation Can Do</h2>
+<p>Browso can work in its open tabs to:</p>
+<ul><li>search and navigate</li><li>read page text and visible page state</li><li>click ordinary controls</li><li>enter non-sensitive text</li><li>scroll and wait</li><li>compare products or search results</li><li>report the active step in the AI panel</li></ul>
+<p>It does not receive unrestricted access to the operating system through the browser agent.</p>
+<h2 id="when-automation-stops">When Automation Stops</h2>
+<p>Before a browser task starts, Browso checks whether it is ordinary, consequential, or prohibited.</p>
+<ul><li>Read-only and reversible browsing can continue.</li><li>Login, checkout, submission, download, booking, and deletion require user control.</li><li>CAPTCHA bypass, phishing, spam, credential theft, and offensive exploitation are blocked.</li></ul>
+<p>The user must complete sensitive steps directly. There is currently no one-click approval that lets an existing task continue through them.</p>
+<h2 id="current-limits">Current Limits</h2>
+<ul><li>Website layout changes can break clicking and extraction.</li><li>Login and anti-bot pages require user control.</li><li>A screenshot and extracted page text may not always match.</li><li>Automation uses the user&#039;s live Browso tabs rather than a separate isolated browser session.</li></ul>
+<p>Mode definitions live in <code>src/main/AgentModes.ts</code>. Browser tools are defined in <code>src/main/AgentTools.ts</code>, and the preflight rules are in <code>src/main/SafetyPolicy.ts</code>.</p></div>
         <div class="article-edit-link"><a href="https://github.com/browso/browso.github.io/edit/main/content/docs/agent.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a></div>
       </article>
-      <aside class="article-toc"><strong>On this page</strong><nav><a class="toc-level-2" href="#modes-are-policy-not-separate-apps">Modes Are Policy, Not Separate Apps</a><a class="toc-level-2" href="#available-modes">Available Modes</a><a class="toc-level-3" href="#copilot">Copilot</a><a class="toc-level-3" href="#research">Research</a><a class="toc-level-3" href="#shopping">Shopping</a><a class="toc-level-3" href="#scraper">Scraper</a><a class="toc-level-3" href="#developer">Developer</a><a class="toc-level-3" href="#security">Security</a><a class="toc-level-2" href="#request-routing">Request Routing</a><a class="toc-level-2" href="#autonomous-browser-runtime">Autonomous Browser Runtime</a><a class="toc-level-2" href="#tool-boundary">Tool Boundary</a><a class="toc-level-2" href="#safety-preflight">Safety Preflight</a><a class="toc-level-2" href="#known-limits">Known Limits</a><a class="toc-level-2" href="#planned-runtime-upgrade">Planned Runtime Upgrade</a></nav></aside>
+      <aside class="article-toc"><strong>On this page</strong><nav><a class="toc-level-2" href="#automatic-modes">Automatic Modes</a><a class="toc-level-2" href="#what-automation-can-do">What Automation Can Do</a><a class="toc-level-2" href="#when-automation-stops">When Automation Stops</a><a class="toc-level-2" href="#current-limits">Current Limits</a></nav></aside>
     </main>
     <footer class="site-footer content-footer">
     <div class="footer-brand">

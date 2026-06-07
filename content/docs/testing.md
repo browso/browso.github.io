@@ -167,9 +167,9 @@ remain integration or manual checks because they depend on external runtimes.
 
 ### Agent Modes
 
-1. Change the sidebar selector to `Research`.
-2. Open two related pages.
-3. Ask `Compare these open tabs`.
+1. Open two related pages.
+2. Ask `Compare these open tabs`.
+3. Confirm Browso selects research behavior automatically.
 4. Confirm the response names both sources and their URLs.
 
 ### Knowledge

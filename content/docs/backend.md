@@ -23,13 +23,9 @@ to prompts.
 
 ### Modes
 
-| Channel              | Result                                           |
-| -------------------- | ------------------------------------------------ |
-| `agent-modes-list`   | Public mode definitions                          |
-| `ai-settings-update` | Persists `activeAgentMode` and other AI settings |
-
-The mode registry is authoritative. Renderers should not hard-code mode
-instructions or tool permissions.
+The backend chooses a mode for each request from its wording. The mode registry
+is authoritative; renderers should not hard-code mode instructions or tool
+permissions.
 
 ### Knowledge
 
@@ -55,7 +51,7 @@ Saving the same URL updates the existing record instead of duplicating it.
 
 The model prompt is assembled from independent sources:
 
-1. active mode policy
+1. automatically selected mode policy
 2. current page title, URL, selection, and text
 3. open-tab context when research mode or a tab comparison is requested
 4. locally retrieved saved pages
@@ -72,7 +68,7 @@ application data directory.
 
 | File                   | Data                                           |
 | ---------------------- | ---------------------------------------------- |
-| `ai-settings.json`     | provider, model, browser defaults, active mode |
+| `ai-settings.json`     | provider, model, and browser defaults          |
 | `memory-store.json`    | user preferences and instructions              |
 | `knowledge-store.json` | explicitly saved pages and notes               |
 

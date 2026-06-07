@@ -94,7 +94,14 @@ async function loadReleases() {
     if (releases.length === 0) throw new Error("No stable releases published");
 
     releaseCatalog.innerHTML = releases.map(renderRelease).join("");
-    releaseState.hidden = true;
+    releaseState.classList.add("is-complete");
+    releaseState.innerHTML = `
+      <span class="release-state-icon" aria-hidden="true">✓</span>
+      <div>
+        <span class="release-state-label">Release catalog</span>
+        <h2>Stable builds are ready.</h2>
+      </div>
+    `;
     releaseCatalog.hidden = false;
 
     if (window.location.hash) {

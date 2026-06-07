@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="This guide takes you from downloading Browso to asking your first question." />
+    <meta name="theme-color" content="#07080b" />
+    <meta property="og:title" content="Getting Started" />
+    <meta property="og:description" content="This guide takes you from downloading Browso to asking your first question." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://browso.org/docs/getting-started.html" />
+    <title>Getting Started · Browso</title>
+    <link rel="canonical" href="https://browso.org/docs/getting-started.html" />
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg?v=2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/resources/css/style.css" />
+  </head>
+  <body class="content-page">
+    <div class="reading-progress" data-reading-progress></div>
+    <header class="site-header content-site-header">
+    <a class="brand" href="/" aria-label="Browso home">
+      <img src="/assets/images/browso-white-logo.png" alt="" width="32" height="32" />
+      <span>Browso</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/docs/" aria-current="page">Docs</a>
+      <a href="/releases.html">Releases</a>
+    </nav>
+    <a class="header-cta header-github" href="https://github.com/browso/browso" target="_blank" rel="noopener noreferrer">GitHub</a>
+  </header>
+    <main class="docs-layout">
+      <aside class="docs-sidebar" data-docs-sidebar>
+    <div class="docs-sidebar-heading">
+      <strong>Documentation</strong>
+      <button type="button" data-docs-close aria-label="Close documentation navigation">Close</button>
+    </div>
+    <nav><a href="/docs/">Browso Documentation</a><a href="/docs/getting-started.html" aria-current="page">Getting Started</a><a href="/docs/using-browso.html">Using Browso</a><a href="/docs/settings-and-memory.html">Settings, Memory, And Knowledge</a><a href="/docs/commands.html">Chat Commands</a><a href="/docs/safety-and-privacy.html">Safety And Privacy</a><a href="/docs/architecture.html">Architecture</a><a href="/docs/backend.html">Backend</a><a href="/docs/agent.html">Agent Modes And Automation</a><a href="/docs/testing.html">Testing Guide</a><a href="/docs/build-and-release.html">Build And Release</a></nav>
+  </aside>
+      <article class="content-article docs-article">
+        <button class="docs-menu-button" type="button" data-docs-open>Browse documentation</button>
+        <div class="article-eyebrow">Browso documentation</div>
+        <div class="markdown-body"><h1 id="getting-started">Getting Started</h1>
+<p>This guide takes you from downloading Browso to asking your first question.</p>
+<h2 id="1-download-browso">1. Download Browso</h2>
+<p>Open the <a href="/releases.html">Releases page</a> and choose the download for your computer:</p>
+<ul><li><strong>Apple Silicon Mac:</strong> most Macs released from late 2020 onward</li><li><strong>Intel Mac:</strong> older Macs with an Intel processor</li><li><strong>Windows:</strong> 64-bit Windows installer</li><li><strong>Linux:</strong> 64-bit AppImage</li></ul>
+<p>Install or open the downloaded application as you normally would on your platform.</p>
+<blockquote><p>If macOS warns that it cannot verify the application, open Browso from Finder using <strong>Control-click &gt; Open</strong>, or allow it in <strong>System Settings &gt; Privacy &amp; Security</strong>. Only do this for a download from Browso&#039;s official release page.</p></blockquote>
+<h2 id="2-choose-how-the-ai-runs">2. Choose How The AI Runs</h2>
+<p>Browso needs an AI provider. It starts with <strong>Ollama</strong>, which runs models on your computer and is the simplest option for keeping page context local.</p>
+<ol><li>Install and start <a href="https://ollama.com/" target="_blank" rel="noopener noreferrer">Ollama</a>.</li><li>Open a terminal and install Browso&#039;s default model:</li></ol>
+<div class="code-block"><div class="code-block-header"><span>bash</span><button type="button" data-copy-code>Copy</button></div><pre><code class="language-bash">ollama pull gemma4:e2b</code></pre></div>
+<ol><li>Open Browso.</li><li>Open <strong>Settings &gt; AI</strong>.</li><li>Keep <strong>Ollama (Local)</strong> selected and choose the installed model.</li></ol>
+<p>The usual Ollama address is <code>http://127.0.0.1:11434</code>. Change it only if your Ollama server uses a different address.</p>
+<p>OpenAI and Anthropic are also supported, but their API key must be configured for the Browso installation. Page context sent to either service leaves your computer.</p>
+<h2 id="3-browse-normally">3. Browse Normally</h2>
+<p>Use Browso like a regular browser:</p>
+<ul><li>enter a website address or search in the address bar</li><li>use the plus button to open another tab</li><li>use the two-column button to view two tabs side by side</li><li>use the bot button or <code>Ctrl+E</code> / <code>Cmd+E</code> to show or hide the AI panel</li></ul>
+<p>The default search engine is DuckDuckGo. Change it in <strong>Settings &gt; General</strong>.</p>
+<h2 id="4-ask-your-first-question">4. Ask Your First Question</h2>
+<p>Open a page, then type in the AI panel:</p>
+<div class="code-block"><div class="code-block-header"><span>text</span><button type="button" data-copy-code>Copy</button></div><pre><code class="language-text">Summarize this page and tell me the three most important points.</code></pre></div>
+<p>Browso automatically includes the active page and a screenshot. If you select text before asking a question, Browso gives that selection priority.</p>
+<p>Other useful first prompts:</p>
+<div class="code-block"><div class="code-block-header"><span>text</span><button type="button" data-copy-code>Copy</button></div><pre><code class="language-text">Explain the selected paragraph in simple language.
+Compare the two open tabs.
+Find the return policy on this page.
+Is this page showing any suspicious signs?</code></pre></div>
+<h2 id="5-know-when-browso-will-stop">5. Know When Browso Will Stop</h2>
+<p>Browso can read pages and perform ordinary browsing steps. It stops and gives control back to you before sensitive actions such as:</p>
+<ul><li>signing in or entering a password</li><li>sending a form, email, message, or application</li><li>buying, booking, or checking out</li><li>deleting account data</li><li>handling CAPTCHA challenges</li></ul>
+<p>You should review important information yourself before acting on it.</p>
+<h2 id="quick-fixes">Quick Fixes</h2>
+<h3 id="the-ai-does-not-answer">The AI Does Not Answer</h3>
+<p>Open <strong>Settings &gt; AI</strong> and check that:</p>
+<ul><li>Ollama is running</li><li>the Ollama address is correct</li><li>an installed model is selected</li></ul>
+<p>For a cloud provider, check that its API key is available to Browso.</p>
+<h3 id="a-page-does-not-work-with-the-agent">A Page Does Not Work With The Agent</h3>
+<p>Some sites block automation or change their layout frequently. Try reloading the page, making the request more specific, or completing login and CAPTCHA steps yourself.</p>
+<h3 id="the-ai-panel-is-missing">The AI Panel Is Missing</h3>
+<p>Click the bot button in the toolbar or press <code>Ctrl+E</code> / <code>Cmd+E</code>.</p>
+<h3 id="browso-uses-too-much-space">Browso Uses Too Much Space</h3>
+<p>Drag the left edge of the AI panel, or change its width in <strong>Settings &gt; Workspace</strong>.</p>
+<p>Next: <a href="./using-browso.html">Using Browso</a></p></div>
+        <div class="article-edit-link"><a href="https://github.com/browso/browso.github.io/edit/main/content/docs/getting-started.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a></div>
+      </article>
+      <aside class="article-toc"><strong>On this page</strong><nav><a class="toc-level-2" href="#1-download-browso">1. Download Browso</a><a class="toc-level-2" href="#2-choose-how-the-ai-runs">2. Choose How The AI Runs</a><a class="toc-level-2" href="#3-browse-normally">3. Browse Normally</a><a class="toc-level-2" href="#4-ask-your-first-question">4. Ask Your First Question</a><a class="toc-level-2" href="#5-know-when-browso-will-stop">5. Know When Browso Will Stop</a><a class="toc-level-2" href="#quick-fixes">Quick Fixes</a><a class="toc-level-3" href="#the-ai-does-not-answer">The AI Does Not Answer</a><a class="toc-level-3" href="#a-page-does-not-work-with-the-agent">A Page Does Not Work With The Agent</a><a class="toc-level-3" href="#the-ai-panel-is-missing">The AI Panel Is Missing</a><a class="toc-level-3" href="#browso-uses-too-much-space">Browso Uses Too Much Space</a></nav></aside>
+    </main>
+    <footer class="site-footer content-footer">
+    <div class="footer-brand">
+      <a class="brand" href="/">
+        <img src="/assets/images/browso-white-logo.png" alt="" width="32" height="32" />
+        <span>Browso</span>
+      </a>
+      <p>An AI browser that helps you browse and act.</p>
+    </div>
+    <div class="content-footer-links">
+      <a href="/blog/">Blog</a><a href="/docs/">Documentation</a><a href="/releases.html">Releases</a>
+    </div>
+    <p class="footer-copyright">© 2026 Browso. Browse further.</p>
+  </footer>
+    <script src="/resources/js/content.js"></script>
+  </body>
+</html>

@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="These documents describe the code that is currently implemented. Planned features are labeled as planned; they are not presented as existing behavior." />
+    <meta name="description" content="Browso is a desktop browser with an AI assistant built into the side panel. It can explain the page you are viewing, compare open tabs, save useful pages, and help with multistep b" />
     <meta name="theme-color" content="#07080b" />
     <meta property="og:title" content="Browso Documentation" />
-    <meta property="og:description" content="These documents describe the code that is currently implemented. Planned features are labeled as planned; they are not presented as existing behavior." />
+    <meta property="og:description" content="Browso is a desktop browser with an AI assistant built into the side panel. It can explain the page you are viewing, compare open tabs, save useful pages, and help with multistep b" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://browso.org/docs/" />
     <title>Browso Documentation · Browso</title>
@@ -38,26 +38,31 @@
       <strong>Documentation</strong>
       <button type="button" data-docs-close aria-label="Close documentation navigation">Close</button>
     </div>
-    <nav><a href="/docs/" aria-current="page">Browso Documentation</a><a href="/docs/architecture.html">Architecture</a><a href="/docs/backend.html">Backend</a><a href="/docs/agent.html">Agent Modes And Automation</a><a href="/docs/settings-and-memory.html">Settings, Memory, And Knowledge</a><a href="/docs/safety-and-privacy.html">Safety And Privacy</a><a href="/docs/commands.html">Commands</a><a href="/docs/testing.html">Testing Guide</a><a href="/docs/build-and-release.html">Build And Release</a></nav>
+    <nav><a href="/docs/" aria-current="page">Browso Documentation</a><a href="/docs/getting-started.html">Getting Started</a><a href="/docs/using-browso.html">Using Browso</a><a href="/docs/settings-and-memory.html">Settings, Memory, And Knowledge</a><a href="/docs/commands.html">Chat Commands</a><a href="/docs/safety-and-privacy.html">Safety And Privacy</a><a href="/docs/architecture.html">Architecture</a><a href="/docs/backend.html">Backend</a><a href="/docs/agent.html">Agent Modes And Automation</a><a href="/docs/testing.html">Testing Guide</a><a href="/docs/build-and-release.html">Build And Release</a></nav>
   </aside>
       <article class="content-article docs-article">
         <button class="docs-menu-button" type="button" data-docs-open>Browse documentation</button>
         <div class="article-eyebrow">Browso documentation</div>
         <div class="markdown-body"><h1 id="browso-documentation">Browso Documentation</h1>
-<p>These documents describe the code that is currently implemented. Planned features are labeled as planned; they are not presented as existing behavior.</p>
-<h2 id="docs-map">Docs Map</h2>
-<ul><li><a href="./architecture.html">Architecture</a></li><li><a href="./backend.html">Backend</a></li><li><a href="./agent.html">Agent Modes And Automation</a></li><li><a href="./settings-and-memory.html">Settings, Memory, And Knowledge</a></li><li><a href="./safety-and-privacy.html">Safety And Privacy</a></li><li><a href="./commands.html">Commands</a></li><li><a href="./testing.html">Testing Guide</a></li><li><a href="./build-and-release.html">Build And Release</a></li></ul>
-<h2 id="what-this-project-is">What This Project Is</h2>
-<p>Browso is a desktop browser-agent platform with:</p>
-<ul><li>a multi-tab browser UI</li><li>a sidebar AI assistant</li><li>current-page and selected-text context</li><li>multi-tab research context</li><li>constrained autonomous browser automation</li><li>local saved-page knowledge</li><li>configurable agent modes</li><li>a local code sandbox</li><li>persistent settings</li><li>optional persistent user memory</li></ul>
-<h2 id="technology">Technology</h2>
-<ul><li>Browso desktop runtime</li><li>React 19</li><li>TypeScript</li><li>Vite</li><li>Tailwind CSS</li><li>Vercel AI SDK</li><li>Ollama, OpenAI, or Anthropic model providers</li></ul>
-<p>This is not a Chrome extension and does not use a separate Express server. The Browso desktop process is the trusted backend.</p>
-<h2 id="defaults">Defaults</h2>
-<ul><li>homepage: internal Browso welcome page</li><li>provider: Ollama</li><li>model: <code>gemma4:e2b</code></li><li>search engine: DuckDuckGo</li><li>mode: Copilot</li><li>user memory: enabled</li></ul></div>
+<p>Browso is a desktop browser with an AI assistant built into the side panel. It can explain the page you are viewing, compare open tabs, save useful pages, and help with multi-step browsing tasks.</p>
+<h2 id="start-here">Start Here</h2>
+<ol><li><a href="./getting-started.html">Getting Started</a> explains installation, AI setup, and your first question.</li><li><a href="./using-browso.html">Using Browso</a> covers tabs, split view, research, automation, saved pages, profiles, and data controls.</li><li><a href="./settings-and-memory.html">Settings, Memory, And Knowledge</a> explains every settings section in more detail.</li><li><a href="./commands.html">Commands</a> lists the optional shortcuts available in chat.</li><li><a href="./safety-and-privacy.html">Safety And Privacy</a> explains what can leave your computer and when Browso stops for user control.</li></ol>
+<h2 id="what-you-can-ask-browso-to-do">What You Can Ask Browso To Do</h2>
+<div class="code-block"><div class="code-block-header"><span>text</span><button type="button" data-copy-code>Copy</button></div><pre><code class="language-text">Summarize this page in five bullet points.
+Explain the text I selected.
+Compare these open tabs and cite each source.
+Find the return policy for this product.
+Save this page so I can use it in later research.
+Check this page for visible signs of phishing.</code></pre></div>
+<p>Browso automatically chooses the right kind of assistance from your request. You do not need to select an agent mode.</p>
+<h2 id="important-limits">Important Limits</h2>
+<ul><li>AI answers can be wrong, incomplete, or out of date.</li><li>Websites can block automation or change in ways that break a task.</li><li>Browso stops before login, payment, submission, deletion, and similar sensitive actions.</li><li>OpenAI and Anthropic receive the page context needed for a request. Ollama runs model requests through your configured local Ollama server.</li><li>Saving a page is explicit. Browso does not silently add every visited page to its knowledge.</li></ul>
+<h2 id="for-contributors">For Contributors</h2>
+<p>These pages describe how the project is built and tested:</p>
+<ul><li><a href="./architecture.html">Architecture</a></li><li><a href="./backend.html">Backend</a></li><li><a href="./agent.html">Agent Modes And Automation</a></li><li><a href="./testing.html">Testing Guide</a></li><li><a href="./build-and-release.html">Build And Release</a></li></ul></div>
         <div class="article-edit-link"><a href="https://github.com/browso/browso.github.io/edit/main/content/docs/index.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a></div>
       </article>
-      <aside class="article-toc"><strong>On this page</strong><nav><a class="toc-level-2" href="#docs-map">Docs Map</a><a class="toc-level-2" href="#what-this-project-is">What This Project Is</a><a class="toc-level-2" href="#technology">Technology</a><a class="toc-level-2" href="#defaults">Defaults</a></nav></aside>
+      <aside class="article-toc"><strong>On this page</strong><nav><a class="toc-level-2" href="#start-here">Start Here</a><a class="toc-level-2" href="#what-you-can-ask-browso-to-do">What You Can Ask Browso To Do</a><a class="toc-level-2" href="#important-limits">Important Limits</a><a class="toc-level-2" href="#for-contributors">For Contributors</a></nav></aside>
     </main>
     <footer class="site-footer content-footer">
     <div class="footer-brand">

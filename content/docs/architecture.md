@@ -63,7 +63,7 @@ The Browso desktop process is the trusted backend. It owns:
 | `SafetyPolicy.ts`          | Classify automation goals as allowed, confirmation-required, or blocked   |
 | `KnowledgeStore.ts`        | Persist saved pages and perform ranked local retrieval                    |
 | `MemoryStore.ts`           | Persist user preferences, profile facts, workflows, and instructions      |
-| `AISettings.ts`            | Persist provider, model, browser defaults, and active mode                |
+| `AISettings.ts`            | Persist provider, model, and browser defaults                             |
 | `EventManager.ts`          | Register validated IPC endpoints and broadcast state                      |
 
 ## Request Flow

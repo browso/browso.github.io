@@ -8,12 +8,14 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const siteUrl = "https://browso.org";
 const docOrder = [
   "index",
+  "getting-started",
+  "using-browso",
+  "settings-and-memory",
+  "commands",
+  "safety-and-privacy",
   "architecture",
   "backend",
   "agent",
-  "settings-and-memory",
-  "safety-and-privacy",
-  "commands",
   "testing",
   "build-and-release",
 ];
@@ -439,8 +441,7 @@ async function buildBlog() {
   const indexBody = `<main class="blog-index">
     <section class="content-hero">
       <span class="section-label">Browso journal</span>
-      <h1>Notes on building a browser that can think and act.</h1>
-      <p>Product updates, engineering decisions, and practical guides from the Browso project.</p>
+      <h1>Building Browso.</h1>
     </section>
     <section class="blog-grid">${cards || '<div class="release-state">The first Browso article is being prepared.</div>'}</section>
   </main>`;

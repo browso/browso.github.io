@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Settings are persisted by AISettingsStore in aisettings.json." />
+    <meta name="description" content="Open Settings from the button at the top of the AI panel. You can also use Ctrl+, or Cmd+,." />
     <meta name="theme-color" content="#07080b" />
     <meta property="og:title" content="Settings, Memory, And Knowledge" />
-    <meta property="og:description" content="Settings are persisted by AISettingsStore in aisettings.json." />
+    <meta property="og:description" content="Open Settings from the button at the top of the AI panel. You can also use Ctrl+, or Cmd+,." />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://browso.org/docs/settings-and-memory.html" />
     <title>Settings, Memory, And Knowledge · Browso</title>
@@ -38,33 +38,41 @@
       <strong>Documentation</strong>
       <button type="button" data-docs-close aria-label="Close documentation navigation">Close</button>
     </div>
-    <nav><a href="/docs/">Browso Documentation</a><a href="/docs/architecture.html">Architecture</a><a href="/docs/backend.html">Backend</a><a href="/docs/agent.html">Agent Modes And Automation</a><a href="/docs/settings-and-memory.html" aria-current="page">Settings, Memory, And Knowledge</a><a href="/docs/safety-and-privacy.html">Safety And Privacy</a><a href="/docs/commands.html">Commands</a><a href="/docs/testing.html">Testing Guide</a><a href="/docs/build-and-release.html">Build And Release</a></nav>
+    <nav><a href="/docs/">Browso Documentation</a><a href="/docs/getting-started.html">Getting Started</a><a href="/docs/using-browso.html">Using Browso</a><a href="/docs/settings-and-memory.html" aria-current="page">Settings, Memory, And Knowledge</a><a href="/docs/commands.html">Chat Commands</a><a href="/docs/safety-and-privacy.html">Safety And Privacy</a><a href="/docs/architecture.html">Architecture</a><a href="/docs/backend.html">Backend</a><a href="/docs/agent.html">Agent Modes And Automation</a><a href="/docs/testing.html">Testing Guide</a><a href="/docs/build-and-release.html">Build And Release</a></nav>
   </aside>
       <article class="content-article docs-article">
         <button class="docs-menu-button" type="button" data-docs-open>Browse documentation</button>
         <div class="article-eyebrow">Browso documentation</div>
         <div class="markdown-body"><h1 id="settings-memory-and-knowledge">Settings, Memory, And Knowledge</h1>
-<h2 id="settings">Settings</h2>
-<p>Settings are persisted by <code>AISettingsStore</code> in <code>ai-settings.json</code>.</p>
-<div class="content-table-wrap"><table><thead><tr><th>Setting</th><th>Purpose</th><th>Default</th></tr></thead><tbody><tr><td><code>provider</code></td><td>Ollama, OpenAI, or Anthropic</td><td><code>ollama</code></td></tr><tr><td><code>model</code></td><td>Provider model identifier</td><td><code>gemma4:e2b</code></td></tr><tr><td><code>ollamaBaseUrl</code></td><td>Local Ollama endpoint</td><td><code>http://127.0.0.1:11434</code></td></tr><tr><td><code>homepage</code></td><td>New-tab target</td><td>internal welcome page</td></tr><tr><td><code>searchEngine</code></td><td>Direct-search provider</td><td><code>duckduckgo</code></td></tr><tr><td><code>autoRouteToSandbox</code></td><td>Route suitable code work to sandbox</td><td>enabled</td></tr><tr><td><code>sidebarWidth</code></td><td>Persistent side-panel width</td><td><code>400</code></td></tr><tr><td><code>memoryEnabled</code></td><td>Include user memory in prompts</td><td>enabled</td></tr><tr><td><code>activeAgentMode</code></td><td>Active mode policy</td><td><code>copilot</code></td></tr></tbody></table></div>
-<p>Provider credentials are not stored in this file.</p>
+<p>Open Settings from the button at the top of the AI panel. You can also use <code>Ctrl+,</code> or <code>Cmd+,</code>.</p>
+<h2 id="general">General</h2>
+<p>Use <strong>General</strong> to:</p>
+<ul><li>check for Browso updates</li><li>choose light or dark appearance</li><li>change the homepage used by new tabs</li><li>choose Google, DuckDuckGo, or Bing for address-bar searches</li></ul>
+<h2 id="ai">AI</h2>
+<p>Use <strong>AI</strong> to choose the service that answers your questions:</p>
+<ul><li><strong>Ollama</strong> runs through your configured local Ollama server.</li><li><strong>OpenAI</strong> uses an OpenAI API key configured for Browso.</li><li><strong>Anthropic</strong> uses an Anthropic API key configured for Browso.</li></ul>
+<p>For Ollama, the default server address is <code>http://127.0.0.1:11434</code>. Browso lists the models installed on that server. The default model is <code>gemma4:e2b</code>.</p>
+<p>Cloud providers can receive your question, current page context, screenshot, relevant saved pages, and enabled memory. Use Ollama when that information should stay with your local model server.</p>
+<h2 id="workspace">Workspace</h2>
+<p>Use <strong>Workspace</strong> to change the width of the AI panel. You can also resize it by dragging its left edge.</p>
+<p>The automatic local-runner option controls whether suitable code, file, and data tasks can move to Browso&#039;s scoped local runner.</p>
 <h2 id="profiles-and-contexts">Profiles And Contexts</h2>
 <p>Profiles group multiple named contexts. The application always keeps at least one profile and one context per profile.</p>
 <p>Each context isolates:</p>
 <ul><li>the live AI conversation</li><li>saved user memories</li><li>pages saved for local AI knowledge</li></ul>
 <p>Switching context immediately swaps those three data sources. The context name, profile name, and optional purpose are included in the AI system prompt. Existing flat memory and knowledge files migrate into the default <code>Personal / General</code> context.</p>
-<p>Browser tabs, website cookies, cache, provider credentials, and general application preferences remain global. Profiles do not currently create separate Electron website sessions.</p>
+<p>Browser tabs, website cookies, cache, provider credentials, and general application preferences remain shared. Profiles do not create separate website login sessions.</p>
 <p>The Data tab provides explicit local-data controls:</p>
 <ul><li>clear the current AI conversation</li><li>review, delete, or clear pages saved for AI knowledge</li><li>clear the browser cache without removing sign-ins</li><li>clear cookies and site storage, which signs users out of websites</li></ul>
 <p>The application does not persist a general browsing-history database.</p>
 <h2 id="user-memory">User Memory</h2>
-<p>Memory stores durable facts about how the assistant should work with the user. It is implemented by <code>MemoryStore</code>.</p>
+<p>Memory stores durable facts about how the assistant should work with the user.</p>
 <p>Categories:</p>
 <ul><li><code>preference</code></li><li><code>profile</code></li><li><code>workflow</code></li><li><code>instruction</code></li></ul>
 <p>Memory can be added explicitly with <code>@...</code> or distilled from phrases such as “remember that”, “I prefer”, and “always”.</p>
 <p>Memory is bounded to 100 entries. Duplicate normalized content updates the existing entry.</p>
 <h2 id="saved-knowledge">Saved Knowledge</h2>
-<p>Knowledge stores pages the user explicitly chooses to preserve. It is implemented by <code>KnowledgeStore</code>.</p>
+<p>Knowledge stores pages the user explicitly chooses to preserve.</p>
 <p>Each page contains:</p>
 <ul><li>ID</li><li>title and URL</li><li>normalized readable text</li><li>selected text captured at save time</li><li>optional note</li><li>creation and update timestamps</li></ul>
 <p>Save a page with the bookmark button or <code>/save</code>. Saving the same URL updates the existing record.</p>
@@ -74,13 +82,12 @@
 <h2 id="memory-is-not-knowledge">Memory Is Not Knowledge</h2>
 <div class="content-table-wrap"><table><thead><tr><th>Memory</th><th>Knowledge</th></tr></thead><tbody><tr><td>User preferences and instructions</td><td>Saved web pages and notes</td></tr><tr><td>Small distilled statements</td><td>Larger page records</td></tr><tr><td>Can be automatically inferred</td><td>Explicit save action only</td></tr><tr><td>Controls assistant behavior</td><td>Supplies factual retrieval context</td></tr></tbody></table></div>
 <p>Neither store is a raw debug log.</p>
-<h2 id="storage-limits-and-migration">Storage Limits And Migration</h2>
-<p>The JSON implementation is appropriate for the current local, single-process application. Move to SQLite when the product needs:</p>
-<ul><li>schema migrations</li><li>thousands of large pages</li><li>transactional writes</li><li>indexing beyond in-memory ranking</li><li>synchronization metadata</li></ul>
-<p>Add vector retrieval behind the search contract; do not remove lexical fallback or require cloud embeddings for local use.</p></div>
+<h2 id="data-controls">Data Controls</h2>
+<p>Use <strong>Settings &gt; Data</strong> to clear the current AI conversation, delete saved pages, clear cached files, or clear cookies and site storage. Clearing cached files does not sign you out. Clearing cookies and site storage does.</p>
+<p>Browso does not maintain a separate general browsing-history database.</p></div>
         <div class="article-edit-link"><a href="https://github.com/browso/browso.github.io/edit/main/content/docs/settings-and-memory.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a></div>
       </article>
-      <aside class="article-toc"><strong>On this page</strong><nav><a class="toc-level-2" href="#settings">Settings</a><a class="toc-level-2" href="#profiles-and-contexts">Profiles And Contexts</a><a class="toc-level-2" href="#user-memory">User Memory</a><a class="toc-level-2" href="#saved-knowledge">Saved Knowledge</a><a class="toc-level-2" href="#retrieval">Retrieval</a><a class="toc-level-2" href="#memory-is-not-knowledge">Memory Is Not Knowledge</a><a class="toc-level-2" href="#storage-limits-and-migration">Storage Limits And Migration</a></nav></aside>
+      <aside class="article-toc"><strong>On this page</strong><nav><a class="toc-level-2" href="#general">General</a><a class="toc-level-2" href="#ai">AI</a><a class="toc-level-2" href="#workspace">Workspace</a><a class="toc-level-2" href="#profiles-and-contexts">Profiles And Contexts</a><a class="toc-level-2" href="#user-memory">User Memory</a><a class="toc-level-2" href="#saved-knowledge">Saved Knowledge</a><a class="toc-level-2" href="#retrieval">Retrieval</a><a class="toc-level-2" href="#memory-is-not-knowledge">Memory Is Not Knowledge</a><a class="toc-level-2" href="#data-controls">Data Controls</a></nav></aside>
     </main>
     <footer class="site-footer content-footer">
     <div class="footer-brand">

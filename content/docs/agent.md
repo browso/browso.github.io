@@ -1,142 +1,59 @@
 # Agent Modes And Automation
 
-## Modes Are Policy, Not Separate Apps
+This page is a contributor reference. Users do not need to choose a mode:
+Browso selects one from the wording of each request.
 
-Every mode uses the same browser context, model router, memory, knowledge, and
-automation runtime. A mode changes:
+## Automatic Modes
 
-- the task framing supplied to the model
-- the named capabilities the model should rely on
-- mode-specific safety and evidence requirements
+| Mode | Typical request |
+| --- | --- |
+| Copilot | Explain, summarize, or answer from the current page |
+| Research | Compare tabs, sources, evidence, or alternatives |
+| Shopping | Compare products, prices, sellers, reviews, and returns |
+| Scraper | Extract a table or repeatable set of fields |
+| Developer | Read technical documentation or explain implementation details |
+| Security | Check visible phishing and security signals defensively |
 
-Definitions live in `src/main/AgentModes.ts`.
+All modes use the same browser, AI provider, saved knowledge, memory, and safety
+rules. A mode changes how the request is framed; it is not a separate app.
 
-## Available Modes
+## What Automation Can Do
 
-### Copilot
+Browso can work in its open tabs to:
 
-For current-page questions, summaries, explanations, and selected text.
+- search and navigate
+- read page text and visible page state
+- click ordinary controls
+- enter non-sensitive text
+- scroll and wait
+- compare products or search results
+- report the active step in the AI panel
 
-Context priority:
+It does not receive unrestricted access to the operating system through the
+browser agent.
 
-1. selected text
-2. current readable page
-3. relevant saved knowledge
-4. general model knowledge
+## When Automation Stops
 
-The response should state when the page does not contain the answer.
+Before a browser task starts, Browso checks whether it is ordinary,
+consequential, or prohibited.
 
-### Research
+- Read-only and reversible browsing can continue.
+- Login, checkout, submission, download, booking, and deletion require user
+  control.
+- CAPTCHA bypass, phishing, spam, credential theft, and offensive exploitation
+  are blocked.
 
-For comparing sources and synthesizing open tabs.
+The user must complete sensitive steps directly. There is currently no
+one-click approval that lets an existing task continue through them.
 
-Research mode automatically includes bounded context from open tabs. Responses
-should name source titles and URLs, identify contradictions, and separate
-evidence from inference.
+## Current Limits
 
-### Shopping
+- Website layout changes can break clicking and extraction.
+- Login and anti-bot pages require user control.
+- A screenshot and extracted page text may not always match.
+- Automation uses the user's live Browso tabs rather than a separate isolated
+  browser session.
 
-For product comparison and commerce-page analysis.
-
-It can inspect products, prices, review signals, return information, and cart
-summaries. It must stop before authentication, payment, checkout submission, or
-placing an order.
-
-### Scraper
-
-For structured extraction from the current page.
-
-The model is instructed to preserve a consistent schema, mark missing values,
-and never invent absent fields. CSV scheduling and recurring jobs are not yet
-implemented.
-
-### Developer
-
-For technical documentation, API extraction, examples, and sandbox-assisted
-work. It should prefer exact API names and identify deprecated or inferred
-behavior.
-
-### Security
-
-For defensive analysis of visible page signals, phishing indicators, and
-security posture. Offensive exploitation, credential theft, evasion, and
-persistence are outside the mode boundary.
-
-## Request Routing
-
-`LLMClient.sendChatMessage` routes in this order:
-
-1. local commands
-2. screenshot and context capture
-3. conversation and user-memory update
-4. explicit comparison fast path
-5. direct search fast path
-6. browser automation
-7. contextual model response
-
-Mode selection affects model context. Automation routing still depends on the
-requested action, because a research question should not click simply because
-research mode is active.
-
-## Autonomous Browser Runtime
-
-Browso currently automates its own live tabs. It does not launch a separate
-Playwright browser.
-
-Two execution paths exist:
-
-- planned computer-use sessions for narrower action sequences
-- autonomous agent sessions for broader multi-step tasks
-
-Session state includes:
-
-- goal and summary
-- status
-- current URL
-- screenshot
-- step list
-- operational logs
-
-The sidebar displays the active step and recent progress.
-
-## Tool Boundary
-
-High-level tools are defined in `AgentTools.ts`. Examples include:
-
-- navigation and web search
-- page observation and extraction
-- element click and text entry
-- scrolling and waiting
-- commerce-page scanning
-- product and search-result selection
-- blocker detection
-- cart summary extraction
-- user handoff
-
-The model does not receive an unrestricted Node.js or shell tool. The code
-sandbox is a separate, scoped subsystem.
-
-## Safety Preflight
-
-Before browser automation begins, `SafetyPolicy` classifies the goal.
-
-- Allowed goals continue.
-- Consequential goals stop for user control.
-- Prohibited goals are rejected.
-
-This preflight complements checks inside the automation tools. It is not a
-replacement for tool-level validation.
-
-## Known Limits
-
-- selectors and page heuristics can break when sites change
-- authentication and anti-bot pages require user control
-- screenshots and DOM text can disagree
-- there is no durable resume token for a paused sensitive action
-- automation runs in the user's live browser, not an isolated profile
-
-## Planned Runtime Upgrade
-
-A future Playwright adapter can provide isolated controlled sessions. It should
-implement the existing conceptual tool contract rather than replace modes,
-knowledge, safety, or the sidebar.
+Mode definitions live in `src/main/AgentModes.ts`. Browser tools are defined in
+`src/main/AgentTools.ts`, and the preflight rules are in
+`src/main/SafetyPolicy.ts`.

@@ -36,6 +36,31 @@
     <priority>0.3</priority>
   </url>
   <url>
+    <loc>https://browso.org/docs/getting-started.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://browso.org/docs/using-browso.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://browso.org/docs/settings-and-memory.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://browso.org/docs/commands.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://browso.org/docs/safety-and-privacy.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://browso.org/docs/architecture.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -47,21 +72,6 @@
   </url>
   <url>
     <loc>https://browso.org/docs/agent.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://browso.org/docs/settings-and-memory.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://browso.org/docs/safety-and-privacy.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://browso.org/docs/commands.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
