@@ -1,7 +1,27 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-06-08T12:43:13Z",
+  "updatedAt": "2026-06-08T19:36:03Z",
   "releases": [
+    {
+      "assets": {
+        "checksums": "https://github.com/browso/browso/releases/download/v1.6.0/SHA256SUMS.txt",
+        "linux": "https://github.com/browso/browso/releases/download/v1.6.0/browso-linux-x86-64.AppImage",
+        "macAppleSilicon": "https://github.com/browso/browso/releases/download/v1.6.0/browso-mac-apple-silicon.dmg",
+        "macIntel": "https://github.com/browso/browso/releases/download/v1.6.0/browso-mac-mac-intel.dmg",
+        "windows": "https://github.com/browso/browso/releases/download/v1.6.0/browso-win-x64.exe"
+      },
+      "commit": "9b5591b002234e078c89795404a159f53e0c07e8",
+      "notes": [
+        "Enhancements:    * Automatic Context: The issue now includes your current Version, Platform, and Architecture automatically.    * Structured Template: Provides clear sections for Description, Steps to Reproduce, Expected/Actual Behavior, and Additional Context.    * Default Title: Sets a placeholder title Issue: [Brief Description] to guide the user.",
+        "Changes Made:",
+        "fix some bugs. and implement new features. fixes: #26. fixes: #11. fixes: #3"
+      ],
+      "publishedAt": "2026-06-08T19:36:03Z",
+      "releaseUrl": "https://github.com/browso/browso/releases/tag/v1.6.0",
+      "tag": "v1.6.0",
+      "type": "minor",
+      "version": "1.6.0"
+    },
     {
       "assets": {
         "checksums": "https://github.com/browso/browso/releases/download/v1.5.0/SHA256SUMS.txt",
