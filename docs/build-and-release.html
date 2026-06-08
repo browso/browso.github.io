@@ -124,19 +124,39 @@ linux-x64-linux.yml
 <h2 id="signing-and-notarization">Signing And Notarization</h2>
 <p>Production packages use hardened runtime, a Developer ID Application certificate, Apple&#039;s notary service, and a stapled notarization ticket.</p>
 <p>Configure these encrypted GitHub Actions secrets:</p>
-<div class="content-table-wrap"><table><thead><tr><th>Secret</th><th>Value</th></tr></thead><tbody><tr><td><code>MACOS_CERTIFICATE_P12</code></td><td>Base64-encoded Developer ID Application <code>.p12</code></td></tr><tr><td><code>MACOS_CERTIFICATE_PASSWORD</code></td><td>Password used when exporting the <code>.p12</code></td></tr><tr><td><code>APPLE_API_KEY_P8</code></td><td>Base64-encoded App Store Connect API key <code>.p8</code></td></tr><tr><td><code>APPLE_API_KEY_ID</code></td><td>App Store Connect API key ID</td></tr><tr><td><code>APPLE_API_ISSUER</code></td><td>App Store Connect API issuer ID</td></tr><tr><td><code>APPLE_TEAM_ID</code></td><td>Ten-character Apple Developer team ID</td></tr></tbody></table></div>
+<div class="content-table-wrap"><table><thead><tr><th>Secret</th><th>Value</th></tr></thead><tbody><tr><td><code>MACOS_CERTIFICATE_P12</code></td><td>Base64-encoded Developer ID Application <code>.p12</code></td></tr><tr><td><code>MACOS_CERTIFICATE_PASSWORD</code></td><td>Password used when exporting the <code>.p12</code></td></tr><tr><td><code>APPLE_API_KEY_P8</code></td><td>Base64-encoded App Store Connect API key <code>.p8</code></td></tr><tr><td><code>APPLE_API_KEY_ID</code></td><td>App Store Connect API key ID</td></tr><tr><td><code>APPLE_API_ISSUER</code></td><td>App Store Connect API issuer ID</td></tr><tr><td><code>APPLE_TEAM_ID</code></td><td>Ten-character Apple Developer team ID</td></tr><tr><td><code>WINDOWS_PFX_BASE64</code></td><td>Base64-encoded code signing certificate <code>.pfx</code></td></tr><tr><td><code>WINDOWS_PFX_PASSWORD</code></td><td>Password used when exporting the <code>.pfx</code></td></tr></tbody></table></div>
 <p>Example encoding commands:</p>
-<div class="code-block"><div class="code-block-header"><span>bash</span><button type="button" data-copy-code>Copy</button></div><pre><code class="language-bash">base64 -i DeveloperIDApplication.p12 | pbcopy
-base64 -i AuthKey_KEYID.p8 | pbcopy</code></pre></div>
-<p>The certificate must be a <strong>Developer ID Application</strong> certificate for direct distribution, not an Apple Development, Apple Distribution, or Mac App Store certificate. Keep all certificate and API-key material out of the repository.</p>
-<p>When all secrets are configured, the release job forces code signing and refuses to upload a DMG that fails signature, notarization, or Gatekeeper verification. When one or more secrets are absent, it emits a warning and packages an ad-hoc signed, unnotarized DMG instead. Ad-hoc signing keeps the Electron application and its nested frameworks internally valid, but users must still approve the app through Finder or macOS Privacy &amp; Security.</p>
+<div class="code-block"><div class="code-block-header"><span>bash</span><button type="button" data-copy-code>Copy</button></div><pre><code class="language-bash"># macOS/Linux
+base64 -i DeveloperIDApplication.p12 | pbcopy
+base64 -i codesign.pfx | pbcopy
+
+# Windows (PowerShell)
+[Convert]::ToBase64String([IO.File]::ReadAllBytes(&quot;codesign.pfx&quot;)) | clip</code></pre></div>
+<p>The macOS certificate must be a <strong>Developer ID Application</strong> certificate for direct distribution. For Windows, use a trusted code signing certificate or a self-signed one for CI identification. Keep all certificate material out of the repository.</p>
+<h3 id="windows-self-signing-optional">Windows Self-Signing (Optional)</h3>
+<p>If you do not have a trusted certificate, you can generate a self-signed one for CI today. Note that users will still see a SmartScreen warning until they manually trust your certificate or you build reputation.</p>
+<div class="code-block"><div class="code-block-header"><span>powershell</span><button type="button" data-copy-code>Copy</button></div><pre><code class="language-powershell">$password = ConvertTo-SecureString -String &quot;your-password&quot; -Force -AsPlainText
+$cert = New-SelfSignedCertificate `
+  -Subject &quot;CN=Browso Open Source&quot; `
+  -Type CodeSigningCert `
+  -KeyExportPolicy Exportable `
+  -KeyUsage DigitalSignature `
+  -CertStoreLocation &quot;Cert:\CurrentUser\My&quot; `
+  -NotAfter (Get-Date).AddYears(3)
+
+Export-PfxCertificate `
+  -Cert $cert `
+  -FilePath &quot;codesign.pfx&quot; `
+  -Password $password</code></pre></div>
+<p>Then encode <code>codesign.pfx</code> and save it to <code>WINDOWS_PFX_BASE64</code>.</p>
+<p>When all secrets are configured, the release job forces code signing and refuses to upload a package that fails verification. When secrets are absent, it emits a warning and packages an unsigned (Windows) or ad-hoc signed (macOS) version instead.</p>
 <p>Production macOS auto-updates require the application to be signed with a consistent Developer ID identity. Ad-hoc builds remain manual-update fallbacks and must not be treated as production auto-update packages.</p>
 <h2 id="failure-behavior">Failure Behavior</h2>
 <ul><li>A bootstrap failure prevents all later jobs.</li><li>A test failure prevents all release builds.</li><li>The automated suite contains at least 1,000 behavioral cases covering chat input, navigation, safety decisions, knowledge retrieval, update behavior, and browser contracts.</li><li>A packaging failure does not cancel the other matrix builds.</li><li>A packaged application that cannot launch and complete the first-run chat acceptance flow is not uploaded.</li><li>Missing Apple credentials produce ad-hoc signed macOS packages without cancelling the other matrix builds.</li><li>Invalid configured Apple credentials can still fail the affected macOS build.</li><li>Signature, notarization, stapling, or Gatekeeper failures prevent upload.</li><li>Failure of any platform prevents publication.</li><li>Existing versioned releases remain available if a newer build or publication fails.</li></ul>
 <p>This preserves the previous downloadable release when build or test work fails.</p></div>
         <div class="article-edit-link"><a href="https://github.com/browso/browso.github.io/edit/main/content/docs/build-and-release.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a></div>
       </article>
-      <aside class="article-toc"><strong>On this page</strong><nav><a class="toc-level-2" href="#workflow">Workflow</a><a class="toc-level-2" href="#1-code-quality">1. Code Quality</a><a class="toc-level-2" href="#2-bootstrap-and-build">2. Bootstrap And Build</a><a class="toc-level-2" href="#3-testing">3. Testing</a><a class="toc-level-2" href="#4-release-planning">4. Release Planning</a><a class="toc-level-2" href="#5-release-builds">5. Release Builds</a><a class="toc-level-2" href="#6-versioned-release">6. Versioned Release</a><a class="toc-level-2" href="#triggers">Triggers</a><a class="toc-level-2" href="#github-permissions">GitHub Permissions</a><a class="toc-level-2" href="#local-commands">Local Commands</a><a class="toc-level-2" href="#signing-and-notarization">Signing And Notarization</a><a class="toc-level-2" href="#failure-behavior">Failure Behavior</a></nav></aside>
+      <aside class="article-toc"><strong>On this page</strong><nav><a class="toc-level-2" href="#workflow">Workflow</a><a class="toc-level-2" href="#1-code-quality">1. Code Quality</a><a class="toc-level-2" href="#2-bootstrap-and-build">2. Bootstrap And Build</a><a class="toc-level-2" href="#3-testing">3. Testing</a><a class="toc-level-2" href="#4-release-planning">4. Release Planning</a><a class="toc-level-2" href="#5-release-builds">5. Release Builds</a><a class="toc-level-2" href="#6-versioned-release">6. Versioned Release</a><a class="toc-level-2" href="#triggers">Triggers</a><a class="toc-level-2" href="#github-permissions">GitHub Permissions</a><a class="toc-level-2" href="#local-commands">Local Commands</a><a class="toc-level-2" href="#signing-and-notarization">Signing And Notarization</a><a class="toc-level-3" href="#windows-self-signing-optional">Windows Self-Signing (Optional)</a><a class="toc-level-2" href="#failure-behavior">Failure Behavior</a></nav></aside>
     </main>
     <footer class="site-footer content-footer">
     <div class="footer-brand">
