@@ -1,7 +1,31 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-06-08T19:55:08Z",
+  "updatedAt": "2026-06-08T21:13:14Z",
   "releases": [
+    {
+      "assets": {
+        "checksums": "https://github.com/browso/browso/releases/download/v1.8.0/SHA256SUMS.txt",
+        "linux": "https://github.com/browso/browso/releases/download/v1.8.0/browso-linux-x86-64.AppImage",
+        "macAppleSilicon": "https://github.com/browso/browso/releases/download/v1.8.0/browso-mac-apple-silicon.dmg",
+        "macIntel": "https://github.com/browso/browso/releases/download/v1.8.0/browso-mac-mac-intel.dmg",
+        "windows": "https://github.com/browso/browso/releases/download/v1.8.0/browso-win-x64.exe"
+      },
+      "commit": "e6b24c1eb6f39021579e4b4fcb24fa0f882fea60",
+      "notes": [
+        "fix ci-windows certificate",
+        "fix agent. fixes: #30",
+        "fix ci",
+        "also trying to fic CI",
+        "fix CI",
+        "Completed the Windows signing work",
+        "Implement the history"
+      ],
+      "publishedAt": "2026-06-08T21:13:14Z",
+      "releaseUrl": "https://github.com/browso/browso/releases/tag/v1.8.0",
+      "tag": "v1.8.0",
+      "type": "minor",
+      "version": "1.8.0"
+    },
     {
       "assets": {
         "checksums": "https://github.com/browso/browso/releases/download/v1.7.0/SHA256SUMS.txt",
