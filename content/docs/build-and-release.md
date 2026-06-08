@@ -243,24 +243,45 @@ Configure these encrypted GitHub Actions secrets:
 | `APPLE_API_KEY_ID`           | App Store Connect API key ID                   |
 | `APPLE_API_ISSUER`           | App Store Connect API issuer ID                |
 | `APPLE_TEAM_ID`              | Ten-character Apple Developer team ID          |
+| `WINDOWS_PFX_BASE64`         | Base64-encoded code signing certificate `.pfx` |
+| `WINDOWS_PFX_PASSWORD`       | Password used when exporting the `.pfx`        |
 
 Example encoding commands:
 
 ```bash
+# macOS/Linux
 base64 -i DeveloperIDApplication.p12 | pbcopy
-base64 -i AuthKey_KEYID.p8 | pbcopy
+base64 -i codesign.pfx | pbcopy
+
+# Windows (PowerShell)
+[Convert]::ToBase64String([IO.File]::ReadAllBytes("codesign.pfx")) | clip
 ```
 
-The certificate must be a **Developer ID Application** certificate for direct
-distribution, not an Apple Development, Apple Distribution, or Mac App Store
-certificate. Keep all certificate and API-key material out of the repository.
+The macOS certificate must be a **Developer ID Application** certificate for direct distribution. For Windows, use a trusted code signing certificate or a self-signed one for CI identification. Keep all certificate material out of the repository.
 
-When all secrets are configured, the release job forces code signing and
-refuses to upload a DMG that fails signature, notarization, or Gatekeeper
-verification. When one or more secrets are absent, it emits a warning and
-packages an ad-hoc signed, unnotarized DMG instead. Ad-hoc signing keeps the
-Electron application and its nested frameworks internally valid, but users
-must still approve the app through Finder or macOS Privacy & Security.
+### Windows Self-Signing (Optional)
+
+If you do not have a trusted certificate, you can generate a self-signed one for CI today. Note that users will still see a SmartScreen warning until they manually trust your certificate or you build reputation.
+
+```powershell
+$password = ConvertTo-SecureString -String "your-password" -Force -AsPlainText
+$cert = New-SelfSignedCertificate `
+  -Subject "CN=Browso Open Source" `
+  -Type CodeSigningCert `
+  -KeyExportPolicy Exportable `
+  -KeyUsage DigitalSignature `
+  -CertStoreLocation "Cert:\CurrentUser\My" `
+  -NotAfter (Get-Date).AddYears(3)
+
+Export-PfxCertificate `
+  -Cert $cert `
+  -FilePath "codesign.pfx" `
+  -Password $password
+```
+
+Then encode `codesign.pfx` and save it to `WINDOWS_PFX_BASE64`.
+
+When all secrets are configured, the release job forces code signing and refuses to upload a package that fails verification. When secrets are absent, it emits a warning and packages an unsigned (Windows) or ad-hoc signed (macOS) version instead.
 
 Production macOS auto-updates require the application to be signed with a
 consistent Developer ID identity. Ad-hoc builds remain manual-update fallbacks
