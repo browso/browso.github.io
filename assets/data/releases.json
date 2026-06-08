@@ -1,7 +1,27 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-06-07T17:25:07Z",
+  "updatedAt": "2026-06-08T12:43:13Z",
   "releases": [
+    {
+      "assets": {
+        "checksums": "https://github.com/browso/browso/releases/download/v1.5.0/SHA256SUMS.txt",
+        "linux": "https://github.com/browso/browso/releases/download/v1.5.0/browso-linux-x86-64.AppImage",
+        "macAppleSilicon": "https://github.com/browso/browso/releases/download/v1.5.0/browso-mac-apple-silicon.dmg",
+        "macIntel": "https://github.com/browso/browso/releases/download/v1.5.0/browso-mac-mac-intel.dmg",
+        "windows": "https://github.com/browso/browso/releases/download/v1.5.0/browso-win-x64.exe"
+      },
+      "commit": "eec53fcb8abbb6fef7f58e29d46806c79a1deda3",
+      "notes": [
+        "trying to fix ci",
+        "deps: bump the development-dependencies group across 1 directory with 2 updates (#28)",
+        "answer is now slower. fixes: #24"
+      ],
+      "publishedAt": "2026-06-08T12:43:13Z",
+      "releaseUrl": "https://github.com/browso/browso/releases/tag/v1.5.0",
+      "tag": "v1.5.0",
+      "type": "minor",
+      "version": "1.5.0"
+    },
     {
       "assets": {
         "checksums": "https://github.com/browso/browso/releases/download/v1.4.0/SHA256SUMS.txt",
