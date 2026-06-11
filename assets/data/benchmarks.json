@@ -1,7 +1,185 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-06-11T15:34:18.895Z",
+  "updatedAt": "2026-06-11T16:23:19.838Z",
   "runs": [
+    {
+      "configuration": {
+        "iterations": 3,
+        "warmupIterations": 1
+      },
+      "environment": {
+        "architecture": "X64",
+        "cpuCount": 4,
+        "node": "v22.22.3",
+        "os": "Linux",
+        "osRelease": "6.17.0-1018-azure",
+        "runner": "GitHub Actions 1000000887",
+        "totalMemoryBytes": 16770756608
+      },
+      "generatedAt": "2026-06-11T16:23:19.838Z",
+      "metrics": {
+        "dependencies": {
+          "directDevelopment": 23,
+          "directProduction": 19,
+          "lockedPackages": 830
+        },
+        "formatting": {
+          "max": 2877.04,
+          "median": 2872,
+          "min": 2824.82,
+          "samples": [
+            2824.82,
+            2872,
+            2877.04
+          ],
+          "unit": "milliseconds"
+        },
+        "lint": {
+          "max": 4921.2,
+          "median": 4907.17,
+          "min": 4889.87,
+          "samples": [
+            4921.2,
+            4889.87,
+            4907.17
+          ],
+          "unit": "milliseconds"
+        },
+        "nodeTypecheck": {
+          "max": 3162.21,
+          "median": 3161.68,
+          "min": 3142.08,
+          "samples": [
+            3142.08,
+            3161.68,
+            3162.21
+          ],
+          "unit": "milliseconds"
+        },
+        "productionBuild": {
+          "max": 4645.67,
+          "median": 4586.69,
+          "min": 4498.17,
+          "samples": [
+            4586.69,
+            4498.17,
+            4645.67
+          ],
+          "unit": "milliseconds"
+        },
+        "productionBundle": {
+          "breakdown": {
+            "main": {
+              "bytes": 294466,
+              "files": 1
+            },
+            "preload": {
+              "bytes": 10855,
+              "files": 3
+            },
+            "renderer": {
+              "bytes": 1480745,
+              "files": 15
+            }
+          },
+          "files": 19,
+          "largestFiles": [
+            {
+              "bytes": 658690,
+              "path": "renderer/assets/bot-DE9O6fFA.js"
+            },
+            {
+              "bytes": 465732,
+              "path": "renderer/assets/settings-DAg28sps.js"
+            },
+            {
+              "bytes": 294466,
+              "path": "main/index.js"
+            },
+            {
+              "bytes": 212549,
+              "path": "renderer/icon.png"
+            },
+            {
+              "bytes": 40425,
+              "path": "renderer/assets/index-BqHZnf0E.css"
+            },
+            {
+              "bytes": 40053,
+              "path": "renderer/assets/topbar-e-QXCziD.css"
+            },
+            {
+              "bytes": 24125,
+              "path": "renderer/assets/sidebar-BVOOPrvg.js"
+            },
+            {
+              "bytes": 23729,
+              "path": "renderer/assets/topbar-DFEkOFFb.js"
+            },
+            {
+              "bytes": 10124,
+              "path": "renderer/assets/index-DcWpNZS5.js"
+            },
+            {
+              "bytes": 4721,
+              "path": "preload/sidebar.js"
+            }
+          ],
+          "unit": "bytes",
+          "value": 1786066
+        },
+        "sourceTree": {
+          "breakdown": {
+            "main": {
+              "bytes": 336404,
+              "files": 34
+            },
+            "preload": {
+              "bytes": 29974,
+              "files": 7
+            },
+            "renderer": {
+              "bytes": 146432,
+              "files": 24
+            }
+          },
+          "files": 65,
+          "unit": "bytes",
+          "value": 512810
+        },
+        "tests": {
+          "max": 1835.88,
+          "median": 1825.9,
+          "min": 1815.3,
+          "samples": [
+            1825.9,
+            1835.88,
+            1815.3
+          ],
+          "unit": "milliseconds"
+        },
+        "webTypecheck": {
+          "max": 3315.32,
+          "median": 3260.87,
+          "min": 3200.15,
+          "samples": [
+            3260.87,
+            3315.32,
+            3200.15
+          ],
+          "unit": "milliseconds"
+        }
+      },
+      "schemaVersion": 2,
+      "source": {
+        "commit": "af513a07df7da2e3deae1c377877ec064639a010",
+        "ref": "refs/heads/main",
+        "repository": "browso/browso",
+        "version": "1.10.0",
+        "workflowRunId": "27360870763",
+        "workflowRunUrl": "https://github.com/browso/browso/actions/runs/27360870763"
+      }
+    },
     {
       "configuration": {
         "iterations": 3,
