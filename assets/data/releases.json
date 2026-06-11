@@ -1,7 +1,35 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-06-11T15:32:39Z",
+  "updatedAt": "2026-06-11T16:21:29Z",
   "releases": [
+    {
+      "assets": {
+        "checksums": "https://github.com/browso/browso/releases/download/v1.10.0/SHA256SUMS.txt",
+        "linux": "https://github.com/browso/browso/releases/download/v1.10.0/browso-linux-x86-64.AppImage",
+        "macAppleSilicon": "https://github.com/browso/browso/releases/download/v1.10.0/browso-mac-apple-silicon.dmg",
+        "macIntel": "https://github.com/browso/browso/releases/download/v1.10.0/browso-mac-mac-intel.dmg",
+        "windows": "https://github.com/browso/browso/releases/download/v1.10.0/browso-win-x64.exe"
+      },
+      "commit": "af513a07df7da2e3deae1c377877ec064639a010",
+      "notes": [
+        "Having A Connection From Hugging Face ?!"
+      ],
+      "notesMarkdown": "The most important user-facing changes are listed first.\n\n## Improvements\n\n- Having A Connection From Hugging Face ?!",
+      "notesSections": [
+        {
+          "items": [
+            "Having A Connection From Hugging Face ?!"
+          ],
+          "title": "Improvements"
+        }
+      ],
+      "notesSummary": "The most important user-facing changes are listed first.",
+      "publishedAt": "2026-06-11T16:21:29Z",
+      "releaseUrl": "https://github.com/browso/browso/releases/tag/v1.10.0",
+      "tag": "v1.10.0",
+      "type": "minor",
+      "version": "1.10.0"
+    },
     {
       "assets": {
         "checksums": "https://github.com/browso/browso/releases/download/v1.9.0/SHA256SUMS.txt",
