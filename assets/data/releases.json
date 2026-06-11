@@ -1,7 +1,35 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-06-11T16:21:29Z",
+  "updatedAt": "2026-06-11T17:14:58Z",
   "releases": [
+    {
+      "assets": {
+        "checksums": "https://github.com/browso/browso/releases/download/v1.11.0/SHA256SUMS.txt",
+        "linux": "https://github.com/browso/browso/releases/download/v1.11.0/browso-linux-x86-64.AppImage",
+        "macAppleSilicon": "https://github.com/browso/browso/releases/download/v1.11.0/browso-mac-apple-silicon.dmg",
+        "macIntel": "https://github.com/browso/browso/releases/download/v1.11.0/browso-mac-mac-intel.dmg",
+        "windows": "https://github.com/browso/browso/releases/download/v1.11.0/browso-win-x64.exe"
+      },
+      "commit": "a8900d021ba9dab3dace69e645ebd9f0620f9fb2",
+      "notes": [
+        "Some Modif To The Backend"
+      ],
+      "notesMarkdown": "The most important user-facing changes are listed first.\n\n## Improvements\n\n- Some Modif To The Backend",
+      "notesSections": [
+        {
+          "items": [
+            "Some Modif To The Backend"
+          ],
+          "title": "Improvements"
+        }
+      ],
+      "notesSummary": "The most important user-facing changes are listed first.",
+      "publishedAt": "2026-06-11T17:14:58Z",
+      "releaseUrl": "https://github.com/browso/browso/releases/tag/v1.11.0",
+      "tag": "v1.11.0",
+      "type": "minor",
+      "version": "1.11.0"
+    },
     {
       "assets": {
         "checksums": "https://github.com/browso/browso/releases/download/v1.10.0/SHA256SUMS.txt",
