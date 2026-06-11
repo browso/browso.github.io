@@ -558,7 +558,13 @@ async function loadLatestRelease() {
     const latest = Array.isArray(data.releases) ? data.releases[0] : null;
     if (!latest?.version || !latest.assets) return;
 
-    latestReleaseCopy.textContent = `Browso ${latest.version} is the latest stable release. Choose your platform below.`;
+    const notesSummary =
+      typeof latest.notesSummary === "string" && latest.notesSummary.trim()
+        ? latest.notesSummary.trim()
+        : "";
+    latestReleaseCopy.textContent = notesSummary
+      ? `Browso ${latest.version} is the latest stable release. ${notesSummary}`
+      : `Browso ${latest.version} is the latest stable release. Choose your platform below.`;
     latestReleaseAssets.forEach((link) => {
       const url = latest.assets[link.dataset.latestReleaseAsset];
       if (url) link.href = url;

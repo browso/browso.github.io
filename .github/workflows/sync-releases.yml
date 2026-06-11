@@ -37,6 +37,9 @@ jobs:
             (.tag == ("v" + .version)) and
             (.type == "minor" or .type == "major") and
             (.notes | type == "array") and
+            (.notesSections | type == "array") and
+            (.notesSummary | type == "string") and
+            (.notesMarkdown | type == "string") and
             (.assets.macAppleSilicon | type == "string") and
             (.assets.macIntel | type == "string") and
             (.assets.windows | type == "string") and

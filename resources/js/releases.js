@@ -32,10 +32,52 @@ function formatReleaseDate(value) {
   }).format(date);
 }
 
+function renderReleaseNotes(release) {
+  const summary =
+    typeof release.notesSummary === "string" && release.notesSummary.trim()
+      ? '<p class="release-notes-summary">' +
+        escapeHTML(release.notesSummary.trim()) +
+        "</p>"
+      : "";
+
+  if (Array.isArray(release.notesSections) && release.notesSections.length > 0) {
+    return (
+      summary +
+      release.notesSections
+        .map((section) => {
+          const items = Array.isArray(section.items) ? section.items : [];
+          return (
+            '<section class="release-note-section">' +
+            "<h4>" +
+            escapeHTML(section.title || "Notes") +
+            "</h4>" +
+            "<ul>" +
+            items
+              .map((note) => "<li>" + escapeHTML(note) + "</li>")
+              .join("") +
+            "</ul>" +
+            "</section>"
+          );
+        })
+        .join("")
+    );
+  }
+
+  const notes = Array.isArray(release.notes) ? release.notes : [];
+  if (notes.length === 0) {
+    return (
+      summary +
+      '<p class="release-notes-empty">No release notes were provided for this version.</p>'
+    );
+  }
+
+  return (
+    summary +
+    "<ul>" + notes.map((note) => "<li>" + escapeHTML(note) + "</li>").join("") + "</ul>"
+  );
+}
+
 function renderRelease(release, index) {
-  const notes = release.notes
-    .map((note) => `<li>${escapeHTML(note)}</li>`)
-    .join("");
   const downloads = platforms
     .map(([key, platform, architecture, format, icon]) => {
       const url = release.assets?.[key];
@@ -69,7 +111,7 @@ function renderRelease(release, index) {
       <div class="release-entry-grid">
         <div class="release-notes">
           <h3>What changed</h3>
-          <ul>${notes}</ul>
+          ${renderReleaseNotes(release)}
         </div>
         <div class="release-downloads">
           <h3>Downloads</h3>
