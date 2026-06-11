@@ -1,7 +1,42 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-06-08T21:13:14Z",
+  "updatedAt": "2026-06-11T15:32:39Z",
   "releases": [
+    {
+      "assets": {
+        "checksums": "https://github.com/browso/browso/releases/download/v1.9.0/SHA256SUMS.txt",
+        "linux": "https://github.com/browso/browso/releases/download/v1.9.0/browso-linux-x86-64.AppImage",
+        "macAppleSilicon": "https://github.com/browso/browso/releases/download/v1.9.0/browso-mac-apple-silicon.dmg",
+        "macIntel": "https://github.com/browso/browso/releases/download/v1.9.0/browso-mac-mac-intel.dmg",
+        "windows": "https://github.com/browso/browso/releases/download/v1.9.0/browso-win-x64.exe"
+      },
+      "commit": "32857256bc5bc1a6f6607dc291b5f10b145794f0",
+      "notes": [
+        "Fix The Updater (). Having A Setup (). And Adding A User Constent () Ollama Default (). Adding The Capacity To Release A Good Release (). Re-Run Ollama ()",
+        "A Small Bug Inside The CI"
+      ],
+      "notesMarkdown": "The most important user-facing changes are listed first.\n\n## Important changes\n\n- Fix The Updater (). Having A Setup (). And Adding A User Constent () Ollama Default (). Adding The Capacity To Release A Good Release (). Re-Run Ollama ()\n\n## Fixes\n\n- A Small Bug Inside The CI",
+      "notesSections": [
+        {
+          "items": [
+            "Fix The Updater (). Having A Setup (). And Adding A User Constent () Ollama Default (). Adding The Capacity To Release A Good Release (). Re-Run Ollama ()"
+          ],
+          "title": "Important changes"
+        },
+        {
+          "items": [
+            "A Small Bug Inside The CI"
+          ],
+          "title": "Fixes"
+        }
+      ],
+      "notesSummary": "The most important user-facing changes are listed first.",
+      "publishedAt": "2026-06-11T15:32:39Z",
+      "releaseUrl": "https://github.com/browso/browso/releases/tag/v1.9.0",
+      "tag": "v1.9.0",
+      "type": "minor",
+      "version": "1.9.0"
+    },
     {
       "assets": {
         "checksums": "https://github.com/browso/browso/releases/download/v1.8.0/SHA256SUMS.txt",
